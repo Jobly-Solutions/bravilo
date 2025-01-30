@@ -104,10 +104,10 @@ export default function Features03() {
                       ? ''
                       : '[background:linear-gradient(#2E2E32,#2E2E32)_padding-box,linear-gradient(120deg,theme(colors.zinc.700),theme(colors.zinc.700/0),theme(colors.zinc.700))_border-box]'
                   }`}
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     e.preventDefault();
                     setTab(1);
-                  }}
+                }}
                 >
                   <svg
                     className="mr-3 shrink-0 fill-zinc-400"
@@ -135,10 +135,10 @@ export default function Features03() {
                       ? ''
                       : '[background:linear-gradient(#2E2E32,#2E2E32)_padding-box,linear-gradient(120deg,theme(colors.zinc.700),theme(colors.zinc.700/0),theme(colors.zinc.700))_border-box]'
                   }`}
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     e.preventDefault();
                     setTab(2);
-                  }}
+                }}
                 >
                   <svg
                     className="mr-3 shrink-0 fill-zinc-400"
@@ -164,10 +164,10 @@ export default function Features03() {
                       ? ''
                       : '[background:linear-gradient(#2E2E32,#2E2E32)_padding-box,linear-gradient(120deg,theme(colors.zinc.700),theme(colors.zinc.700/0),theme(colors.zinc.700))_border-box]'
                   }`}
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     e.preventDefault();
                     setTab(3);
-                  }}
+                }}
                 >
                   <svg
                     className="mr-3 shrink-0 fill-zinc-400"
