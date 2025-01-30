@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Sitemap: https://www.braviloai.com/sitemap.xml
+Sitemap: https://www.braviloai.com/api/sitemaps/tools/youtube-summarizer.xml
+Sitemap: https://www.braviloai.com/api/sitemaps/tools/ai-news.xml
