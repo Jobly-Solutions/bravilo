@@ -122,8 +122,8 @@ function BlablaFormViewer({
           )}
           {type === formType.conversational && (
             <Motion initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              {({ ref }: { ref: React.Ref<HTMLSpanElement> }) => (
-                <span ref={ref}>
+            <span ref={(el) => (el ? el : null)}>
+          
                   {chatData.history.length > 0 && lastMessage.from === 'agent' && (
                     <FormText level="h1" sx={{ fontSize: '1.8rem', opacity: chatData.isStreaming ? 1 : 0.7 }}>
                       {lastMessageText}
