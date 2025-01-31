@@ -181,51 +181,17 @@ function BlablaFormViewer({
                   </span>
                 )}
 
-                <Motion
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{
-                    opacity: 1,
-                  }}
-                >
-                  {({ ref }) =>
-                    chatData.history.length > 0 &&
-                    lastMessage.from === 'agent' && (
-                      <span ref={ref}>
-                        <FormText
-                          level="h1"
-                          sx={{
-                            fontSize: '1.8rem',
-                            opacity: chatData.isStreaming ? 1 : 0.7,
-                          }}
-                        >
-                          {lastMessageText}
+<Motion>
+  {({ ref }: { ref: React.Ref<HTMLSpanElement> }) =>
+    chatData.history.length > 0 &&
+    lastMessage.from === 'agent' && (
+      <span ref={ref}>
+        <FormText level="h1">{lastMessageText}</FormText>
+      </span>
+    )
+  }
+</Motion>
 
-                          {chatData.isStreaming && (
-                            <span
-                              className="bg-current animate-typewriterCursor"
-                              style={{
-                                //   height: '100%',
-                                width: 3,
-                                display: 'inline-block',
-                                // backgroundColor: style?.color || 'black',
-                                marginLeft: 4,
-                                marginTop: -4,
-                                verticalAlign: 'middle',
-                                // opacity: Number(animatedText.cursorShown),
-                                // ...cursorStyle,
-                              }}
-                            >
-                              {/* trick to fix cursor height */}
-                              <span style={{ visibility: 'hidden' }}>l</span>
-                            </span>
-                          )}
-                        </FormText>
-                      </span>
-                    )
-                  }
-                </Motion>
               </Stack>
 
               {!chatData.isStreaming &&
