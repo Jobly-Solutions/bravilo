@@ -182,7 +182,7 @@ export default function ContactsTable({}: // handleSynch,
                   <Button variant="plain" size="sm" loading />
                 ) : null
               }
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>{
                 const value = e?.currentTarget?.value || '';
 
                 handleSearch(value);

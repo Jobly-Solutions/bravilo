@@ -94,7 +94,7 @@ export default function LeadForm(
   return (
     <Stack
       ref={ref}
-      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>{
         e.preventDefault();
         e.stopPropagation();
       }}
