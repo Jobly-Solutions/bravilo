@@ -98,7 +98,7 @@ export default function LeadForm(
         e.preventDefault();
         e.stopPropagation();
       }}
-      onSubmit={(e) => {
+      onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         e.stopPropagation();
         methods.handleSubmit(handleSubmitCaptureForm)(e);
