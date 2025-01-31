@@ -587,7 +587,7 @@ function HttpToolInput({ name }: Props) {
           <Checkbox
             label="Approval Required"
             checked={!!withApprovalChecked}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               methods.setValue(
                 `${prefix}config.withApproval`,
                 e.target.checked,
