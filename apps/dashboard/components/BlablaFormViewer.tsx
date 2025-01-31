@@ -122,15 +122,16 @@ function BlablaFormViewer({
             <TraditionalForm formId={formId} conversationId={conversationId} messageId={messageId} config={config} isInEditor={isInEditor} />
           )}
           {type === formType.conversational && (
-            <Motion initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <span ref={spanRef}>
-                {chatData.history.length > 0 && lastMessage.from === 'agent' && (
-                  <FormText level="h1" sx={{ fontSize: '1.8rem', opacity: chatData.isStreaming ? 1 : 0.7 }}>
-                    {lastMessageText}
-                  </FormText>
-                )}
-              </span>
-            </Motion>
+            // En lugar de <Motion>, usa motion.div directamente
+<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+  <span ref={spanRef}>
+    {chatData.history.length > 0 && lastMessage.from === 'agent' && (
+      <FormText level="h1" sx={{ fontSize: '1.8rem', opacity: chatData.isStreaming ? 1 : 0.7 }}>
+        {lastMessageText}
+      </FormText>
+    )}
+  </span>
+</motion.div>
           )}
         </Stack>
       )}
