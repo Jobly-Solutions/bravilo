@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/joy';
 import { motion } from 'framer-motion';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 import useConfetti from '@app/hooks/useConfetti';
@@ -61,6 +61,7 @@ function BlablaFormViewer({
   isInEditor,
 }: Props) {
   const triggerConfetti = useConfetti();
+  const spanRef = useRef<HTMLSpanElement | null>(null); // Ref para el span
 
   const [state, setState] = useStateReducer({
     currentAnswer: '',
@@ -122,15 +123,13 @@ function BlablaFormViewer({
           )}
           {type === formType.conversational && (
             <Motion initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <span ref={(el) => (el ? el : null)}>
-          
-                  {chatData.history.length > 0 && lastMessage.from === 'agent' && (
-                    <FormText level="h1" sx={{ fontSize: '1.8rem', opacity: chatData.isStreaming ? 1 : 0.7 }}>
-                      {lastMessageText}
-                    </FormText>
-                  )}
-                </span>
-              )}
+              <span ref={spanRef}>
+                {chatData.history.length > 0 && lastMessage.from === 'agent' && (
+                  <FormText level="h1" sx={{ fontSize: '1.8rem', opacity: chatData.isStreaming ? 1 : 0.7 }}>
+                    {lastMessageText}
+                  </FormText>
+                )}
+              </span>
             </Motion>
           )}
         </Stack>
