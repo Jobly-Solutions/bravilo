@@ -63,7 +63,7 @@ function EmptyMainChatCard(props: Props) {
             // }}
           >
             <Typography level="title-lg" color="primary" sx={{ mx: 'auto' }}>
-              Welcome to the new Chat by Chaindesk
+              Welcome to the new Chat by Bravilo
             </Typography>
           </Badge>
           <Typography level="body-sm">

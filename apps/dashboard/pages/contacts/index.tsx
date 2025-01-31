@@ -187,7 +187,7 @@ export default function FormsPage() {
         startDecorator={<InfoRoundedIcon />}
         sx={{ mb: 2 }}
       >
-        Contacts by Chaindesk is cutting edge CRM powered by AI. Here you can
+        Contacts by Bravilo is cutting edge CRM powered by AI. Here you can
         view all leads, customers and contacts that you have collected from your
         Agents or Forms.
       </Alert>

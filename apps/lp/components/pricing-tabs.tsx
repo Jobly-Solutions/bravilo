@@ -275,7 +275,7 @@ const Features = function (props: {
 
           <Tooltip
             id="06"
-            content="Remove 'Powered by Chaindesk' from all widgets"
+            content="Remove 'Powered by Bravilo' from all widgets"
             dark={props.highlighted}
           >
             Remove Chaindesk branding
@@ -582,7 +582,7 @@ export default function PricingTabs() {
     },
     {
       title:
-        'I need a custom integration or feature that is not supported by Chaindesk. Can you help?',
+        'I need a custom integration or feature that is not supported by Bravilo. Can you help?',
       text: 'Absolutely! If you need us to build a custom integration for your company, you can join as an enterprise customer and we can figure out a custom pricing plan for you, based on your needs',
       active: false,
     },

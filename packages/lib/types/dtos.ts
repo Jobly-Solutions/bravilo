@@ -320,7 +320,7 @@ export const ServiceProvideTelegramSchema = ServiceProviderBaseSchema.extend({
         return ctx.addIssue(unRecognizedTokenIssue);
       }
     }),
-    secret_key: z.string().cuid().optional(), // set by chaindesk, to validate webhook calls.
+    secret_key: z.string().cuid().optional(), // set by Bravilo, to validate webhook calls.
   }),
 });
 
