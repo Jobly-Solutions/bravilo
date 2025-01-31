@@ -334,7 +334,7 @@ const KeyValueFieldArray = ({
                         },
                       },
                     }}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
                       const fieldValues = methods.getValues(`${name}.${index}`);
                       parameters.update(index, {
                         ...fieldValues,
