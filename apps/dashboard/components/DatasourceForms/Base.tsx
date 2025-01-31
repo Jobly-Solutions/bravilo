@@ -79,7 +79,7 @@ const DatasourceText = (props: {
       minRows={4}
       disabled={props.disabled}
       {...methods.register('datasourceText')}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
         methods.setValue('datasourceText', e.target.value, {
           shouldDirty: true,
         });

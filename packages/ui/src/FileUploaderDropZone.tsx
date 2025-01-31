@@ -114,7 +114,7 @@ export default function FileUploader({
                 accept={AcceptedMimeTypesStr}
                 type="file"
                 multiple
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                   handleChange(e.target.files);
                 }}
               />

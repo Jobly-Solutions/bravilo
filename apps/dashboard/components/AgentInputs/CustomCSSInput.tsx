@@ -61,7 +61,8 @@ export default function SuggestionsInput(props: Props) {
             className="absolute inset-0 p-2 font-mono text-transparent bg-transparent outline-none resize-none caret-white"
             rows={4}
             defaultValue={config?.customCSS}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+
               setValue('interfaceConfig.customCSS', e.target.value, {
                 shouldValidate: true,
                 shouldDirty: true,

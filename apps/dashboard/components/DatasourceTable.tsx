@@ -292,7 +292,7 @@ export default function DatasourceTable({
                   <Button variant="plain" size="sm" loading />
                 ) : null
               }
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 const value = e?.currentTarget?.value || '';
 
                 handleSearch(value);
@@ -492,7 +492,7 @@ export default function DatasourceTable({
                       <Checkbox
                         disabled={state.isBulkDeleting}
                         checked={selected.includes(datasource.id)}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                           setSelected((ids) =>
                             e.target.checked
                               ? ids.concat(datasource.id)

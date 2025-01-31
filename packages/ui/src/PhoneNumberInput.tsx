@@ -115,7 +115,7 @@ const PhoneNumberInput = forwardRef(
             <Box
               component="select"
               ref={selectRef}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 setCountry(e.target.value as CountryIso2);
               }}
               sx={{

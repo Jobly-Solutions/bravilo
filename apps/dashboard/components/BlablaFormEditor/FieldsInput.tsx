@@ -298,7 +298,7 @@ function FieldsInput({ type = 'traditional' }: Props) {
                               <FormLabel>Required</FormLabel>
                               <Checkbox
                                 defaultChecked={field.required}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                                   methods.setValue(
                                     `draftConfig.fields.${index}.required`,
                                     e.target.checked
@@ -341,7 +341,7 @@ function FieldsInput({ type = 'traditional' }: Props) {
                                   defaultChecked={
                                     (field as any).shouldCreateContact
                                   }
-                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
                                     methods.setValue(
                                       `draftConfig.fields.${index}.shouldCreateContact`,
                                       e.target.checked
