@@ -243,7 +243,7 @@ function BlablaFormViewer({
                             answerQuestion(state.currentAnswer);
                           }
                         }}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                           e.preventDefault();
                           e.stopPropagation();
 

@@ -48,7 +48,7 @@ export default function AgentSecuritySettings(props: Props) {
                     <FormControl className="flex flex-row space-x-4">
                       <Checkbox
                         checked={visibility === AgentVisibility.public}
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                           if (e.target.checked) {
                             setValue('visibility', AgentVisibility.public, {
                               shouldDirty: true,
@@ -97,7 +97,7 @@ export default function AgentSecuritySettings(props: Props) {
                     placeholder={`example-1.com\nexample-2.com`}
                     minRows={3}
                     defaultValue={config?.authorizedDomains?.join('\n')}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       //   e.stopPropagation();
 
                       try {

@@ -296,7 +296,7 @@ function TraditionalForm({
                 <Stack
                   width="100%"
                   spacing={2}
-                  onChange={(e) => {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     // do not bubble up, not to trigger auto-save.
                     e.stopPropagation();
                   }}

@@ -35,7 +35,7 @@ export default function FileUploader({
         accept={accept?.join?.(',')}
         type="file"
         multiple
-        onChange={async (e) => {
+        onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
           setLoading(true);
           const f = Array.from(e.target.files!);
 

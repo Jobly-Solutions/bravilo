@@ -334,7 +334,7 @@ const KeyValueFieldArray = ({
                         },
                       },
                     }}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       const fieldValues = methods.getValues(`${name}.${index}`);
                       parameters.update(index, {
                         ...fieldValues,
@@ -587,7 +587,7 @@ function HttpToolInput({ name }: Props) {
           <Checkbox
             label="Approval Required"
             checked={!!withApprovalChecked}
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               methods.setValue(
                 `${prefix}config.withApproval`,
                 e.target.checked,
