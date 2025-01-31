@@ -1,15 +1,15 @@
-import { motion, MotionProps } from 'framer-motion';
-import React, { useRef } from 'react';
+import { motion } from "framer-motion";
+import React, { forwardRef } from "react";
 
-export type Props = Omit<MotionProps, 'children'> & {
-  children: ({ ref }: { ref: React.ForwardedRef<any> }) => any;
+type Props = {
+  children: React.ReactNode;
 };
 
-export default motion(
-  React.forwardRef<MotionProps, any>(function Motion(
-    { children }: Pick<Props, 'children'>,
-    ref
-  ) {
-    return <motion.div ref={ref}>{children}</motion.div>;
-  }) as unknown as FC<Props> // 👈 Conversión explícita a 'unknown' y luego a 'FC<Props>'
-);
+const Motion = forwardRef<HTMLDivElement, Props>(function Motion(
+  { children },
+  ref
+) {
+  return <motion.div ref={ref as React.Ref<HTMLDivElement>}>{children}</motion.div>;
+});
+
+export default Motion;
