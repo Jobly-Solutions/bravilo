@@ -18,7 +18,6 @@ import { ConversationChannel } from '@chaindesk/prisma';
 import TraditionalForm from '@chaindesk/ui/embeds/forms/traditional';
 import useChat from '@chaindesk/ui/hooks/useChat';
 import useStateReducer from '@chaindesk/ui/hooks/useStateReducer';
-import Motion from '@chaindesk/ui/Motion';
 import PoweredBy from '@chaindesk/ui/PoweredBy';
 
 import { formType } from './BlablaFormEditor/FieldsInput';
@@ -61,7 +60,7 @@ function BlablaFormViewer({
   isInEditor,
 }: Props) {
   const triggerConfetti = useConfetti();
-  const spanRef = useRef<HTMLSpanElement | null>(null); // Ref para el span
+  const spanRef = useRef<HTMLSpanElement | null>(null);
 
   const [state, setState] = useStateReducer({
     currentAnswer: '',
@@ -78,7 +77,8 @@ function BlablaFormViewer({
     await chatData.handleChatSubmit({ query: answer });
   };
 
-  const currentFieldName = chatData?.history?.[chatData.history.length - 1]?.metadata?.currentField;
+  const currentFieldName =
+    chatData?.history?.[chatData.history.length - 1]?.metadata?.currentField;
 
   const currentField = useMemo(() => {
     return config?.fields?.find(
@@ -110,31 +110,55 @@ function BlablaFormViewer({
     if (isFormValid) {
       triggerConfetti();
     }
-  }, [isFormValid]);
+  }, [isFormValid, triggerConfetti]);
 
   return (
-    <Stack sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', overflow: 'hidden', width: '100%', height: '100%', p: 4 }}>
+    <Stack
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        overflow: 'hidden',
+        width: '100%',
+        height: '100%',
+        p: 4,
+      }}
+    >
       {!config ? (
         <CircularProgress size="sm" color="neutral" />
       ) : (
         <Stack sx={{ width: '100%', height: '100%', overflowY: 'auto' }} gap={5}>
           {type === formType.traditional && (
-            <TraditionalForm formId={formId} conversationId={conversationId} messageId={messageId} config={config} isInEditor={isInEditor} />
+            <TraditionalForm
+              formId={formId}
+              conversationId={conversationId}
+              messageId={messageId}
+              config={config}
+              isInEditor={isInEditor}
+            />
           )}
+
           {type === formType.conversational && (
-            // En lugar de <Motion>, usa motion.div directamente
-<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-  <span ref={spanRef}>
-    {chatData.history.length > 0 && lastMessage.from === 'agent' && (
-      <FormText level="h1" sx={{ fontSize: '1.8rem', opacity: chatData.isStreaming ? 1 : 0.7 }}>
-        {lastMessageText}
-      </FormText>
-    )}
-  </span>
-</motion.div>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <span ref={spanRef}>
+                {chatData.history.length > 0 && lastMessage?.from === 'agent' && (
+                  <FormText
+                    level="h1"
+                    sx={{
+                      fontSize: '1.8rem',
+                      opacity: chatData.isStreaming ? 1 : 0.7,
+                    }}
+                  >
+                    {lastMessageText}
+                  </FormText>
+                )}
+              </span>
+            </motion.div>
           )}
         </Stack>
       )}
+
       {type === formType.conversational && (
         <Stack sx={{ position: 'fixed', bottom: 15 }}>
           <PoweredBy />
