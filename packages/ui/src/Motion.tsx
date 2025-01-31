@@ -1,15 +1,10 @@
-import { motion } from "framer-motion";
-import React, { forwardRef } from "react";
+import { motion, MotionProps } from 'framer-motion';
+import { forwardRef } from 'react';
 
-type Props = {
-  children: React.ReactNode;
-};
+export type CustomMotionProps = MotionProps; // Exporta la tipografía correctamente
 
-const Motion = forwardRef<HTMLDivElement, Props>(function Motion(
-  { children },
-  ref
-) {
-  return <motion.div ref={ref as React.Ref<HTMLDivElement>}>{children}</motion.div>;
+const Motion = forwardRef<HTMLDivElement, MotionProps>((props, ref) => {
+  return <motion.div ref={ref} {...props} />;
 });
 
 export default Motion;
