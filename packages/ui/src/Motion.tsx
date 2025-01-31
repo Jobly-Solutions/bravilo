@@ -10,8 +10,6 @@ export default motion(
     { children }: Pick<Props, 'children'>,
     ref
   ) {
-    return (children as any)?.({
-      ref,
-    });
-  })
-) as React.FC<Props>;
+    return <motion.div ref={ref}>{children}</motion.div>;
+  }) as unknown as FC<Props> // 👈 Conversión explícita a 'unknown' y luego a 'FC<Props>'
+);
