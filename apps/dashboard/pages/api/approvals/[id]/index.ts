@@ -139,7 +139,7 @@ export const approve = async (req: AppNextApiRequest, res: NextApiResponse) => {
       },
       data: {
         text: answer,
-        usage: usage as any, // ⚠️ No es lo ideal, pero puede funcionar s
+        usage: usage ? JSON.stringify(usage) : null,  // 🔥 Convertimos usage a string
       },
     }),
     prisma.actionApproval.delete({
@@ -148,6 +148,7 @@ export const approve = async (req: AppNextApiRequest, res: NextApiResponse) => {
       },
     }),
   ]);
+  
   
 
   return {
