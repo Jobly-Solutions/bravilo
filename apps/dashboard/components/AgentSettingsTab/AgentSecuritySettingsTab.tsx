@@ -97,7 +97,7 @@ export default function AgentSecuritySettings(props: Props) {
                     placeholder={`example-1.com\nexample-2.com`}
                     minRows={3}
                     defaultValue={config?.authorizedDomains?.join('\n')}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>{
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>{
                       //   e.stopPropagation();
 
                       try {
