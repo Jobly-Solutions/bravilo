@@ -107,7 +107,7 @@ export default function Layout(props: Props) {
 
   const appLinks = React.useMemo(() => {
     return [
-      ...(product === 'chaindesk'
+      ...(product === 'BraviloAI By Jobly'
         ? [
             {
               label: 'Inbox',
@@ -128,7 +128,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Agents',
+              label: 'Agentes',
               route: RouteNames.AGENTS,
               icon: <SmartToyRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.AGENTS),
@@ -136,14 +136,14 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Datastores',
+              label: 'Base de datos',
               route: RouteNames.DATASTORES,
               icon: <StorageRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.DATASTORES),
               isNew: false,
             },
             {
-              label: 'Forms',
+              label: 'Formularios',
               route: RouteNames.FORMS,
               icon: <FeedRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.FORMS),
@@ -166,7 +166,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Contacts',
+              label: 'Contactos',
               route: RouteNames.CONTACTS,
               icon: <RecentActorsIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.CONTACTS),
@@ -195,7 +195,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Agents',
+              label: 'Agentes',
               route: RouteNames.AGENTS,
               icon: <SmartToyRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.AGENTS),
@@ -215,7 +215,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Datastores',
+              label: 'Base de datos',
               route: RouteNames.DATASTORES,
               icon: <StorageRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.DATASTORES),
@@ -235,7 +235,7 @@ export default function Layout(props: Props) {
       //   active: router.route === RouteNames.APPS,
       // },
       {
-        label: 'Settings',
+        label: 'Configuración',
         route: RouteNames.SETTINGS,
         icon: <ManageAccountsRoundedIcon style={{ fontSize: '18px' }} />,
         active: router.route.startsWith(RouteNames.SETTINGS),
@@ -247,13 +247,13 @@ export default function Layout(props: Props) {
 
   const docLinks = React.useMemo(() => {
     return [
-      {
-        label: 'Documentation',
-        route: 'https://docs.braviloai.com/',
-        icon: <ApiRoundedIcon style={{ fontSize: '18px' }} />,
-        target: 'blank',
-        isExperimental: false,
-        isNew: false,
+      // {
+      //  label: 'Documentation',
+      //  route: 'https://docs.braviloai.com/',
+      //  icon: <ApiRoundedIcon style={{ fontSize: '18px' }} />,
+      //  target: 'blank',
+      //  isExperimental: false,
+      //  isNew: false,
       },
       // {
       //   label: 'Help Center',
@@ -270,11 +270,7 @@ export default function Layout(props: Props) {
   const isMaintenance = !!getStatusQuery?.data?.isMaintenance;
 
   const SystemStatusIndicator = getStatusQuery?.data?.status ? (
-    <Link
-      href={'https://status.braviloai.com/'}
-      target={'_blank'}
-      className={!open ? 'fixed bottom-2' : ''}
-    >
+    
       <Chip
         color={
           (
@@ -307,7 +303,7 @@ export default function Layout(props: Props) {
               }),
             }}
           />
-          {open && <Typography level="body-sm">system status</Typography>}
+          {open && <Typography level="body-sm"></Typography>}
         </Stack>
       </Chip>
     </Link>
@@ -532,7 +528,7 @@ export default function Layout(props: Props) {
               >
                 <Logo className="w-10" />
                 <Typography component="h1" fontWeight="xl">
-                  Chaindesk
+                  BraviloAI
                 </Typography>
               </Box>
             </Stack>

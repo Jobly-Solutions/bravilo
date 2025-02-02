@@ -1,7 +1,7 @@
+import Motion, { CustomMotionProps } from '@chaindesk/ui/Motion';
 import React, { useRef } from 'react';
-import Motion, { CustomMotionProps } from '@chaindesk/ui/Motion'; // Cambia 'Props' por 'CustomMotionProps'
 
-type Props = CustomMotionProps & {}; // Ahora Props usa CustomMotionProps
+type Props = CustomMotionProps;
 
 export default function MotionBottom({ children, ...props }: Props) {
   const ref = useRef(null);

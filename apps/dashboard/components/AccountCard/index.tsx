@@ -205,7 +205,7 @@ function AccountCard({}: Props) {
         </Stack>
       </Card>
 
-      <Link href={RouteNames.BILLING} style={{ width: '100%' }}>
+      {/* <Link href={RouteNames.BILLING} style={{ width: '100%' }}>
         <Button
           size="sm"
           color="warning"
@@ -218,8 +218,8 @@ function AccountCard({}: Props) {
           variant="solid"
         >
           Upgrade Plan
-        </Button>
-      </Link>
+        </Button> 
+      </Link>*/}
 
       {/* {!session?.data?.organization?.isPremium && (
         <Card size="sm">

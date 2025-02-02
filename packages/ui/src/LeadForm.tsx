@@ -93,17 +93,18 @@ export default function LeadForm(
 
   return (
     <Stack
-      ref={ref}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>{
-        e.preventDefault();
-        e.stopPropagation();
-      }}
-      onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        e.stopPropagation();
-        methods.handleSubmit(handleSubmitCaptureForm)(e);
-      }}
+ref={ref}
+onChange={(e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  e.stopPropagation();
+}}
+onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  e.stopPropagation();
+  methods.handleSubmit(handleSubmitCaptureForm)(e);
+}}
       component={motion.form}
+
       direction="column"
       gap={1}
       sx={{

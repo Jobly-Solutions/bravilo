@@ -15,7 +15,7 @@ import { AgentInterfaceConfig } from '@chaindesk/lib/types/models';
 import type { Agent, Contact } from '@chaindesk/prisma';
 import AnimateMessagesOneByOne from '@chaindesk/ui/Chatbox/AnimateMessagesOneByOne';
 import useStateReducer from '@chaindesk/ui/hooks/useStateReducer';
-import Motion from '@chaindesk/ui/Motion';
+import { motion } from 'framer-motion';
 import { InitWidgetProps } from './types';
 
 import NewChatButton from '@chaindesk/ui/Chatbox/NewChatButton';
@@ -28,7 +28,6 @@ const defaultChatBubbleConfig: AgentInterfaceConfig = {
   primaryColor: '#000000',
   position: 'left',
   // initialMessage: 'Hi, how can I help you?',
-  // position: 'right',
   // messageTemplates: ["What's the pricing?"],
 };
 
@@ -40,9 +39,9 @@ export type BubbleProps = InitWidgetProps &
   };
 
 const ChatBoxLayout = (props: {
-  children?: any;
+  children?: React.ReactNode;
   imageUrl?: string;
-  handleClose?: any;
+  handleClose?: () => void;
   config?: AgentInterfaceConfig;
 }) => {
   return (
@@ -55,14 +54,13 @@ const ChatBoxLayout = (props: {
         flex: 1,
         width: '100%',
         height: '100%',
-        maxHeight: '100%',
         overflowY: 'hidden',
       }}
     >
       <Box
         sx={{
           position: 'absolute',
-          with: '100%',
+          width: '100%',
           top: 0,
           left: 0,
           right: 0,
@@ -77,18 +75,9 @@ const ChatBoxLayout = (props: {
             alignItems: 'center',
             borderBottom: '1px solid',
             borderColor: 'divider',
-            // maxWidth: '700px',
-            // mx: 'auto',
-            // background: t.palette.background.body,
           })}
         >
-          <Avatar
-            size={'sm'}
-            variant="outlined"
-            sx={{ mr: 1 }}
-            src={props?.imageUrl}
-          />
-          {/* {config??.displayName && ( */}
+          <Avatar size={'sm'} variant="outlined" sx={{ mr: 1 }} src={props?.imageUrl} />
           <Typography
             level="body-lg"
             sx={(t) => ({
@@ -98,24 +87,11 @@ const ChatBoxLayout = (props: {
           >
             {props.config?.displayName}
           </Typography>
-          {/* )} */}
 
-          <Stack
-            direction="row"
-            sx={{
-              ml: 'auto',
-              alignItems: 'center',
-            }}
-          >
+          <Stack direction="row" sx={{ ml: 'auto', alignItems: 'center' }}>
             <NewChatButton variant="plain" />
-
             {props.handleClose && (
-              <IconButton
-                variant="plain"
-                size="sm"
-                // onClick={() => setState({ isOpen: false })}
-                onClick={props.handleClose}
-              >
+              <IconButton variant="plain" size="sm" onClick={props.handleClose}>
                 <CloseRoundedIcon />
               </IconButton>
             )}
@@ -135,7 +111,7 @@ function ChatBubble({ ...props }: BubbleProps) {
     props?.agentIconUrl ||
     `${process.env.NEXT_PUBLIC_DASHBOARD_URL}/images/chatbubble-default-icon-sm.gif`;
 
-  const initMessageRef = useRef(null);
+  const initMessageRef = useRef<HTMLDivElement>(null);
 
   const [state, setState] = useStateReducer({
     isOpen: !!props.isOpen,
@@ -156,19 +132,13 @@ function ChatBubble({ ...props }: BubbleProps) {
 
   useEffect(() => {
     let t: NodeJS.Timeout | null = null;
-
     if (initMessages?.length > 0 && !config?.isInitMessagePopupDisabled) {
       t = setTimeout(() => {
-        setState({
-          showInitialMessage: true,
-        });
+        setState({ showInitialMessage: true });
       }, 5000);
     }
-
     return () => {
-      if (t) {
-        clearTimeout(t);
-      }
+      if (t) clearTimeout(t);
     };
   }, [initMessages?.length, config?.isInitMessagePopupDisabled]);
 
@@ -190,15 +160,12 @@ function ChatBubble({ ...props }: BubbleProps) {
     );
   }, [agentIconUrl, config?.bubbleIconStyle]);
 
-  const Layout = React.useMemo(() => {
-    return (props: any) => (
-      <ChatBoxLayout
-        {...props}
-        handleClose={handleClose}
-        imageUrl={agentIconUrl}
-      />
+  // Layout que se inyectará en Base
+  const Layout = useMemo(() => {
+    return (layoutProps: any) => (
+      <ChatBoxLayout {...layoutProps} handleClose={handleClose} imageUrl={agentIconUrl} />
     );
-  }, []);
+  }, [handleClose, agentIconUrl]);
 
   if (props?.isLoadingAgent) {
     return null;
@@ -215,25 +182,10 @@ function ChatBubble({ ...props }: BubbleProps) {
             sx={{
               position: 'fixed',
               bottom: 100,
-              // maxWidth: 'calc(100% - 75px)',
-
-              maxWidth: {
-                xs: '90%',
-                sm: '500px',
-              },
-
+              maxWidth: { xs: '90%', sm: '500px' },
               zIndex: zIndex - 1,
-
-              ...(config?.position === 'left'
-                ? {
-                    left: '20px',
-                  }
-                : {}),
-              ...(config?.position === 'right'
-                ? {
-                    right: '20px',
-                  }
-                : {}),
+              ...(config?.position === 'left' ? { left: '20px' } : {}),
+              ...(config?.position === 'right' ? { right: '20px' } : {}),
             }}
             gap={2}
           >
@@ -242,38 +194,22 @@ function ChatBubble({ ...props }: BubbleProps) {
                 position: 'absolute',
                 zIndex: 2,
                 top: -2,
-
                 transform: 'translate(0px, -125%)',
                 p: 0.2,
                 backgroundColor: 'white',
                 minWidth: '10px',
                 minHeight: '10px',
                 borderRadius: '100%',
-                // opacity: 0.6,
-
-                ...(config?.position === 'left'
-                  ? {
-                      right: 0,
-                    }
-                  : {}),
-                ...(config?.position === 'right'
-                  ? {
-                      right: 0,
-                    }
-                  : {}),
+                ...(config?.position === 'left' ? { right: 0 } : {}),
+                ...(config?.position === 'right' ? { right: 0 } : {}),
               }}
               variant="outlined"
               color="neutral"
               size="md"
-              onClick={() =>
-                setState({
-                  showInitialMessage: false,
-                })
-              }
+              onClick={() => setState({ showInitialMessage: false })}
             >
               <CloseIcon sx={{ fontSize: 'sm' }} />
             </IconButton>
-
             <AnimateMessagesOneByOne
               messages={initMessages.map((each) => ({
                 iconUrl: agentIconUrl,
@@ -288,200 +224,128 @@ function ChatBubble({ ...props }: BubbleProps) {
       <Box
         className="chaindesk-widget"
         sx={{
-          // bgcolor: 'red',
           overflow: 'visible',
           position: 'fixed',
           height: '60px',
           bottom: '20px',
           zIndex,
-
-          ...(config?.position === 'left'
-            ? {
-                left: '20px',
-              }
-            : {}),
-          ...(config?.position === 'right'
-            ? {
-                right: '20px',
-              }
-            : {}),
+          ...(config?.position === 'left' ? { left: '20px' } : {}),
+          ...(config?.position === 'right' ? { right: '20px' } : {}),
         }}
       >
-        <Motion
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: state.isOpen ? 1 : 0,
-          }}
-          exit={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 0.2,
-          }}
+        {/* Envolvemos el Card con Motion para animar su aparición */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: state.isOpen ? 1 : 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
         >
-          {({ ref }: any) => (
-            <Card
-              ref={ref as any}
-              variant="outlined"
+          <Card
+            variant="outlined"
+            sx={(theme) => ({
+              pointerEvents: state.isOpen ? 'all' : 'none',
+              position: 'absolute',
+              bottom: '80px',
+              display: 'flex',
+              flexDirection: 'column',
+              boxSizing: 'border-box',
+              p: 0,
+              gap: 0,
+              opacity: 1,
+              zIndex: 1,
+              ...(config?.position === 'right' ? { transform: `translateX(${-450}px)` } : {}),
+              [theme.breakpoints.up('sm')]: { width: '500px' },
+              [theme.breakpoints.only('xs')]: {
+                width: '100vw',
+                height: '100dvh',
+                maxWidth: '100vw',
+                position: 'fixed',
+                left: 0,
+                top: 0,
+                transform: `translateX(0px)`,
+              },
+            })}
+          >
+            <Stack
               sx={(theme) => ({
-                pointerEvents: state.isOpen ? 'all' : 'none',
-                position: 'absolute',
-                bottom: '80px',
-                display: 'flex',
-                flexDirection: 'column',
-                boxSizing: 'border-box',
-                // background: 'white',
-                p: 0,
-                gap: 0,
-
-                opacity: 1,
-                zIndex: 1,
-
-                ...(config?.position === 'right'
-                  ? {
-                      transform: `translateX(${-500 + 50}px)`,
-                    }
-                  : {}),
-
+                position: 'relative',
+                height: '100%',
+                maxHeight: '100%',
+                flex: 1,
+                padding: 0,
                 [theme.breakpoints.up('sm')]: {
-                  width: '500px',
+                  minHeight: '680px',
+                  maxHeight: '680px',
                 },
                 [theme.breakpoints.only('xs')]: {
-                  width: '100vw',
-                  height: '100dvh',
+                  height: '100%',
                   maxWidth: '100vw',
-                  position: 'fixed',
-
-                  left: 0,
-                  top: 0,
-                  transform: `translateX(0px)`,
                 },
+                overflowY: 'hidden',
               })}
             >
-              <Stack
-                sx={(theme) => ({
-                  position: 'relative',
-                  height: '100%',
-                  maxHeight: '100%',
-                  flex: 1,
-                  padding: 0,
+              <Base
+                {...props}
+                chatBoxProps={{ ...props.chatBoxProps, isOpen: state.isOpen }}
+                agentIconUrl={agentIconUrl}
+                layout={Layout}
+              />
+            </Stack>
+          </Card>
+        </motion.div>
 
-                  [theme.breakpoints.up('sm')]: {
-                    minHeight: '680px',
-                    maxHeight: '680px',
-                  },
-                  [theme.breakpoints.only('xs')]: {
-                    height: '100%',
-                    maxWidth: '100vw',
-                  },
-
-                  // '& .message-agent': {},
-                  // '& .message-human': {
-                  //   backgroundColor: config?.primaryColor,
-                  // },
-                  // '& .message-human *': {
-                  //   color: textColor,
-                  // },
-
-                  overflowY: 'hidden',
-                })}
-              >
-                <Base
-                  {...props}
-                  chatBoxProps={{ ...props.chatBoxProps, isOpen: state.isOpen }}
-                  agentIconUrl={agentIconUrl}
-                  layout={Layout}
-                />
-                {/* <ChatBoxLoader
-                  agentId={props.agentId}
-                  initConfig={config?}
-                  contact={props.contact}
-                  context={props.context}
-                  layout={Layout}
-                /> */}
-              </Stack>
-            </Card>
-          )}
-        </Motion>
-
-        <Motion
+        <motion.div
           initial="hidden"
           animate="visible"
           variants={{
             visible: {
               y: 0,
-              transition: {
-                when: 'beforeChildren',
-                staggerChildren: 0.3,
-              },
+              transition: { when: 'beforeChildren', staggerChildren: 0.3 },
             },
             hidden: {
               y: 100,
-              transition: {
-                when: 'afterChildren',
-              },
+              transition: { when: 'afterChildren' },
             },
           }}
         >
-          {({ ref }) => (
-            <IconButton
-              // color={'neutral'}
-              ref={ref}
-              variant="solid"
-              className="chaindesk-launcher"
-              onClick={() =>
-                setState({
-                  isOpen: !state.isOpen,
-                  ...(!state.isOpen
-                    ? {
-                        hasOpenOnce: true,
-                      }
-                    : {}),
-                })
-              }
-              sx={(theme) => ({
+          <IconButton
+            variant="solid"
+            className="chaindesk-launcher"
+            onClick={() =>
+              setState({
+                isOpen: !state.isOpen,
+                ...(!state.isOpen ? { hasOpenOnce: true } : {}),
+              })
+            }
+            sx={(theme) => ({
+              backgroundColor: config?.primaryColor,
+              width: '60px',
+              height: '60px',
+              borderRadius: '100%',
+              borderWidth: '0.5px',
+              borderColor: theme.palette.divider,
+              borderStyle: 'solid',
+              p: '0',
+              overflow: 'hidden',
+              '&:hover': {
                 backgroundColor: config?.primaryColor,
-                width: '60px',
-                height: '60px',
-                borderRadius: '100%',
-                // color: textColor,
-                // transition: 'all 100ms ease-in-out',
-                borderWidth: '0.5px',
-                borderColor: theme.palette.divider,
-                borderStyle: 'solid',
-                p: '0',
-                overflow: 'hidden',
-                '&:hover': {
-                  backgroundColor: config?.primaryColor,
-                  filter: 'brightness(0.9)',
-                  transform: 'scale(1.05)',
-                },
-                ...config?.bubbleButtonStyle,
-              })}
-            >
-              <AnimatePresence>
-                {state.isOpen && (
-                  <Motion
-                    variants={{
-                      visible: {
-                        rotate: '0deg',
-                      },
-                      hidden: {
-                        rotate: '-180deg',
-                      },
-                    }}
-                  >
-                    {({ ref }) => <ClearRoundedIcon ref={ref} />}
-                  </Motion>
-                )}
-
-                {!state.isOpen && bubbleIcon}
-              </AnimatePresence>
-            </IconButton>
-          )}
-        </Motion>
+                filter: 'brightness(0.9)',
+                transform: 'scale(1.05)',
+              },
+              ...config?.bubbleButtonStyle,
+            })}
+          >
+            <AnimatePresence>
+              {state.isOpen ? (
+                <motion.div variants={{ visible: { rotate: 0 }, hidden: { rotate: -180 } }}>
+                  <ClearRoundedIcon />
+                </motion.div>
+              ) : (
+                bubbleIcon
+              )}
+            </AnimatePresence>
+          </IconButton>
+        </motion.div>
       </Box>
     </>
   );

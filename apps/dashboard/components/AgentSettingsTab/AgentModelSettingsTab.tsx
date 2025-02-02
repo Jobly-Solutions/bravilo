@@ -41,26 +41,18 @@ export default function AgentToolSettingsTab(props: Props) {
                   <ModelInput />
 
                   {formState.isDirty && formState.isValid && (
-                    <MotionBottom>
-                      {({ ref }: any) => (
-                        <Button
-                          ref={ref as any}
-                          type="submit"
-                          disabled={!formState.isDirty}
-                          loading={mutation.isMutating}
-                          color="success"
-                          sx={{
-                            position: 'fixed',
-                            bottom: 35,
-                            right: 90,
-                            zIndex: 1,
-                          }}
-                          startDecorator={<SaveRoundedIcon />}
-                        >
-                          Save
-                        </Button>
-                      )}
-                    </MotionBottom>
+                    <div style={{ position: 'fixed', bottom: 35, right: 90, zIndex: 1 }}>
+                    <Button
+                      type="submit"
+                      disabled={!formState.isDirty}
+                      loading={mutation.isMutating}
+                      color="success"
+                      startDecorator={<SaveRoundedIcon />}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                  
                   )}
                 </SettingCard>
               );
