@@ -128,7 +128,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Agents',
+              label: 'Agentes',
               route: RouteNames.AGENTS,
               icon: <SmartToyRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.AGENTS),
@@ -136,14 +136,14 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Datastores',
+              label: 'Bases de datos',
               route: RouteNames.DATASTORES,
               icon: <StorageRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.DATASTORES),
               isNew: false,
             },
             {
-              label: 'Forms',
+              label: 'Formularios',
               route: RouteNames.FORMS,
               icon: <FeedRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.FORMS),
@@ -166,7 +166,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Contacts',
+              label: 'Contactos',
               route: RouteNames.CONTACTS,
               icon: <RecentActorsIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.CONTACTS),
@@ -195,7 +195,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Agents',
+              label: 'Agentes',
               route: RouteNames.AGENTS,
               icon: <SmartToyRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.AGENTS),
@@ -215,7 +215,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Datastores',
+              label: 'Bases de datos',
               route: RouteNames.DATASTORES,
               icon: <StorageRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.DATASTORES),
@@ -235,7 +235,7 @@ export default function Layout(props: Props) {
       //   active: router.route === RouteNames.APPS,
       // },
       {
-        label: 'Settings',
+        label: 'Ajustes',
         route: RouteNames.SETTINGS,
         icon: <ManageAccountsRoundedIcon style={{ fontSize: '18px' }} />,
         active: router.route.startsWith(RouteNames.SETTINGS),
@@ -248,7 +248,7 @@ export default function Layout(props: Props) {
   const docLinks = React.useMemo(() => {
     return [
       {
-        label: 'Documentation',
+        label: 'Developers',
         route: 'https://docs.chaindesk.ai/',
         icon: <ApiRoundedIcon style={{ fontSize: '18px' }} />,
         target: 'blank',
@@ -307,7 +307,7 @@ export default function Layout(props: Props) {
               }),
             }}
           />
-          {open && <Typography level="body-sm">system status</Typography>}
+          {open && <Typography level="body-sm"> </Typography>}
         </Stack>
       </Chip>
     </Link>
@@ -351,7 +351,7 @@ export default function Layout(props: Props) {
   return (
     <>
       <SEO
-        title="Dashboard | Bravillo."
+        title="Dashboard | Bravilo AI HR By Jobly."
         description="Build your own ChatGPT Chat Bot for your business."
         baseUrl={appUrl}
         uri={router.pathname}
