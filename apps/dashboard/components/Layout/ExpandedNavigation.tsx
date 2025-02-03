@@ -228,7 +228,6 @@ export default function ExpandedNavigation({
             {status && (
               <Link
                 href={'#'}
-                target={'_blank'}
                 className={!open ? 'fixed bottom-2' : ''}
               >
                 <Chip
@@ -264,7 +263,7 @@ export default function ExpandedNavigation({
                       }}
                     />
 
-                    <Typography level="body-sm"> </Typography>
+                    <Typography level="body-sm"></Typography>
                   </Stack>
                 </Chip>
               </Link>
