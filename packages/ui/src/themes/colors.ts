@@ -1,12 +1,12 @@
 export const purple = {
-  50: '#FDF7FF',
-  100: '#F4EAFF',
-  200: '#E1CBFF',
-  300: '#C69EFF',
-  400: '#A374F9',
-  500: '#814DDE',
-  600: '#5F35AE',
-  700: '#452382',
-  800: '#301761',
-  900: '#1D0A42',
+  50: '#E6F2FA',  // Un tono muy claro basado en #0071E3
+  100: '#B3D0F4', // Tono claro
+  200: '#80ADED', // Tono medio claro
+  300: '#0071E3', // Tu color principal
+  400: '#0071E3',
+  500: '#0071E3',
+  600: '#0071E3',
+  700: '#0071E3',
+  800: '#0071E3',
+  900: '#0071E3',
 };
