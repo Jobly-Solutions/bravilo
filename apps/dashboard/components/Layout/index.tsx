@@ -249,7 +249,7 @@ export default function Layout(props: Props) {
     return [
       {
         label: 'Documentation',
-        route: 'https://docs.dev.braviloai.com/',
+        route: 'https://dev.braviloai.com/',
         icon: <ApiRoundedIcon style={{ fontSize: '18px' }} />,
         target: 'blank',
         isExperimental: false,
@@ -271,7 +271,7 @@ export default function Layout(props: Props) {
 
   const SystemStatusIndicator = getStatusQuery?.data?.status ? (
     <Link
-      href={'https://status.dev.braviloai.com/'}
+      href={'#'}
       target={'_blank'}
       className={!open ? 'fixed bottom-2' : ''}
     >
@@ -307,7 +307,7 @@ export default function Layout(props: Props) {
               }),
             }}
           />
-          {open && <Typography level="body-sm">system status</Typography>}
+          {open && <Typography level="body-sm"> </Typography>}
         </Stack>
       </Chip>
     </Link>
@@ -318,12 +318,12 @@ export default function Layout(props: Props) {
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       if (
-        window.location.hostname === 'app.databerry.ai' ||
-        window.location.hostname === 'www.dev.braviloai.com' ||
+        window.location.hostname === 'dev.braviloai.com' ||
+        window.location.hostname === 'dev.braviloai.com' ||
         window.location.hostname === 'dev.braviloai.com'
       ) {
         window.location.href =
-          'https://app.dev.braviloai.com' + window.location.pathname;
+          'https://dev.braviloai.com' + window.location.pathname;
       }
     }
   }, []);
@@ -351,7 +351,7 @@ export default function Layout(props: Props) {
   return (
     <>
       <SEO
-        title="Dashboard | Bravillo."
+        title="Dashboard | Bravilo AI HR By Jobly."
         description="Build your own ChatGPT Chat Bot for your business."
         baseUrl={appUrl}
         uri={router.pathname}
@@ -558,7 +558,7 @@ export default function Layout(props: Props) {
         >
           <Box
             component={'iframe'}
-            src={'https://app.dev.braviloai.com/forms/clqz46y9u003e8ipv0lvfcnsg'}
+            src={'https://dev.braviloai.com/forms/clqz46y9u003e8ipv0lvfcnsg'}
             frameBorder="0"
             sx={{
               width: '100%',
