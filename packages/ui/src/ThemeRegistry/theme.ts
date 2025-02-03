@@ -40,67 +40,64 @@ const sourceCodePro = Source_Code_Pro({
   display: 'swap',
 });
 
-// Extiende el tema con tu configuración personalizada
+// Definición de colores principales
+const PRIMARY_COLOR = '#0071E3'; // Azul principal
+const WHITE_COLOR = '#FFFFFF'; // Blanco para textos
+const BACKGROUND_COLOR = '#262626'; // Fondo oscuro
+
+// Extiende el tema con la configuración personalizada
 const theme = extendTheme({
+  cssVarPrefix: 'bravilo',
   colorSchemes: {
     light: {
-      palette: {
-        // Definición de la paleta primaria con el color principal #0071E3.
-        // Puedes ajustar los tonos según lo necesites.
-        primary: {
-          50: '#e6f2fa',     // tono muy claro
-          100: '#b3d0f4',
-          200: '#80aded',
-          300: '#0071E3',    // aquí usamos el color principal
-          400: '#0067d1',
-          500: '#0071E3',    // color principal
-          600: '#005dbb',
-          700: '#004a93',
-          800: '#00366b',
-          900: '#002243',
-          softActiveBg: '#0071E3', // valor para estados "soft active"
-        },
-        // Definición del fondo de la aplicación
-        background: {
-          body: '#262626',
-        },
-        // Definición del color de texto principal
-        text: {
-          primary: '#FFFFFF',
-        },
-      },
-      // Propiedad custom para definir un degradado (de #0071E3 a #FFFFFF)
-      customColors: {
-        gradient: 'linear-gradient(45deg, #0071E3, #FFFFFF)',
-      },
-    },
-    dark: {
-      // Puedes replicar o ajustar para el modo oscuro. En este ejemplo se usa lo mismo.
       palette: {
         primary: {
           50: '#e6f2fa',
           100: '#b3d0f4',
           200: '#80aded',
-          300: '#0071E3',
+          300: PRIMARY_COLOR,
           400: '#0067d1',
-          500: '#0071E3',
+          500: PRIMARY_COLOR,
           600: '#005dbb',
           700: '#004a93',
           800: '#00366b',
           900: '#002243',
-          softActiveBg: '#0071E3',
+          softActiveBg: PRIMARY_COLOR, // Estado activo en botones y otros
         },
         background: {
-          body: '#262626',
+          body: BACKGROUND_COLOR,
         },
         text: {
-          primary: '#FFFFFF',
+          primary: WHITE_COLOR,
         },
       },
-      customColors: {
-        gradient: 'linear-gradient(45deg, #0071E3, #FFFFFF)',
+    },
+    dark: {
+      palette: {
+        primary: {
+          50: '#e6f2fa',
+          100: '#b3d0f4',
+          200: '#80aded',
+          300: PRIMARY_COLOR,
+          400: '#0067d1',
+          500: PRIMARY_COLOR,
+          600: '#005dbb',
+          700: '#004a93',
+          800: '#00366b',
+          900: '#002243',
+          softActiveBg: PRIMARY_COLOR,
+        },
+        background: {
+          body: BACKGROUND_COLOR,
+        },
+        text: {
+          primary: WHITE_COLOR,
+        },
       },
     },
+  },
+  vars: {
+    gradient: 'linear-gradient(45deg, #0071E3, #FFFFFF)', // Define el degradado aquí
   },
   fontFamily: {
     body: inter.style.fontFamily,
