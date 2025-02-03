@@ -318,12 +318,12 @@ export default function Layout(props: Props) {
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       if (
-        window.location.hostname === 'dev.braviloai.com' ||
-        window.location.hostname === 'www.braviloai.com' ||
-        window.location.hostname === 'braviloai.com'
+        window.location.hostname === 'app.databerry.ai' ||
+        window.location.hostname === 'www.chaindesk.ai' ||
+        window.location.hostname === 'chaindesk.ai'
       ) {
         window.location.href =
-          'https://dev.braviloai.com' + window.location.pathname;
+          'https://app.chaindesk.ai' + window.location.pathname;
       }
     }
   }, []);
@@ -558,7 +558,7 @@ export default function Layout(props: Props) {
         >
           <Box
             component={'iframe'}
-            src={'https://dev.braviloai.com/forms/clqz46y9u003e8ipv0lvfcnsg'}
+            src={'https://app.chaindesk.ai/forms/clqz46y9u003e8ipv0lvfcnsg'}
             frameBorder="0"
             sx={{
               width: '100%',
