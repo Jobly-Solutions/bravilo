@@ -264,7 +264,7 @@ export default function ExpandedNavigation({
                       }}
                     />
 
-                    <Typography level="body-sm">system status</Typography>
+                    <Typography level="body-sm"> </Typography>
                   </Stack>
                 </Chip>
               </Link>
