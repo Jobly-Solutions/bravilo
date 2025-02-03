@@ -259,7 +259,7 @@ export default function Footer() {
                 {/* <li>
                   <a
                     className="transition text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-400"
-                    href="https://app.braviloai.com/help"
+                    href="https://dev.braviloai.com/help"
                     target="_blank"
                   >
                     Help Center

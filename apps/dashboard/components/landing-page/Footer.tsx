@@ -31,7 +31,7 @@ const navigation = {
   support: [
     // {
     //   name: 'Help Center',
-    //   href: 'https://app.braviloai.com/help',
+    //   href: 'https://dev.braviloai.com/help',
     //   target: '_blank',
     // },
     {

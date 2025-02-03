@@ -55,7 +55,7 @@ export default function TopBar(props: Props) {
         </Typography>
         <Link
           target="_blank"
-          href={`https://app.braviloai.com/agents?utm_source=landing_page&utm_medium=tool&utm_campaign=youtube_summarizer`}
+          href={`https://dev.braviloai.com/agents?utm_source=landing_page&utm_medium=tool&utm_campaign=youtube_summarizer`}
         >
           <Button
             size="sm"

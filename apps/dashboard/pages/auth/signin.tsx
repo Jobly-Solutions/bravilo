@@ -127,7 +127,7 @@ export default function SignInPage() {
                 <div className="flex flex-col items-center justify-center">
                   <div className="inline-flex items-center mr-auto space-x-2">
                     <a
-                      href="https://app.braviloai.com"
+                      href="https://dev.braviloai.com"
                       // className="absolute top-4 left-4 md:top-8 md:left-8"
                     >
                       <div className="inline-flex items-center space-x-2">

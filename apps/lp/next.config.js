@@ -50,7 +50,7 @@ const nextConfig = {
         has: [
           {
             type: 'host',
-            value: 'app.braviloai.com',
+            value: 'dev.braviloai.com',
           },
         ],
       },

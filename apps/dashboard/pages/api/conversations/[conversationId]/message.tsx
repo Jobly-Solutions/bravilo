@@ -125,7 +125,7 @@ export const sendMessage = async (
                     user?.picture ||
                     user?.customPicture ||
                     user?.image ||
-                    'https://app.braviloai.com/logo.png',
+                    'https://dev.braviloai.com/logo.png',
                 },
               }
             );
@@ -148,7 +148,7 @@ export const sendMessage = async (
                   user?.picture ||
                   user?.customPicture ||
                   user?.image ||
-                  'https://app.braviloai.com/logo.png',
+                  'https://dev.braviloai.com/logo.png',
               },
             }
           ),

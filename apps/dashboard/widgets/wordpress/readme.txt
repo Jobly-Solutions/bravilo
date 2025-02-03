@@ -1,6 +1,6 @@
 === Chaindesk ===
 Contributors: braviloai.com
-Donate link: https://app.braviloai.com
+Donate link: https://dev.braviloai.com
 Tags: chatgpt, livechat, chat, live chat, free-live-chat, live-chat, live support, chat-plugin
 Requires at least: 3.0.1
 Tested up to: 6.3.1

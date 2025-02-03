@@ -48,7 +48,7 @@ authMethod: 'bearer'
 ### Example JS Code
 
 ```js
-const apiUrl = 'https://app.braviloai.com/api';
+const apiUrl = 'https://dev.braviloai.com/api';
 const apiKey = 'XXX';
 const datastoreId = 'XXX';
 
@@ -83,7 +83,7 @@ const res = await fetch(
 <RequestExample>
 
 ```bash Example Request
-curl --location --request POST 'https://app.braviloai.com/api/external/datastores/file-upload/<datastoreId>' \
+curl --location --request POST 'https://dev.braviloai.com/api/external/datastores/file-upload/<datastoreId>' \
 --header 'Authorization: Bearer <API_KEY>' \
 --form 'file=@"/Users/path/test.pdf"'
 ```

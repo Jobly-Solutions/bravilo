@@ -23,7 +23,7 @@ export default function FormPage(props: { agent: Agent }) {
       <SEO
         title={`AI powered conversational forms | Chaindesk.ai`}
         description={`Build ChatGPT-powered conversational forms with Chaindesk.ai`}
-        url={`https://app.braviloai.com/forms/${formId}`}
+        url={`https://dev.braviloai.com/forms/${formId}`}
       />
       {/*
 

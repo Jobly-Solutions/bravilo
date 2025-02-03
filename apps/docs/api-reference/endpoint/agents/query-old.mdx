@@ -1,6 +1,6 @@
 ---
 title: 'Agent - Query'
-api: 'POST https://app.braviloai.com/api/agents/{agentId}/query'
+api: 'POST https://dev.braviloai.com/api/agents/{agentId}/query'
 description: 'This let you query your agent for a specific query.'
 authMethod: 'bearer'
 ---
@@ -119,7 +119,7 @@ await fetchEventSource(queryAgentURL, {
 <RequestExample>
 
 ```bash Example Request
-curl --location --request POST 'https://app.braviloai.com/api/agents/<agentId>/query' \
+curl --location --request POST 'https://dev.braviloai.com/api/agents/<agentId>/query' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer <API_KEY>' \
 --data-raw '{

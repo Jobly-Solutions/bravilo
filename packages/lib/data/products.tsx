@@ -14,7 +14,7 @@ const items: Product[] = [
     logo: '/images/logo.png',
     cta: {
       label: 'Get Started for Free',
-      url: 'https://app.braviloai.com/agents',
+      url: 'https://dev.braviloai.com/agents',
     },
     keywords: [
       'ChatGPT Chatbot For Your Website',
@@ -92,7 +92,7 @@ const items: Product[] = [
     logo: '/images/logo.png',
     cta: {
       label: 'Get Started for Free',
-      url: 'https://app.braviloai.com/forms',
+      url: 'https://dev.braviloai.com/forms',
     },
     keywords: ['AI-Driven Forms', 'ChatGPT Form', 'AI Form'],
 
@@ -147,7 +147,7 @@ const items: Product[] = [
     },
     cta: {
       label: 'Get Started for Free',
-      url: 'https://app.braviloai.com/forms',
+      url: 'https://dev.braviloai.com/forms',
     },
     features: {
       title: `AI-Powered email support`,
@@ -231,7 +231,7 @@ const items: Product[] = [
     ),
     cta: {
       label: 'Get Started for Free',
-      url: 'https://app.braviloai.com/forms',
+      url: 'https://dev.braviloai.com/forms',
     },
     keywords: ['AI-Driven Forms', 'ChatGPT Form', 'AI Form'],
 

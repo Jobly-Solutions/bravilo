@@ -57,7 +57,7 @@ class AdminChainDeskController extends ModuleAdminController
     {
         $agentId = Configuration::get('CHAINDESK_AGENT_ID');
         $http_callback = Tools::getShopDomainSsl(true, true) . $_SERVER['REQUEST_URI'];
-        $base_url = 'https://app.braviloai.com'; // Use single quotes for simple strings
+        $base_url = 'https://dev.braviloai.com'; // Use single quotes for simple strings
 
         return $base_url . '/integrations/prestashop/config?callback=' . urlencode($http_callback) . '&siteurl=' . urlencode(Tools::getShopDomainSsl(true, true)) . '&agentId=' . $agentId;
     }

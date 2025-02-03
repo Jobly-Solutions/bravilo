@@ -72,7 +72,7 @@ CrispClient.authenticateTier(
 //       origin: 'chat',
 //       user: {
 //         nickname: 'Chaindesk',
-//         avatar: 'https://app.braviloai.com/logo.png',
+//         avatar: 'https://dev.braviloai.com/logo.png',
 //       },
 //       stealth: true,
 //       content: `Summary:\n${output}`,

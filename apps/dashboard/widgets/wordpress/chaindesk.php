@@ -7,7 +7,7 @@
  * Description: Build ChatGPT Chat Bots trained on custom data
  * Author: Chaindesk
  * Version: 1.0
- * Author URI: https://app.braviloai.com
+ * Author URI: https://dev.braviloai.com
  *
  * Text Domain: Chaindesk
  * Domain Path: /languages/
@@ -72,7 +72,7 @@ function chaindesk_plugin_settings_page()
     $http_callback = esc_url($protocol . $host . $request_uri);
 
     // $base_url = "http://localhost:3000";
-    $base_url = "https://app.braviloai.com";
+    $base_url = "https://dev.braviloai.com";
     $add_to_chaindesk_link = $base_url."/integrations/wordpress/config?callback=$http_callback&siteurl=".get_option('siteurl')."&agentId=".$agent_id;
 
 

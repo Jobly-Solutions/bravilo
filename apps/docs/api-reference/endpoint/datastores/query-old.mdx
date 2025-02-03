@@ -1,6 +1,6 @@
 ---
 title: 'Datastore - Query'
-api: 'POST https://app.braviloai.com/api/datastores/query/{datastore_id}/old'
+api: 'POST https://dev.braviloai.com/api/datastores/query/{datastore_id}/old'
 description: 'This endpoint gets the most similar document fragments for a given query.'
 authMethod: 'bearer'
 ---
@@ -63,7 +63,7 @@ authMethod: 'bearer'
 <RequestExample>
 
 ```bash Example Request
-curl --location --request POST 'https://app.braviloai.com/api/datastores/<datastore_id>/query' \
+curl --location --request POST 'https://dev.braviloai.com/api/datastores/<datastore_id>/query' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer <API_KEY>' \
 --data-raw '{

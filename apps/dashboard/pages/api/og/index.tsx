@@ -67,7 +67,7 @@ export default async function handler(request: NextRequest) {
         }}
       >
         {/* <img
-          src={`https://app.braviloai.com/${image ? image : 'app-logo-dark'}.png`}
+          src={`https://dev.braviloai.com/${image ? image : 'app-logo-dark'}.png`}
           alt="Chaindesk logo"
           style={{
             objectFit: 'contain',

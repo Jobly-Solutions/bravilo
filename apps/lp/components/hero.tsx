@@ -203,7 +203,7 @@ export default function Hero() {
                     <div>
                       <Link
                         className="w-full shadow btn text-zinc-100 bg-zinc-900 hover:bg-zinc-800"
-                        href="https://app.braviloai.com/agents"
+                        href="https://dev.braviloai.com/agents"
                       >
                         Start for free
                       </Link>

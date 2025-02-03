@@ -3595,7 +3595,7 @@
 -  upgarde version chat-bubble widget [[dbbba83](https://github.com/gmpetrov/databerry/commit/dbbba834d6b183a228bf1f478dfb410c5c744f0a)]
 -  upgrade react-hook-form [[f3b403a](https://github.com/gmpetrov/databerry/commit/f3b403a64f0f05f924fb08e815b8fe61d24fc243)]
 -  fix: disable submit while generating answer [[d15b63f](https://github.com/gmpetrov/databerry/commit/d15b63f8fd0290746d04a816c6694bc4e67030d6)]
--  fix: do not show landing page with app.braviloai.com domain [[d07461f](https://github.com/gmpetrov/databerry/commit/d07461fc03ff57c68b7a74d8c48e4e4357c040f4)]
+-  fix: do not show landing page with dev.braviloai.com domain [[d07461f](https://github.com/gmpetrov/databerry/commit/d07461fc03ff57c68b7a74d8c48e4e4357c040f4)]
 -  fix: gdrive integration [[bcc944b](https://github.com/gmpetrov/databerry/commit/bcc944b383f1f18cbe55a85c6eaad8840757670e)]
 -  fix: broken path for api endpoints [[959ba17](https://github.com/gmpetrov/databerry/commit/959ba178f8598c912305d6c5dd9b1cdf091267ad)]
 -  fix: datasource forms file + gdrive cant validate [[7e3d5be](https://github.com/gmpetrov/databerry/commit/7e3d5bedd5703fad65cab6c8523b131014ff40ee)]

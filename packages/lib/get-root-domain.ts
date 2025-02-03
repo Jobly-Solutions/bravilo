@@ -1,4 +1,4 @@
-// https://app.braviloai.com => braviloai.com || https://53f2-196-64-79-68.ngrok-free.app -> 53f2-196-64-79-68.ngrok-free.app
+// https://dev.braviloai.com => braviloai.com || https://53f2-196-64-79-68.ngrok-free.app -> 53f2-196-64-79-68.ngrok-free.app
 export function getRootDomain(url: string) {
   let hostname;
 

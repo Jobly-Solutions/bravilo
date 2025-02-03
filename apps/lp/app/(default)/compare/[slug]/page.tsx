@@ -87,7 +87,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         description={`Looking for a ${name} alternative? People switch from ${name} to Chaindesk because it looks better, comes with more widgets and customization and is much easier to use. Here’s why we think you should make the switch too ✨`}
         cta={{
           label: 'Start for free',
-          url: 'https://app.braviloai.com/agents',
+          url: 'https://dev.braviloai.com/agents',
         }}
         withTestimonialBadge
         // youtubeVideoId={product?.youtubeVideoId}

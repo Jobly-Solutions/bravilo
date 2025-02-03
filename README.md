@@ -1,6 +1,6 @@
 <h1 align="center" style="font-weight: bold">
   <br>
-  <a href="https://app.braviloai.com"><img src="apps/dashboard/public/logo.png" alt="Chaindesk" width="42"></a>
+  <a href="https://dev.braviloai.com"><img src="apps/dashboard/public/logo.png" alt="Chaindesk" width="42"></a>
   <br>
   Chaindesk
   <br>
@@ -15,7 +15,7 @@
 <img src="apps/dashboard/public/og-image.jpg" alt="Chaindesk" width="1000" style="max-width: 100%;">
 </h2>
 
-**[Chaindesk](https://app.braviloai.com)** provides a user-friendly solution to quickly setup a semantic search system over your personal data without any technical knowledge.
+**[Chaindesk](https://dev.braviloai.com)** provides a user-friendly solution to quickly setup a semantic search system over your personal data without any technical knowledge.
 
 ### [📄 Documentation](https://docs.braviloai.com/)
 

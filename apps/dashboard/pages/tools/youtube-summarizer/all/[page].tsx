@@ -130,7 +130,7 @@ export default function Youtube(props: {
         title="Free AI Youtube Video Summarizer"
         description="Generate YouTube video summaries instantly for free with AI"
         uri={router.asPath}
-        ogImage={`https://app.braviloai.com/api/og/youtube-summary`}
+        ogImage={`https://dev.braviloai.com/api/og/youtube-summary`}
       />
       <Stack sx={{ width: '100vw', minHeight: '100vh' }}>
         <TopBar href="/tools/youtube-summarizer" />

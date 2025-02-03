@@ -72,7 +72,7 @@ export default function Header() {
                 <li>
                   <LinkWithUTMFromPath
                     className="items-center hidden px-3 py-2 text-sm font-medium transition md:flex text-zinc-500 hover:text-zinc-900 lg:px-5"
-                    href={`https://app.braviloai.com/signin`}
+                    href={`https://dev.braviloai.com/signin`}
                   >
                     Log in
                   </LinkWithUTMFromPath>
@@ -81,7 +81,7 @@ export default function Header() {
                 <li className="ml-1">
                   <LinkWithUTMFromPath
                     className="hidden w-full shadow sm:flex btn-sm text-zinc-100 bg-zinc-900 hover:bg-zinc-800"
-                    href={`https://app.braviloai.com/signin`}
+                    href={`https://dev.braviloai.com/signin`}
                   >
                     Sign up for free
                   </LinkWithUTMFromPath>

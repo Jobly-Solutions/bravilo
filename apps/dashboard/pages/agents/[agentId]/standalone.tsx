@@ -71,7 +71,7 @@ export default function AgentPage() {
       {/* <SEO
         title={`${props?.agent?.name} - made with Bravilo By Jobly`}
         description={props?.agent?.description}
-        url={`https://app.braviloai.com/@${props?.agent?.handle}`}
+        url={`https://dev.braviloai.com/@${props?.agent?.handle}`}
       /> */}
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -97,7 +97,7 @@ export default function AgentPage() {
           >
             <CircularProgress color="neutral" />
             <a
-              href="https://app.braviloai.com"
+              href="https://dev.braviloai.com"
               target="_blank"
               style={{
                 textDecoration: 'none',

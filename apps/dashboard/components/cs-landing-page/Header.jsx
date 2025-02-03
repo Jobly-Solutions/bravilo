@@ -209,15 +209,15 @@ export function Header() {
             </div>
             <div className="flex gap-x-5 items-center md:gap-x-8">
               {/* <div className="hidden md:block">
-              <NavLink href="https://app.braviloai.com">Sign in</NavLink>
+              <NavLink href="https://dev.braviloai.com">Sign in</NavLink>
             </div> */}
-              {/* <Button target="_blank" href="https://app.braviloai.com/signin" color="blue">
+              {/* <Button target="_blank" href="https://dev.braviloai.com/signin" color="blue">
               <span>
                 Sign In
               </span>
             </Button> */}
               {/* Change following link href with /signin for local signin */}
-              {/* <Link href="https://app.braviloai.com/signin?product=chatbotgpt"> */}
+              {/* <Link href="https://dev.braviloai.com/signin?product=chatbotgpt"> */}
               <Link href={`${appUrl}/signin?product=${hostname}`}>
                 <Button variant="outlined" sx={{ borderRadius: 100 }}>
                   Sign In

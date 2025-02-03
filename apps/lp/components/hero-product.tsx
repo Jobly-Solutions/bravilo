@@ -156,7 +156,7 @@ export default function Hero(props: {
                       <Link
                         className="w-full shadow btn text-zinc-100 bg-zinc-900 hover:bg-zinc-800"
                         href={
-                          props?.cta?.url || `https://app.braviloai.com/agents`
+                          props?.cta?.url || `https://dev.braviloai.com/agents`
                         }
                       >
                         {props?.cta?.label}

@@ -106,7 +106,7 @@ export default function SummaryPage({ output }: SummaryPageProps) {
           'Generate YouTube video summaries instantly for free with AI'
         }
         uri={router.asPath}
-        ogImage={`https://www.app.braviloai.com/api/og/youtube-summary?state=${encodeURIComponent(
+        ogImage={`https://www.dev.braviloai.com/api/og/youtube-summary?state=${encodeURIComponent(
           JSON.stringify({
             title,
             // TODO: Do we really want another call in the youtubeApi Class for this ?

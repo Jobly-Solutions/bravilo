@@ -1,6 +1,6 @@
 ---
 title: 'Datasource - File Upload - Genearte Link'
-api: 'POST https://app.braviloai.com/api/datastores/file-upload/generate-link/{datastoreId}'
+api: 'POST https://dev.braviloai.com/api/datastores/file-upload/generate-link/{datastoreId}'
 description: 'This endpoint allows to generate an upload link to upload a file to a datastore.'
 authMethod: 'bearer'
 ---
@@ -43,7 +43,7 @@ authMethod: 'bearer'
 ### Example JS Code
 
 ```js
-const apiUrl = 'https://app.braviloai.com/api';
+const apiUrl = 'https://dev.braviloai.com/api';
 const apiKey = 'XXX';
 const datastoreId = 'XXX';
 
@@ -94,7 +94,7 @@ const res = await fetch(`${apiUrl}/datastores/file-upload/${datastoreId}`, {
 <RequestExample>
 
 ```bash Example Request
-curl --location --request POST 'https://app.braviloai.com/api/datastores/file-upload/generate-link/<datastoreId>' \
+curl --location --request POST 'https://dev.braviloai.com/api/datastores/file-upload/generate-link/<datastoreId>' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer <API_KEY>' \
 --data-raw '{

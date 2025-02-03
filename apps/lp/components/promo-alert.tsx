@@ -9,7 +9,7 @@ function PromoAlert({}: Props) {
         <span className="font-extrabold text-pink-400 font-caveat">NEW</span>
         <span>Train a custom GPT Chatbot on YouTube videos</span>
         <a
-          href={`https://app.braviloai.com/agents?utm_source=landing_page&utm_medium=tool&utm_campaign=youtube_summarizer`}
+          href={`https://dev.braviloai.com/agents?utm_source=landing_page&utm_medium=tool&utm_campaign=youtube_summarizer`}
           className="font-semibold text-pink-400"
           target="_blank"
         >

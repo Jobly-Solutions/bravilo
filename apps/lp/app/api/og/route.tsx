@@ -62,7 +62,7 @@ export async function GET(request: Request) {
         }}
       >
         {/* <img
-          src={`https://app.braviloai.com/${image ? image : 'app-logo-dark'}.png`}
+          src={`https://dev.braviloai.com/${image ? image : 'app-logo-dark'}.png`}
           alt="Chaindesk logo"
           style={{
             objectFit: 'contain',

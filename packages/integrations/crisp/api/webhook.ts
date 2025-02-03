@@ -234,7 +234,7 @@ const handleQuery = async ({
       user: {
         type: 'participant',
         nickname: agent?.name || 'Chaindesk',
-        avatar: agent?.iconUrl || 'https://app.braviloai.com/logo.png',
+        avatar: agent?.iconUrl || 'https://dev.braviloai.com/logo.png',
       },
     });
   }

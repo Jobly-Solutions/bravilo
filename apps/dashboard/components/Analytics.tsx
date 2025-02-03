@@ -72,7 +72,7 @@ function Analytics({ children, userId }: Props) {
       Fathom.load(process.env.NEXT_PUBLIC_FATHOM_SITE_ID, {
         includedDomains: [
           'www.braviloai.com',
-          'app.braviloai.com',
+          'dev.braviloai.com',
           'www.resolveai.io',
           'www.chatbotgpt.ai',
         ],
