@@ -190,23 +190,6 @@ export default function ExpandedNavigation({
                   target={(each as any).target}
                 />
               ))}
-              {(['chaindesk', 'cs', 'chat'] as ProductType[]).includes(
-                product
-              ) && (
-                <>
-                  <Divider sx={{ my: 1 }} />
-                  <Typography
-                    level="body-xs"
-                    sx={{ mt: 1, mb: 1, ml: 1, fontStyle: 'italic' }}
-                  >
-                    Other Products
-                  </Typography>
-
-                  
-
-                  <Divider sx={{ my: 2 }} />
-                </>
-              )}
             </List>
           </ListItem>
         </List>
