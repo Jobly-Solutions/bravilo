@@ -107,7 +107,7 @@ export default function Layout(props: Props) {
 
   const appLinks = React.useMemo(() => {
     return [
-      ...(product === 'BraviloAI By Jobly'
+      ...(product === 'chaindesk'
         ? [
             {
               label: 'Inbox',
@@ -128,7 +128,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Agentes',
+              label: 'Agents',
               route: RouteNames.AGENTS,
               icon: <SmartToyRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.AGENTS),
@@ -136,14 +136,14 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Base de datos',
+              label: 'Datastores',
               route: RouteNames.DATASTORES,
               icon: <StorageRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.DATASTORES),
               isNew: false,
             },
             {
-              label: 'Formularios',
+              label: 'Forms',
               route: RouteNames.FORMS,
               icon: <FeedRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.FORMS),
@@ -166,7 +166,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Contactos',
+              label: 'Contacts',
               route: RouteNames.CONTACTS,
               icon: <RecentActorsIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.CONTACTS),
@@ -195,7 +195,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Agentes',
+              label: 'Agents',
               route: RouteNames.AGENTS,
               icon: <SmartToyRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.AGENTS),
@@ -215,7 +215,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Base de datos',
+              label: 'Datastores',
               route: RouteNames.DATASTORES,
               icon: <StorageRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.DATASTORES),
@@ -235,7 +235,7 @@ export default function Layout(props: Props) {
       //   active: router.route === RouteNames.APPS,
       // },
       {
-        label: 'Configuración',
+        label: 'Settings',
         route: RouteNames.SETTINGS,
         icon: <ManageAccountsRoundedIcon style={{ fontSize: '18px' }} />,
         active: router.route.startsWith(RouteNames.SETTINGS),
@@ -247,17 +247,17 @@ export default function Layout(props: Props) {
 
   const docLinks = React.useMemo(() => {
     return [
-      // {
-      //  label: 'Documentation',
-      //  route: 'https://docs.braviloai.com/',
-      //  icon: <ApiRoundedIcon style={{ fontSize: '18px' }} />,
-      //  target: 'blank',
-      //  isExperimental: false,
-      //  isNew: false,
+      {
+        label: 'Documentation',
+        route: 'https://docs.dev.braviloai.com/',
+        icon: <ApiRoundedIcon style={{ fontSize: '18px' }} />,
+        target: 'blank',
+        isExperimental: false,
+        isNew: false,
       },
       // {
       //   label: 'Help Center',
-      //   route: 'https://app.braviloai.com/help',
+      //   route: 'https://dev.braviloai.com/help',
       //   icon: <HelpRoundedIcon fontSize="small" />,
       //   target: 'blank',
       //   isExperimental: false,
@@ -270,7 +270,11 @@ export default function Layout(props: Props) {
   const isMaintenance = !!getStatusQuery?.data?.isMaintenance;
 
   const SystemStatusIndicator = getStatusQuery?.data?.status ? (
-    
+    <Link
+      href={'https://status.dev.braviloai.com/'}
+      target={'_blank'}
+      className={!open ? 'fixed bottom-2' : ''}
+    >
       <Chip
         color={
           (
@@ -303,7 +307,7 @@ export default function Layout(props: Props) {
               }),
             }}
           />
-          {open && <Typography level="body-sm"></Typography>}
+          {open && <Typography level="body-sm">system status</Typography>}
         </Stack>
       </Chip>
     </Link>
@@ -315,11 +319,11 @@ export default function Layout(props: Props) {
     if (typeof window !== 'undefined') {
       if (
         window.location.hostname === 'app.databerry.ai' ||
-        window.location.hostname === 'www.braviloai.com' ||
-        window.location.hostname === 'braviloai.com'
+        window.location.hostname === 'www.dev.braviloai.com' ||
+        window.location.hostname === 'dev.braviloai.com'
       ) {
         window.location.href =
-          'https://app.braviloai.com' + window.location.pathname;
+          'https://app.dev.braviloai.com' + window.location.pathname;
       }
     }
   }, []);
@@ -347,8 +351,8 @@ export default function Layout(props: Props) {
   return (
     <>
       <SEO
-        title="Dashboard | Bravilo AI HR."
-        description="."
+        title="Dashboard | Bravillo."
+        description="Build your own ChatGPT Chat Bot for your business."
         baseUrl={appUrl}
         uri={router.pathname}
       />
@@ -404,7 +408,7 @@ export default function Layout(props: Props) {
           
           Chaindesk has transformed the way we handle customer queries with its next-gen AI native solution. Definitely a game-changer!
           
-          Find out more: https://www.braviloai.com`)}`}
+          Find out more: https://www.dev.braviloai.com`)}`}
               >
                 <Button
                   color="neutral"
@@ -417,7 +421,7 @@ export default function Layout(props: Props) {
               </a>
               <a
                 target="_blank"
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.braviloai.com`}
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.dev.braviloai.com`}
                 className="w-full"
               >
                 <Button
@@ -528,7 +532,7 @@ export default function Layout(props: Props) {
               >
                 <Logo className="w-10" />
                 <Typography component="h1" fontWeight="xl">
-                  BraviloAI
+                  Chaindesk
                 </Typography>
               </Box>
             </Stack>
@@ -554,7 +558,7 @@ export default function Layout(props: Props) {
         >
           <Box
             component={'iframe'}
-            src={'https://app.braviloai.com/forms/clqz46y9u003e8ipv0lvfcnsg'}
+            src={'https://app.dev.braviloai.com/forms/clqz46y9u003e8ipv0lvfcnsg'}
             frameBorder="0"
             sx={{
               width: '100%',
