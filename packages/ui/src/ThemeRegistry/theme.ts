@@ -45,48 +45,50 @@ const theme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
-        // Paleta primaria: se utiliza #0071E3 como color principal
+        // Definición de la paleta primaria con el color principal #0071E3.
+        // Puedes ajustar los tonos según lo necesites.
         primary: {
-          50: '#e6f0fb',
-          100: '#bae0f7',
-          200: '#8fd0f3',
-          300: '#65c1ef',
-          400: '#3ab1eb',
-          500: '#0071E3', // Color principal
-          600: '#0065c7',
-          700: '#0058aa',
-          800: '#004c8e',
-          900: '#003f72',
+          50: '#e6f2fa',     // tono muy claro
+          100: '#b3d0f4',
+          200: '#80aded',
+          300: '#0071E3',    // aquí usamos el color principal
+          400: '#0067d1',
+          500: '#0071E3',    // color principal
+          600: '#005dbb',
+          700: '#004a93',
+          800: '#00366b',
+          900: '#002243',
+          softActiveBg: '#0071E3', // valor para estados "soft active"
         },
-        // Definición del color de fondo
+        // Definición del fondo de la aplicación
         background: {
           body: '#262626',
         },
-        // Definición de color para textos
+        // Definición del color de texto principal
         text: {
           primary: '#FFFFFF',
         },
       },
-      // Puedes definir propiedades custom si las deseas usar en tus componentes
-      // Por ejemplo, un degradado que combine #0071E3 y #FFFFFF:
+      // Propiedad custom para definir un degradado (de #0071E3 a #FFFFFF)
       customColors: {
         gradient: 'linear-gradient(45deg, #0071E3, #FFFFFF)',
       },
     },
     dark: {
-      // En modo oscuro puedes usar los mismos valores o ajustarlos según necesites.
+      // Puedes replicar o ajustar para el modo oscuro. En este ejemplo se usa lo mismo.
       palette: {
         primary: {
-          50: '#e6f0fb',
-          100: '#bae0f7',
-          200: '#8fd0f3',
-          300: '#65c1ef',
-          400: '#3ab1eb',
+          50: '#e6f2fa',
+          100: '#b3d0f4',
+          200: '#80aded',
+          300: '#0071E3',
+          400: '#0067d1',
           500: '#0071E3',
-          600: '#0065c7',
-          700: '#0058aa',
-          800: '#004c8e',
-          900: '#003f72',
+          600: '#005dbb',
+          700: '#004a93',
+          800: '#00366b',
+          900: '#002243',
+          softActiveBg: '#0071E3',
         },
         background: {
           body: '#262626',
