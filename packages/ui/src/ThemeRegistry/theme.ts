@@ -44,6 +44,7 @@ const sourceCodePro = Source_Code_Pro({
 const PRIMARY_COLOR = '#0071E3'; // Azul principal
 const WHITE_COLOR = '#FFFFFF'; // Blanco para textos
 const BACKGROUND_COLOR = '#262626'; // Fondo oscuro
+const GRADIENT = 'linear-gradient(45deg, #0071E3, #FFFFFF)'; // Degradado
 
 // Extiende el tema con la configuración personalizada
 const theme = extendTheme({
@@ -62,16 +63,13 @@ const theme = extendTheme({
           700: '#004a93',
           800: '#00366b',
           900: '#002243',
-          softActiveBg: PRIMARY_COLOR, // Estado activo en botones y otros
+          softActiveBg: PRIMARY_COLOR,
         },
         background: {
           body: BACKGROUND_COLOR,
         },
         text: {
           primary: WHITE_COLOR,
-        },
-        gradient: {
-          main: 'linear-gradient(45deg, #0071E3, #FFFFFF)', // Definimos el degradado aquí
         },
       },
     },
@@ -96,8 +94,15 @@ const theme = extendTheme({
         text: {
           primary: WHITE_COLOR,
         },
-        gradient: {
-          main: 'linear-gradient(45deg, #0071E3, #FFFFFF)', // También en dark mode
+      },
+    },
+  },
+  // Agregamos el degradado de forma global
+  components: {
+    JoyButton: {
+      styleOverrides: {
+        root: {
+          background: GRADIENT,
         },
       },
     },
