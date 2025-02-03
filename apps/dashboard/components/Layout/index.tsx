@@ -249,7 +249,7 @@ export default function Layout(props: Props) {
     return [
       {
         label: 'Documentation',
-        route: 'https://dev.braviloai.com/',
+        route: 'https://docs.chaindesk.ai/',
         icon: <ApiRoundedIcon style={{ fontSize: '18px' }} />,
         target: 'blank',
         isExperimental: false,
@@ -257,7 +257,7 @@ export default function Layout(props: Props) {
       },
       // {
       //   label: 'Help Center',
-      //   route: 'https://dev.braviloai.com/help',
+      //   route: 'https://chaindesk.ai/help',
       //   icon: <HelpRoundedIcon fontSize="small" />,
       //   target: 'blank',
       //   isExperimental: false,
@@ -271,7 +271,7 @@ export default function Layout(props: Props) {
 
   const SystemStatusIndicator = getStatusQuery?.data?.status ? (
     <Link
-      href={'#'}
+      href={'https://status.chaindesk.ai/'}
       target={'_blank'}
       className={!open ? 'fixed bottom-2' : ''}
     >
@@ -307,7 +307,7 @@ export default function Layout(props: Props) {
               }),
             }}
           />
-          {open && <Typography level="body-sm"> </Typography>}
+          {open && <Typography level="body-sm">system status</Typography>}
         </Stack>
       </Chip>
     </Link>
@@ -319,8 +319,8 @@ export default function Layout(props: Props) {
     if (typeof window !== 'undefined') {
       if (
         window.location.hostname === 'dev.braviloai.com' ||
-        window.location.hostname === 'dev.braviloai.com' ||
-        window.location.hostname === 'dev.braviloai.com'
+        window.location.hostname === 'www.braviloai.com' ||
+        window.location.hostname === 'braviloai.com'
       ) {
         window.location.href =
           'https://dev.braviloai.com' + window.location.pathname;
@@ -351,7 +351,7 @@ export default function Layout(props: Props) {
   return (
     <>
       <SEO
-        title="Dashboard | Bravilo AI HR By Jobly."
+        title="Dashboard | Bravillo."
         description="Build your own ChatGPT Chat Bot for your business."
         baseUrl={appUrl}
         uri={router.pathname}
@@ -408,7 +408,7 @@ export default function Layout(props: Props) {
           
           Chaindesk has transformed the way we handle customer queries with its next-gen AI native solution. Definitely a game-changer!
           
-          Find out more: https://www.dev.braviloai.com`)}`}
+          Find out more: https://www.chaindesk.ai`)}`}
               >
                 <Button
                   color="neutral"
@@ -421,7 +421,7 @@ export default function Layout(props: Props) {
               </a>
               <a
                 target="_blank"
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.dev.braviloai.com`}
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://www.chaindesk.ai`}
                 className="w-full"
               >
                 <Button
