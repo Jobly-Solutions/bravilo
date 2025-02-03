@@ -70,6 +70,9 @@ const theme = extendTheme({
         text: {
           primary: WHITE_COLOR,
         },
+        gradient: {
+          main: 'linear-gradient(45deg, #0071E3, #FFFFFF)', // Definimos el degradado aquí
+        },
       },
     },
     dark: {
@@ -93,11 +96,11 @@ const theme = extendTheme({
         text: {
           primary: WHITE_COLOR,
         },
+        gradient: {
+          main: 'linear-gradient(45deg, #0071E3, #FFFFFF)', // También en dark mode
+        },
       },
     },
-  },
-  vars: {
-    gradient: 'linear-gradient(45deg, #0071E3, #FFFFFF)', // Define el degradado aquí
   },
   fontFamily: {
     body: inter.style.fontFamily,
