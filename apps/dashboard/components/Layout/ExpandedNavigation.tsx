@@ -227,7 +227,7 @@ export default function ExpandedNavigation({
 
             {status && (
               <Link
-                href={'https://status.braviloai.com/'}
+                href={'#'}
                 target={'_blank'}
                 className={!open ? 'fixed bottom-2' : ''}
               >
@@ -243,7 +243,7 @@ export default function ExpandedNavigation({
                   }
                   variant="soft"
                   sx={{ cursor: 'pointer' }}
-                  endDecorator={<ArrowForwardRoundedIcon />}
+                  
                 >
                   <Stack direction="row" alignItems={'center'} gap={1}>
                     <Box
