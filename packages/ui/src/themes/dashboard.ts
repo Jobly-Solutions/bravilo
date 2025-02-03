@@ -77,7 +77,7 @@ const muiTheme = extendMuiTheme({
   },
 });
 
-export const THEME_PREFIX = 'braviloaibyJobly-dashboard';
+export const THEME_PREFIX = 'chaindesk';
 
 export const themeKeys = createThemeKeys(THEME_PREFIX);
 
