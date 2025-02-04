@@ -157,7 +157,7 @@ export default function SignInPage() {
                       onSubmit={handleSubmit(handleSubmitEmail)}
                     >
                       <Input
-                        label="Email address"
+                        label="Email"
                         control={control as any}
                         size="lg"
                         {...register('email')}
@@ -171,7 +171,7 @@ export default function SignInPage() {
                         size="lg"
                         loading={isLoading}
                       >
-                        Sign in
+                       Iniciar Sesión
                       </Button>
                     </form>
                   </div>
@@ -189,7 +189,7 @@ export default function SignInPage() {
                           className="px-2"
                           sx={{ backgroundColor: 'background.surface' }}
                         >
-                          Or continue with
+                          O continuar con
                         </Typography>
                       </div>
                     </div>
@@ -225,10 +225,10 @@ export default function SignInPage() {
                           },
                         }}
                       >
-                        Sign in with Google
+                        Iniciar Sesión con Google
                       </Button>
 
-                      <Button
+                     {/* <Button
                         size="lg"
                         onClick={() => signIn('github')}
                         // className="bg-white"
@@ -241,7 +241,7 @@ export default function SignInPage() {
                         }}
                       >
                         <GitHubIcon />
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
                 </div>
