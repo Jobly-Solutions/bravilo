@@ -110,6 +110,33 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
       data.isUpdateText ? await loader.loadText() : await loader.load()
     )!;
   } catch (err) {
+    if (err instanceof ApiError) {
+      if (err.name === ApiErrorType.WEBPAGE_IS_SITEMAP) {
+        // WebPage is a sitemap re-run as a sitemap
+        await prisma.appDatasource.update({
+          where: {
+            id: datasource.id,
+          },
+          data: {
+            type: DatasourceType.web_site,
+            status: DatasourceStatus.unsynched,
+            config: {
+              ...(datasource.config as any),
+              sitemap: (datasource?.config as any)?.source_url,
+            },
+          },
+        });
+
+        await triggerTaskLoadDatasource([
+          {
+            organizationId: datasource.organizationId!,
+            datasourceId: datasource.id,
+            priority: 2,
+          },
+        ]);
+        return;
+      }
+    }
     throw err;
   }
 
@@ -137,12 +164,45 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
   ).uploadDatasourceDocs(datasource.id, documents);
 
   const text = chunks?.map((each) => each.pageContent)?.join('');
-  const fileExtension = datasource.type === DatasourceType.text ? 'txt' : 'json';
-  const fileName = `datastores/${datasource.datastore?.id}/${datasource.id}/${datasource.id}.${fileExtension}`;
+  const textSize = text?.length || 0;
+  const nbTokens = countTokens({ text });
 
+  logger.info(`${data.datasourceId}: loading finished`);
+
+  const updated = await prisma.appDatasource.update({
+    where: {
+      id: datasource.id,
+    },
+    data: {
+      nbTokens: nbTokens,
+      nbChunks: chunks.length,
+      textSize: textSize,
+      status: DatasourceStatus.synched,
+      lastSynch: new Date(),
+      nbSynch: datasource?.nbSynch! + 1,
+      hash,
+      // Update usage
+      organization: {
+        update: {
+          usage: {
+            update: {
+              nbDataProcessingBytes:
+                (datasource?.organization?.usage?.nbDataProcessingBytes || 0) +
+                new TextEncoder().encode(text).length,
+            },
+          },
+        },
+      },
+    },
+    include: {
+      datastore: true,
+    },
+  });
+
+  // Add to S3
   const params = {
     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-    Key: fileName,
+    Key: `datastores/${datasource.datastore?.id}/${datasource.id}/data.json`,
     Body: Buffer.from(
       JSON.stringify({
         hash,
@@ -150,7 +210,7 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
       })
     ),
     CacheControl: 'no-cache',
-    ContentType: fileExtension === 'txt' ? 'text/plain' : 'application/json',
+    ContentType: 'application/json',
   };
 
   await s3.putObject(params).promise();
@@ -160,4 +220,4 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
   logger.info(`${data.datasourceId}: datasource runned successfully`);
 };
 
-export default taskLoadDatasource;  
+export default taskLoadDatasource;

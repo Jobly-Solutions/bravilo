@@ -52,15 +52,12 @@ const DatasourceText = (props: {
 }) => {
   const methods = useFormContext();
 
-  // Determinar la extensión del archivo en función del tipo de datasource
-  const fileExtension = props.datasourceId && props.datastoreId
-    ? props.datasourceId.endsWith('.txt') ? 'txt' : 'json'
-    : 'json';
-
-  const filePath = `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${props?.datasourceId}.${fileExtension}`;
-
   const query = useSWR(
-    props?.datasourceId ? filePath : null,
+    props?.datasourceId
+      ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${
+          props?.datasourceId
+        }/data.json`
+      : null,
     fetcher
   );
 
@@ -139,26 +136,48 @@ export default function BaseForm(props: Props) {
         payload.type === DatasourceType.text ||
         payload.type === DatasourceType.file
       ) {
-        let mime_type = 'application/json';
-        let fileName = `${payload.id}/${payload.id}.${datasourceText ? 'txt' : 'json'}`;
-        let file = new File([datasourceText!], fileName, { type: mime_type });
+        let mime_type = '';
+        let fileName = '';
+        let file = undefined as File | undefined;
 
-        const uploadLinkRes = await axios.post(
-          `/api/datastores/${props.defaultValues?.datastoreId}/generate-upload-link`,
-          {
-            fileName,
-            type: mime_type,
-          } as GenerateUploadLinkRequest
-        );
+        if (datasourceText || payload.type === DatasourceType.text) {
+          mime_type = 'text/plain';
+          fileName = `${payload.id}/${payload.id}.txt`;
+          file = new File([datasourceText!], fileName, { type: mime_type });
 
-        await axios.put(uploadLinkRes.data, file, {
-          headers: {
-            'Content-Type': mime_type,
-          },
-        });
+          // Treat text as file
+          payload['type'] = DatasourceType.file;
+          payload['config'] = {
+            ...values.config,
+            fileSize: file.size,
+            mime_type,
+          };
+        } else if ((values as any).file.type) {
+          mime_type = (values as any).file.type as string;
+          fileName = `${payload.id}/${payload.id}.${mime.extension(mime_type)}`;
+          file = (values as any)?.file as File;
+        }
+
+        if (file) {
+          // upload text from file to AWS
+          const uploadLinkRes = await axios.post(
+            `/api/datastores/${props.defaultValues?.datastoreId}/generate-upload-link`,
+            {
+              fileName,
+              type: mime_type,
+            } as GenerateUploadLinkRequest
+          );
+
+          await axios.put(uploadLinkRes.data, file, {
+            headers: {
+              'Content-Type': mime_type,
+            },
+          });
+        }
       }
 
       const datasource = await upsertDatasourceMutation.trigger(payload as any);
+
       props?.onSubmitSuccess?.(datasource!);
     } catch (err) {
       console.log('error', err);
@@ -169,10 +188,13 @@ export default function BaseForm(props: Props) {
 
   const onSubmitWrapper = (e: any) => {
     e.stopPropagation();
+
     handleSubmit(onSubmit)(e);
   };
 
   const networkError = upsertDatasourceMutation.error?.message;
+
+  console.log('validation errors', methods.formState.errors);
 
   return (
     <FormProvider {...methods}>
@@ -181,14 +203,31 @@ export default function BaseForm(props: Props) {
         onSubmit={onSubmitWrapper}
       >
         {networkError && <Alert color="danger">{networkError}</Alert>}
+
         <Input
           label="Name (optional)"
           control={control as any}
           hidden={props.hideName}
           {...register('name')}
         />
+
+        {props?.defaultValues?.type &&
+          [DatasourceType.file, DatasourceType.text].includes(
+            props.defaultValues.type as any
+          ) && (
+            <Input
+              label="Source URL (optional)"
+              control={control as any}
+              placeholder="https://en.wikipedia.org/wiki/Nuclear_fusion"
+              helperText='The URL to use for the "sources" section of an Agent answer'
+              {...register('config.source_url')}
+            />
+          )}
+
         {props.children}
+
         <DatasourceTagsInput />
+
         {!props.hideText && defaultValues?.datastoreId && defaultValues?.id && (
           <details>
             <summary>Extracted Text</summary>
@@ -202,16 +241,24 @@ export default function BaseForm(props: Props) {
             />
           </details>
         )}
-        <Button
-          type="submit"
-          variant="soft"
-          color="primary"
-          loading={isLoading || upsertDatasourceMutation.isMutating}
-          disabled={!isDirty || !isValid}
-          {...props.submitButtonProps}
-        >
-          {props.submitButtonText || 'Submit'}
-        </Button>
+
+        {props?.customSubmitButton ? (
+          React.createElement(props.customSubmitButton, {
+            isLoading: isLoading || upsertDatasourceMutation.isMutating,
+            disabled: !isDirty || !isValid,
+          })
+        ) : (
+          <Button
+            type="submit"
+            variant="soft"
+            color="primary"
+            loading={isLoading || upsertDatasourceMutation.isMutating}
+            disabled={!isDirty || !isValid}
+            {...props.submitButtonProps}
+          >
+            {props.submitButtonText || 'Submit'}
+          </Button>
+        )}
       </form>
     </FormProvider>
   );
