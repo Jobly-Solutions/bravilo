@@ -107,7 +107,7 @@ export default function Layout(props: Props) {
 
   const appLinks = React.useMemo(() => {
     return [
-      ...(product === 'BraviloAI'
+      ...(product === 'chaindesk'
         ? [
             {
               label: 'Inbox',
