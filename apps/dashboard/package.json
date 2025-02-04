@@ -1,6 +1,6 @@
 {
-  "name": "dashboard",
-  "version": "0.1.21",
+  "name": "braviloai-dashboard",
+  "version": "1.0",
   "private": true,
   "scripts": {
     "_dev": "NODE_OPTIONS=\"--max_old_space_size=8192\" npm run dotenv -- next dev | pino-pretty --colorize",
