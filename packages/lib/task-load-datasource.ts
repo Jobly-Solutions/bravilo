@@ -215,21 +215,21 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
   logger.info(`📂 Mime Type detectado: ${(datasource.config as any)?.mime_type}`);
   logger.info(`📌 Extensión final: .${fileExtension}`);
 
-  const fileName = `datastores/${datasource.datastore?.id}/${datasource.id}/${datasource.id}.${fileExtension}`;
+  const fileName = `${datasource.id}.json`;
 
-  // **🔹 Subir el archivo a S3 con la extensión correcta**
-  const params = {
-    Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-    Key: fileName,
-    Body: Buffer.from(
-      JSON.stringify({
-        hash,
-        text,
-      })
-    ),
-    CacheControl: 'no-cache',
-    ContentType: mime.lookup(fileExtension) || 'application/octet-stream',
-  };
+const params = {
+  Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
+  Key: `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`,
+  Body: Buffer.from(
+    JSON.stringify({
+      hash,
+      text,
+    })
+  ),
+  CacheControl: 'no-cache',
+  ContentType: 'application/json',
+};
+
 
   await s3.putObject(params).promise();
 

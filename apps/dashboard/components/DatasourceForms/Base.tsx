@@ -61,7 +61,13 @@ const DatasourceText = (props: {
 
   const filePath = `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${props?.datasourceId}.${fileExtension}`;
 
-  const query = useSWR(props?.datasourceId ? filePath : null, fetcher);
+  const query = useSWR(
+    props?.datasourceId
+      ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${props?.datasourceId}.json`
+      : null,
+    fetcher
+  );
+  
 
   useEffect(() => {
     if (query.data?.text) {
