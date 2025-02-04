@@ -92,7 +92,7 @@ declare module '@mui/joy/styles' {
   }
 }
 
-export const createThemeKeys = (prefix: string = 'chaindesk') => ({
+export const createThemeKeys = (prefix: string = 'braviloai') => ({
   modeStorageKey: prefix,
   colorSchemeStorageKey: `${prefix}-color-scheme`,
   attribute: `data-${prefix}`,

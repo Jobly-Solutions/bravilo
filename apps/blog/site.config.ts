@@ -9,7 +9,7 @@ export default siteConfig({
   rootNotionSpaceId: null,
 
   // basic site info (required)
-  name: 'Chaindesk | Blog',
+  name: 'BraviloAI | Blog',
   domain: 'www.braviloai.com/blog',
   author: 'Georges Petrov',
 
@@ -19,8 +19,8 @@ export default siteConfig({
   // social usernames (optional)
   twitter: 'braviloai.com',
   // github: 'transitive-bullshit',
-  linkedin: 'company/chaindesk',
-  discord: 'https://discord.gg/FSWKj49ckX',
+  linkedin: 'company/bravilo-ai',
+  discord: '#',
   // mastodon: '#', // optional mastodon profile URL, provides link verification
   // newsletter: '#', // optional newsletter URL
   // youtube: '#', // optional youtube channel name or `channel/UCGbXXXXXXXXXXXXXXXXXXXXXX`

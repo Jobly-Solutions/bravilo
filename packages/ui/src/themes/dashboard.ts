@@ -77,7 +77,7 @@ const muiTheme = extendMuiTheme({
   },
 });
 
-export const THEME_PREFIX = 'chaindesk';
+export const THEME_PREFIX = 'braviloAI';
 
 export const themeKeys = createThemeKeys(THEME_PREFIX);
 

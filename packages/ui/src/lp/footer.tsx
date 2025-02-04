@@ -31,14 +31,14 @@ export default function Footer() {
               </a>
             </div>
             <div className="text-sm text-zinc-500">
-              &copy; Chaindesk All rights reserved.
+              &copy; BraviloAI HR By Jobly All rights reserved.
             </div>
             {/* Social links */}
             <ul className="flex mt-4 mb-1 space-x-4">
               <li>
                 <a
                   className="flex items-center justify-center transition text-zinc-700 hover:text-zinc-900 dark:hover:text-zinc-400 dark:text-zinc-300 dark:hover:text-zinc-100"
-                  href="https://twitter.com/@braviloai.com"
+                  href="https://twitter.com/@braviloai"
                   aria-label="Twitter"
                   target="_blank"
                 >

@@ -31,7 +31,7 @@ describe('Datasources - Create', () => {
     try {
       const result = await testHttp.post('/api/datasources', {
         datastoreId: process.env.TEST_DATASTORE_ID,
-        name: 'Chaindesk Landingpage',
+        name: 'BraviloAI Landingpage',
         type: 'web_page',
         config: {
           source_url: 'https://www.braviloai.com/',

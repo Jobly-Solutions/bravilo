@@ -7,7 +7,7 @@ module.exports = withBundleAnalyzer({
   basePath: '/blog',
   assetPrefix:
     process.env.NODE_ENV === 'production'
-      ? 'https://chaindesk-blog.vercel.app/blog'
+      ? 'https://www.wearejobly.com/blog'
       : undefined,
   transpilePackages: ['@chaindesk/lib', '@chaindesk/ui'],
   images: {
@@ -22,7 +22,7 @@ module.exports = withBundleAnalyzer({
       'transitivebullsh.it',
       'braviloai.com',
       'www.braviloai.com',
-      'chaindesk-blog.vercel.app',
+      'www.wearejobly.com/blog',
     ],
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
