@@ -16,7 +16,7 @@ export function Logo(props) {
         src="/logo.png"
         alt=""
       />
-      <span className="text-xl">Chaindesk</span>
+      <span className="text-xl">BraviloAI</span>
       {/* <Image width="80" height="100" className={clsx(props.className)} src="/app-logo-dark-chatgpt.png" alt="" /> */}
     </div>
   );
