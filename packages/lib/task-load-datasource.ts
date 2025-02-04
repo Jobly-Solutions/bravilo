@@ -19,6 +19,7 @@ import { DatasourceLoader } from './loaders';
 import logger from './logger';
 import refreshStoredTokensUsage from './refresh-stored-tokens-usage';
 import triggerTaskLoadDatasource from './trigger-task-load-datasource';
+import mime from 'mime-types';
 
 export type DatasourceExtended<T extends {} = DatasourceSchema> =
   Prisma.AppDatasourceGetPayload<typeof updateDatasourceArgs> & T;
@@ -98,7 +99,7 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
     });
 
     logger.info(
-      `${datasource?.id}: datasource group of type ${datasource?.type} runned successfully`
+      `${datasource?.id}: datasource group of type ${datasource?.type} run successfully`
     );
 
     return;
@@ -199,10 +200,19 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
     },
   });
 
-  // Add to S3
+  // Obtener la extensión del archivo basada en el tipo de datasource
+  const fileExtension = datasource.type === DatasourceType.text
+    ? 'txt'
+    : datasource.type === DatasourceType.file && (datasource.config as any)?.mime_type
+    ? mime.extension((datasource.config as any).mime_type)
+    : 'json';
+
+  const fileName = `datastores/${datasource.datastore?.id}/${datasource.id}/${datasource.id}.${fileExtension}`;
+
+  // Subir el archivo correcto a S3
   const params = {
     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-    Key: `datastores/${datasource.datastore?.id}/${datasource.id}/data.json`,
+    Key: fileName,
     Body: Buffer.from(
       JSON.stringify({
         hash,
@@ -210,14 +220,14 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
       })
     ),
     CacheControl: 'no-cache',
-    ContentType: 'application/json',
+    ContentType: mime.lookup(fileExtension) || 'application/octet-stream',
   };
 
   await s3.putObject(params).promise();
 
   await refreshStoredTokensUsage(datasource.organizationId!);
 
-  logger.info(`${data.datasourceId}: datasource runned successfully`);
+  logger.info(`${data.datasourceId}: datasource run successfully`);
 };
 
 export default taskLoadDatasource;

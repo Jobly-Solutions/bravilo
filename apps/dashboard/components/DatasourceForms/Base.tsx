@@ -52,14 +52,16 @@ const DatasourceText = (props: {
 }) => {
   const methods = useFormContext();
 
-  const query = useSWR(
-    props?.datasourceId
-      ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${
-          props?.datasourceId
-        }/data.json`
-      : null,
-    fetcher
-  );
+  // Obtener el tipo de archivo correcto
+  const fileExtension = props.datasourceId?.endsWith('.csv')
+    ? 'csv'
+    : props.datasourceId?.endsWith('.txt')
+    ? 'txt'
+    : 'json';
+
+  const filePath = `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${props?.datasourceId}.${fileExtension}`;
+
+  const query = useSWR(props?.datasourceId ? filePath : null, fetcher);
 
   useEffect(() => {
     if (query.data?.text) {
