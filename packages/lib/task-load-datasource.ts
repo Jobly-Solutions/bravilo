@@ -19,7 +19,6 @@ import { DatasourceLoader } from './loaders';
 import logger from './logger';
 import refreshStoredTokensUsage from './refresh-stored-tokens-usage';
 import triggerTaskLoadDatasource from './trigger-task-load-datasource';
-import mime from 'mime-types';
 
 export type DatasourceExtended<T extends {} = DatasourceSchema> =
   Prisma.AppDatasourceGetPayload<typeof updateDatasourceArgs> & T;
@@ -99,7 +98,7 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
     });
 
     logger.info(
-      `${datasource?.id}: datasource group of type ${datasource?.type} run successfully`
+      `${datasource?.id}: datasource group of type ${datasource?.type} runned successfully`
     );
 
     return;
@@ -200,42 +199,25 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
     },
   });
 
-  // **🔹 FORZAR QUE SE GUARDE CON LA EXTENSIÓN CORRECTA**
-  let fileExtension = 'json'; // Valor por defecto
-
-  if (datasource.type === DatasourceType.file) {
-    const mimeType = (datasource.config as any)?.mime_type;
-    const detectedExtension = mimeType ? mime.extension(mimeType) : null;
-    if (detectedExtension) {
-      fileExtension = detectedExtension;
-    }
-  }
-
-  logger.info(`🔍 Archivo original: ${datasource.id}`);
-  logger.info(`📂 Mime Type detectado: ${(datasource.config as any)?.mime_type}`);
-  logger.info(`📌 Extensión final: .${fileExtension}`);
-
-  const fileName = `${datasource.id}.json`;
-
-const params = {
-  Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-  Key: `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`,
-  Body: Buffer.from(
-    JSON.stringify({
-      hash,
-      text,
-    })
-  ),
-  CacheControl: 'no-cache',
-  ContentType: 'application/json',
-};
-
+  // Add to S3
+  const params = {
+    Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
+    Key: `datastores/${datasource.datastore?.id}/${datasource.id}/data.json`,
+    Body: Buffer.from(
+      JSON.stringify({
+        hash,
+        text,
+      })
+    ),
+    CacheControl: 'no-cache',
+    ContentType: 'application/json',
+  };
 
   await s3.putObject(params).promise();
 
   await refreshStoredTokensUsage(datasource.organizationId!);
 
-  logger.info(`✅ ${data.datasourceId}: archivo subido con nombre ${fileName}`);
+  logger.info(`${data.datasourceId}: datasource runned successfully`);
 };
 
 export default taskLoadDatasource;
