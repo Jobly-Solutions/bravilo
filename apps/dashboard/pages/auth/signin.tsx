@@ -87,7 +87,7 @@ export default function SignInPage() {
     <>
       <SEO
         title="Sign-in"
-        description="Sign-in to your Chaindesk account."
+        description="Sign-in to your Bravilo account."
         baseUrl={appUrl}
         uri={RouteNames.SIGN_IN}
       />
@@ -135,7 +135,7 @@ export default function SignInPage() {
                           <Logo className="cursor-pointer w-14" />
                         </div>
                         <Typography level="h4" fontWeight="xl">
-                          {`Chaindesk`}
+                          {`Bravilo AI`}
                         </Typography>
                       </div>
                     </a>
