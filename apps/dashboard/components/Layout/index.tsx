@@ -107,7 +107,7 @@ export default function Layout(props: Props) {
 
   const appLinks = React.useMemo(() => {
     return [
-      ...(product === 'chaindesk'
+      ...(product === 'BraviloAI'
         ? [
             {
               label: 'Inbox',
@@ -249,7 +249,7 @@ export default function Layout(props: Props) {
     return [
       {
         label: 'Developers',
-        route: 'https://docs.chaindesk.ai/',
+        route: 'https://docs.braviloai.com/',
         icon: <ApiRoundedIcon style={{ fontSize: '18px' }} />,
         target: 'blank',
         isExperimental: false,
@@ -271,7 +271,7 @@ export default function Layout(props: Props) {
 
   const SystemStatusIndicator = getStatusQuery?.data?.status ? (
     <Link
-      href={'https://status.chaindesk.ai/'}
+      href={'https://status.braviloai.com/'}
       target={'_blank'}
       className={!open ? 'fixed bottom-2' : ''}
     >

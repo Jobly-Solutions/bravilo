@@ -59,7 +59,7 @@ function SettingsLayout(props: Props) {
               color="neutral"
               className="hover:underline"
             >
-              Settings
+              Ajustes
             </Typography>
           </Link>
         </Breadcrumbs>
@@ -128,7 +128,7 @@ function SettingsLayout(props: Props) {
                   {/* <ListItemDecorator>
                       <MessageRoundedIcon />
                     </ListItemDecorator> */}
-                  Profile
+                  Perfil
                 </Tab>
               </Link>
 
@@ -146,7 +146,7 @@ function SettingsLayout(props: Props) {
                   {/* <ListItemDecorator>
                       <RocketLaunchRoundedIcon />
                     </ListItemDecorator> */}
-                  Billing
+                  Suscripción
                 </Tab>
               </Link>
 
