@@ -200,18 +200,20 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
     },
   });
 
-  // **🔹 FIX: Obtener la extensión correcta del archivo**
+  // **🔹 FORZAR QUE SE GUARDE CON LA EXTENSIÓN CORRECTA**
   let fileExtension = 'json'; // Valor por defecto
 
-  if (datasource.type === DatasourceType.text) {
-    fileExtension = 'txt';
-  } else if (datasource.type === DatasourceType.file) {
+  if (datasource.type === DatasourceType.file) {
     const mimeType = (datasource.config as any)?.mime_type;
     const detectedExtension = mimeType ? mime.extension(mimeType) : null;
     if (detectedExtension) {
       fileExtension = detectedExtension;
     }
   }
+
+  logger.info(`🔍 Archivo original: ${datasource.id}`);
+  logger.info(`📂 Mime Type detectado: ${(datasource.config as any)?.mime_type}`);
+  logger.info(`📌 Extensión final: .${fileExtension}`);
 
   const fileName = `datastores/${datasource.datastore?.id}/${datasource.id}/${datasource.id}.${fileExtension}`;
 
@@ -233,7 +235,7 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
 
   await refreshStoredTokensUsage(datasource.organizationId!);
 
-  logger.info(`${data.datasourceId}: datasource run successfully with file ${fileName}`);
+  logger.info(`✅ ${data.datasourceId}: archivo subido con nombre ${fileName}`);
 };
 
 export default taskLoadDatasource;
