@@ -69,7 +69,7 @@ export default async function YoutubeVideoSummarizer() {
       url: process.env.NEXT_PUBLIC_LANDING_PAGE_URL,
       logo: `${process.env.NEXT_PUBLIC_LANDING_PAGE_URL}/logo.png`,
       foundingDate: '2023',
-      founders: [{ '@type': 'Organization', name: 'Chaindesk' }],
+      founders: [{ '@type': 'Organization', name: 'BraviloAI' }],
       address: {
         '@type': 'PostalAddress',
         streetAddress: "65 rue de l'Ourcq",
