@@ -64,8 +64,8 @@ export default async function YoutubeVideoSummarizer() {
     publisher: {
       '@context': process.env.NEXT_PUBLIC_LANDING_PAGE_URL,
       '@type': 'Organization',
-      name: 'Chaindesk',
-      legalName: 'Chaindesk',
+      name: 'BraviloAI',
+      legalName: 'BraviloAI',
       url: process.env.NEXT_PUBLIC_LANDING_PAGE_URL,
       logo: `${process.env.NEXT_PUBLIC_LANDING_PAGE_URL}/logo.png`,
       foundingDate: '2023',
