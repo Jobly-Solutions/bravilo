@@ -200,16 +200,22 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
     },
   });
 
-  // Obtener la extensión del archivo basada en el tipo de datasource
-  const fileExtension = datasource.type === DatasourceType.text
-    ? 'txt'
-    : datasource.type === DatasourceType.file && (datasource.config as any)?.mime_type
-    ? mime.extension((datasource.config as any).mime_type)
-    : 'json';
+  // **🔹 FIX: Obtener la extensión correcta del archivo**
+  let fileExtension = 'json'; // Valor por defecto
+
+  if (datasource.type === DatasourceType.text) {
+    fileExtension = 'txt';
+  } else if (datasource.type === DatasourceType.file) {
+    const mimeType = (datasource.config as any)?.mime_type;
+    const detectedExtension = mimeType ? mime.extension(mimeType) : null;
+    if (detectedExtension) {
+      fileExtension = detectedExtension;
+    }
+  }
 
   const fileName = `datastores/${datasource.datastore?.id}/${datasource.id}/${datasource.id}.${fileExtension}`;
 
-  // Subir el archivo correcto a S3
+  // **🔹 Subir el archivo a S3 con la extensión correcta**
   const params = {
     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
     Key: fileName,
@@ -227,7 +233,7 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
 
   await refreshStoredTokensUsage(datasource.organizationId!);
 
-  logger.info(`${data.datasourceId}: datasource run successfully`);
+  logger.info(`${data.datasourceId}: datasource run successfully with file ${fileName}`);
 };
 
 export default taskLoadDatasource;
