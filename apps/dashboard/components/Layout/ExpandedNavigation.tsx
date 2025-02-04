@@ -134,7 +134,7 @@ export default function ExpandedNavigation({
           >
             <Stack direction="row" alignItems="center" gap={1.5}>
               <div className="relative w-5 h-5 mt-[0.5px] flex justify-center ">
-                <Image layout="fill" src="/logo.png" alt="Chaindesk" />
+                <Image layout="fill" src="/logo.png" alt="BraviloAI" />
               </div>
               <Typography level="title-md">Bravilo AI HR</Typography>
             </Stack>

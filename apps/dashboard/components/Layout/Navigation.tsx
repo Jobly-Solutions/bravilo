@@ -136,7 +136,7 @@ export default function Navigation({
               bgcolor="background.surface"
             >
               <div className="relative w-6 h-6">
-                <Image layout="fill" src="/logo.png" alt="Chaindesk" />
+                <Image layout="fill" src="/logo.png" alt="BraviloAI" />
               </div>
               {[...appLinks, ...settingLinks, ...docLinks].map((link, i) => (
                 <Tooltip

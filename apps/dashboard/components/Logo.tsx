@@ -15,7 +15,7 @@ const Logo = forwardRef<HTMLImageElement, Props>(
         width="200"
         height="200"
         className={clsx('w-5 h-auto', className)}
-        alt="Chaindesk"
+        alt="BraviloAI"
       />
     );
   }
