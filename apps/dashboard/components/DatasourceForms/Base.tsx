@@ -56,22 +56,22 @@ const DatasourceText = (props: {
     props?.datasourceId ? `/api/datasources/${props?.datasourceId}` : null,
     fetcher
   );
+  
+const fileName = `${props?.datasourceId}.json`; // Siempre busca JSON
 
-  // Si existe un archivo, obtener la extensión correcta
-  const fileExtension = datasource?.fileName?.split('.').pop() || 'json';
-  const fileName = `${props?.datasourceId}.${fileExtension}`;
+console.log("📌 Archivo esperado desde API:", fileName);
 
-  console.log("📌 Archivo esperado desde API:", fileName);
+const query = useSWR(
+  props?.datasourceId
+    ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${fileName}`
+    : null,
+  fetcher
+);
 
-  const query = useSWR(
-    fileName
-      ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${fileName}`
-      : null,
-    fetcher
-  );
 
+  
   console.log("🛠 URL generada para acceder a S3:", query);
-
+  
   useEffect(() => {
     if (query.data?.text) {
       methods.reset({
@@ -199,6 +199,7 @@ export default function BaseForm(props: Props) {
 
   const onSubmitWrapper = (e: any) => {
     e.stopPropagation();
+
     handleSubmit(onSubmit)(e);
   };
 
@@ -221,18 +222,6 @@ export default function BaseForm(props: Props) {
           {...register('name')}
         />
 
-        <Button
-          variant="outlined"
-          component="label"
-        >
-          Subir Archivo
-          <input
-            type="file"
-            hidden
-            {...register('file')}
-          />
-        </Button>
-
         {props?.defaultValues?.type &&
           [DatasourceType.file, DatasourceType.text].includes(
             props.defaultValues.type as any
@@ -250,15 +239,37 @@ export default function BaseForm(props: Props) {
 
         <DatasourceTagsInput />
 
-        <Button
-          type="submit"
-          variant="soft"
-          color="primary"
-          loading={isLoading || upsertDatasourceMutation.isMutating}
-          disabled={!isDirty || !isValid}
-        >
-          {props.submitButtonText || 'Submit'}
-        </Button>
+        {!props.hideText && defaultValues?.datastoreId && defaultValues?.id && (
+          <details>
+            <summary>Extracted Text</summary>
+            <DatasourceText
+              datastoreId={defaultValues?.datastoreId}
+              datasourceId={defaultValues?.id}
+              disabled={
+                defaultValues.type !== DatasourceType.text &&
+                (defaultValues as any)?.config?.mime_type !== 'text/plain'
+              }
+            />
+          </details>
+        )}
+
+        {props?.customSubmitButton ? (
+          React.createElement(props.customSubmitButton, {
+            isLoading: isLoading || upsertDatasourceMutation.isMutating,
+            disabled: !isDirty || !isValid,
+          })
+        ) : (
+          <Button
+            type="submit"
+            variant="soft"
+            color="primary"
+            loading={isLoading || upsertDatasourceMutation.isMutating}
+            disabled={!isDirty || !isValid}
+            {...props.submitButtonProps}
+          >
+            {props.submitButtonText || 'Submit'}
+          </Button>
+        )}
       </form>
     </FormProvider>
   );
