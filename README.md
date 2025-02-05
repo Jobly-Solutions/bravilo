@@ -1,110 +1,37 @@
-<h1 align="center" style="font-weight: bold">
-  <br>
-  <a href="https://dev.braviloai.com"><img src="apps/dashboard/public/logo.png" alt="BraviloAI" width="42"></a>
-  <br>
-  BraviloAI
-  <br>
-    <h3 align="center">The no-code platform for building custom LLM Agents</h3>
-  <br>
-  
-</h1>
+BraviloAI HR By Jobly
 
-<!-- <h4 align="center">The no-code platform for semantic search and retrieval of personal or organizational documents.</h4> -->
+La potencia de la inteligencia artificial aplicada a recursos humanos
 
-<h2 align="center">
-<img src="apps/dashboard/public/og-image.jpg" alt="BraviloAI" width="1000" style="max-width: 100%;">
-</h2>
+BraviloAI es una plataforma diseñada para equipos de Recursos Humanos, combinando la eficiencia de la inteligencia artificial con herramientas específicas para optimizar el proceso de selección y gestión de talento.
 
-**[BraviloAI](https://dev.braviloai.com)** provides a user-friendly solution to quickly setup a semantic search system over your personal data without any technical knowledge.
+✨ Características principales
 
-### [📄 Documentation](https://docs.braviloai.com/)
+Creación de agentes de AI especializados en HR
 
-### Features
+Entrevistadores: Simula entrevistas con candidatos y evalúa respuestas en tiempo real.
 
-- Load data from anywhere
-  - Raw text
-  - Web page
-  - Files
-  - Word
-  - Excel
-  - Powerpoint
-  - PDF
-  - Markdown
-  - Plain Text
-  - Web Site (coming soon)
-  - Notion (coming soon)
-  - Airtable (coming soon)
-- No-code: User-friendly interface to manage your datastores and chat with your data
-- Securized API endpoint for querying your data
-- Auto sync data sources (coming soon)
-- **Auto generates a ChatGPT Plugin** for each datastore
+Reclutadores: Encuentra y califica candidatos según criterios personalizados.
 
-### Semantic Search Specs
+Chatea con tu base de datos: Accede rápidamente a información relevante sobre candidatos y procesos.
 
-- Vector Database: Qdrant
-- Embeddings: Openai's text-embedding-ada-002
-- Chunk size: 1024 tokens
+Encuentra el talento ideal con AI: Filtra y clasifica postulaciones de manera inteligente.
 
-### Stack
+🔧 Tecnologías utilizadas
 
-- Next.js
-- Joy UI
-- LangchainJS
-- PostgreSQL
-- Prisma
-- Qdrant
+Next.js: Para una experiencia rápida e intuitiva en la web.
 
-Inspired by the [ChatGPT Retrieval Plugin](https://github.com/openai/chatgpt-retrieval-plugin).
+Joy UI: Interfaz moderna y accesible.
 
-### Run the project locally
+LangchainJS: Integración avanzada con modelos de lenguaje.
 
-#### Without docker compose
+PostgreSQL + Prisma: Base de datos robusta y escalable.
 
-Minimum requirements to run the projects locally
+Qdrant: Base de datos vectorial para búsquedas semánticas avanzadas.
 
-- Node.js v18
-- Postgres Database
-- Redis
-- Qdrant
-- GitHub App (NextAuth)
-- Email Provider (NextAuth)
-- OpenAI API Key
-- AWS S3 Credentials
+AWS S3: Almacenamiento seguro y flexible.
 
-<!-- ```bash
-# Create .env.local
-cp .env.example .env.local
+🌐 Acceso
 
-# Install dependencies
-pnpm install
+Explora BraviloAI en dev.braviloai.com y descubre cómo la inteligencia artificial puede transformar la gestión de talento en tu empresa.
 
-# Generate DB tables
-pnpm prisma:migrate:dev
-
-# Run server
-pnpm dev
-
-# Run worker process
-pnpm worker:datasource-loader
-
-# or pnpm dev:all
-``` -->
-
-<!-- #### With docker compose -->
-
-<!-- First `cd .dev/databerry` then populate the config files `app.env` and `docker.env` as needed, then run the compose command: -->
-
-### Run locally (Docker required)
-
-```shell
-cp .env.example .env.local
-# Add your own OPENAI_API_KEY
-
-pnpm dev
-
-# pupeteer browser local
-brew install chromium --no-quarantine
-
-# Dev emails inbox (maildev)
-# visit http://localhost:1080
-```
+BraviloAI HR By Jobly: Revolucionando la selección de talento con AI.
