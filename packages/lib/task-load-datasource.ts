@@ -113,7 +113,6 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
   } catch (err) {
     if (err instanceof ApiError) {
       if (err.name === ApiErrorType.WEBPAGE_IS_SITEMAP) {
-        // WebPage is a sitemap re-run as a sitemap
         await prisma.appDatasource.update({
           where: {
             id: datasource.id,
@@ -180,10 +179,10 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
     }
   }
 
-  const fileExtension = mime.extension(datasource.config.mime_type) || 'json';
-const fileName = `${datasource.id}.${fileExtension}`;
+  // Generar el nombre del archivo con la extensión correcta
+  const fileName = `${datasource.id}.${fileExtension}`;
 
-const params = {
+  const params = {
     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
     Key: `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`,
     Body: Buffer.from(
@@ -194,19 +193,19 @@ const params = {
     ),
     CacheControl: 'no-cache',
     ContentType: 'application/json',
-};
+  };
 
-// Subir a S3
-await s3.putObject(params).promise();
+  // Subir a S3
+  await s3.putObject(params).promise();
 
-// Guardar el nombre del archivo en la BD
-await prisma.appDatasource.update({
-  where: { id: datasource.id },
-  data: { 
-    status: DatasourceStatus.synched,
-    fileName, // Guarda el nombre real del archivo
-  },
-});
+  // Guardar el nombre del archivo en la BD
+  await prisma.appDatasource.update({
+    where: { id: datasource.id },
+    data: { 
+      status: DatasourceStatus.synched,
+      fileName, // Guarda el nombre real del archivo
+    },
+  });
 
   console.log("✅ Archivo guardado en la BD:", fileName);
 
