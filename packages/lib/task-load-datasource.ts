@@ -179,26 +179,22 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
     }
   }
 
-  // Generar el nombre del archivo con la extensión correcta
+  // **Generar el nombre del archivo con la extensión original**
   const fileName = `${datasource.id}.${fileExtension}`;
 
+  // **Configurar los parámetros para S3**
   const params = {
     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
     Key: `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`,
-    Body: Buffer.from(
-      JSON.stringify({
-        hash,
-        text,
-      })
-    ),
+    Body: Buffer.from(text), // Guardamos el contenido real del archivo
     CacheControl: 'no-cache',
-    ContentType: 'application/json',
+    ContentType: datasource.config?.mime_type || 'application/octet-stream',
   };
 
-  // Subir a S3
+  // **Subir el archivo a S3 con su extensión original**
   await s3.putObject(params).promise();
 
-  // Guardar el nombre del archivo en la BD
+  // **Guardar el nombre real del archivo en la BD**
   await prisma.appDatasource.update({
     where: { id: datasource.id },
     data: { 
