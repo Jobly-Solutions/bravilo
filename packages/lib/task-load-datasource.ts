@@ -180,14 +180,10 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
     }
   }
 
-  const fileName = `${datasource.id}.${fileExtension}`;
+  const fileExtension = mime.extension(datasource.config.mime_type) || 'json';
+const fileName = `${datasource.id}.${fileExtension}`;
 
-  console.log("🚀 Subiendo archivo a S3...");
-  console.log("📌 Nombre del archivo:", fileName);
-  console.log("📌 Ruta completa:", `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`);
-
-  // **Subir el archivo con la extensión correcta**
-  const params = {
+const params = {
     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
     Key: `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`,
     Body: Buffer.from(
@@ -197,21 +193,20 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
       })
     ),
     CacheControl: 'no-cache',
-    ContentType: datasource.config?.mime_type || 'text/plain',
-  };
+    ContentType: 'application/json',
+};
 
-  await s3.putObject(params).promise();
+// Subir a S3
+await s3.putObject(params).promise();
 
-  console.log("✅ Archivo subido correctamente:", fileName);
-
-  // **Actualizar la base de datos con el nombre real del archivo**
-  await prisma.appDatasource.update({
-    where: { id: datasource.id },
-    data: {
-      status: DatasourceStatus.synched,
-      fileName, // Guarda el nombre correcto con su extensión
-    },
-  });
+// Guardar el nombre del archivo en la BD
+await prisma.appDatasource.update({
+  where: { id: datasource.id },
+  data: { 
+    status: DatasourceStatus.synched,
+    fileName, // Guarda el nombre real del archivo
+  },
+});
 
   console.log("✅ Archivo guardado en la BD:", fileName);
 

@@ -24,16 +24,18 @@ import type { DatasourceFormProps } from './types';
 const DatasourceText = ({ datasourceId, datastoreId, disabled }: { datasourceId?: string; datastoreId: string; disabled?: boolean; }) => {
   const methods = useFormContext();
 
+  // Obtiene la información del datasource
   const { data: datasource } = useSWR(
     datasourceId ? `/api/datasources/${datasourceId}` : null,
     fetcher
   );
 
-  const fileExtension = datasource?.fileExtension || 'json'; // Obtiene la extensión real del archivo o usa json por defecto
-  const fileName = `${datasourceId}.${fileExtension}`;
-  
+  // Obtiene el nombre del archivo desde la API
+  const fileName = datasource?.fileName || `${datasourceId}.json`; // Usa el nombre real o json por defecto
+
   console.log("📌 Archivo esperado desde API:", fileName);
-  
+
+  // Construye la URL con la extensión correcta
   const query = useSWR(
     datasourceId
       ? `${getS3RootDomain()}/datastores/${datastoreId}/${datasourceId}/${fileName}`
@@ -42,7 +44,7 @@ const DatasourceText = ({ datasourceId, datastoreId, disabled }: { datasourceId?
   );
 
   console.log("🛠 URL generada para acceder a S3:", query.data);
-  
+
   useEffect(() => {
     if (query.data?.text) {
       methods.reset({
