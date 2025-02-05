@@ -170,10 +170,15 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
 
   logger.info(`${data.datasourceId}: loading finished`);
 
-  // **Obtener la extensión correcta**
-  const fileExtension = datasource.config?.mime_type
-    ? mime.extension(datasource.config?.mime_type)
-    : 'txt'; // Si no hay MIME, usar .txt
+  // **Detectar la extensión correcta del archivo**
+  let fileExtension = 'txt'; // Default en caso de que no tenga MIME type
+
+  if (datasource.config?.mime_type) {
+    const detectedExtension = mime.extension(datasource.config.mime_type);
+    if (detectedExtension) {
+      fileExtension = detectedExtension;
+    }
+  }
 
   const fileName = `${datasource.id}.${fileExtension}`;
 
@@ -199,12 +204,12 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
 
   console.log("✅ Archivo subido correctamente:", fileName);
 
-  // **Actualizar la base de datos con el nombre real**
+  // **Actualizar la base de datos con el nombre real del archivo**
   await prisma.appDatasource.update({
     where: { id: datasource.id },
     data: {
       status: DatasourceStatus.synched,
-      fileName, // Guarda el nombre correcto
+      fileName, // Guarda el nombre correcto con su extensión
     },
   });
 
