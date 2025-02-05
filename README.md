@@ -16,19 +16,7 @@ Chatea con tu base de datos: Accede rápidamente a información relevante sobre 
 
 Encuentra el talento ideal con AI: Filtra y clasifica postulaciones de manera inteligente.
 
-🔧 Tecnologías utilizadas
 
-Next.js: Para una experiencia rápida e intuitiva en la web.
-
-Joy UI: Interfaz moderna y accesible.
-
-LangchainJS: Integración avanzada con modelos de lenguaje.
-
-PostgreSQL + Prisma: Base de datos robusta y escalable.
-
-Qdrant: Base de datos vectorial para búsquedas semánticas avanzadas.
-
-AWS S3: Almacenamiento seguro y flexible.
 
 🌐 Acceso
 

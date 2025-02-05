@@ -52,14 +52,21 @@ const DatasourceText = (props: {
 }) => {
   const methods = useFormContext();
 
+  const { data: datasource } = useSWR(
+    props?.datasourceId ? `/api/datasources/${props?.datasourceId}` : null,
+    fetcher
+  );
+  
+  // Obtiene el nombre real del archivo o usa un .json por defecto
+  const fileName = datasource?.fileName || `${props?.datasourceId}.json`;
+  
   const query = useSWR(
-    props?.datasourceId
-      ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${
-          props?.datasourceId
-        }/data.json`
+    fileName
+      ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${fileName}`
       : null,
     fetcher
   );
+  
 
   useEffect(() => {
     if (query.data?.text) {
