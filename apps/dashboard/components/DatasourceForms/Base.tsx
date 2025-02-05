@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Alert, Button, Option, Select, Stack } from '@mui/joy';
-import { FormLabel } from '@mui/joy';
+import { Alert, Button, Stack } from '@mui/joy';
 import Textarea from '@mui/joy/Textarea';
 import axios from 'axios';
 import cuid from 'cuid';
@@ -21,21 +20,22 @@ import Input from '@chaindesk/ui/Input';
 import DatasourceTagsInput from '../DatasourceTagsInput';
 import type { DatasourceFormProps } from './types';
 
-const DatasourceText = ({ datasourceId, datastoreId, disabled }: { datasourceId?: string; datastoreId: string; disabled?: boolean; }) => {
+const DatasourceText = ({ datasourceId, datastoreId, disabled }: { datasourceId?: string; datastoreId: string; disabled?: boolean }) => {
   const methods = useFormContext();
 
-  // Obtiene la información del datasource
   const { data: datasource } = useSWR(
     datasourceId ? `/api/datasources/${datasourceId}` : null,
     fetcher
   );
 
-  // Obtiene el nombre del archivo desde la API
-  const fileName = datasource?.fileName || `${datasourceId}.json`; // Usa el nombre real o json por defecto
+  if (!datasource?.fileName) {
+    console.error("❌ No se encontró `fileName` en la BD");
+    return null;
+  }
 
+  const fileName = datasource.fileName; // Ahora usamos el nombre real del archivo
   console.log("📌 Archivo esperado desde API:", fileName);
 
-  // Construye la URL con la extensión correcta
   const query = useSWR(
     datasourceId
       ? `${getS3RootDomain()}/datastores/${datastoreId}/${datasourceId}/${fileName}`
@@ -79,7 +79,7 @@ export default function BaseForm(props: DatasourceFormProps) {
   });
 
   const { register, control, handleSubmit, formState: { errors, defaultValues, isDirty, dirtyFields, isValid } } = methods;
-  
+
   const upsertDatasourceMutation = useSWRMutation<Prisma.PromiseReturnType<typeof upsertDatasource>>(
     `/api/datasources`,
     generateActionFetcher(HTTP_METHOD.POST)<DatasourceSchema>
@@ -139,9 +139,7 @@ export default function BaseForm(props: DatasourceFormProps) {
   return (
     <FormProvider {...methods}>
       <form className="flex flex-col w-full space-y-6" onSubmit={handleSubmit(onSubmit)}>
-        {props.hideName ? null : (
-          <Input label="Name (optional)" control={control as any} {...register('name')} />
-        )}
+        <Input label="Name (optional)" control={control as any} hidden={props.hideName} {...register('name')} />
         {props.children}
         <DatasourceTagsInput />
 
