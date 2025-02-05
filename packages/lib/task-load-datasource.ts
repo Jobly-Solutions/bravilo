@@ -19,6 +19,7 @@ import { DatasourceLoader } from './loaders';
 import logger from './logger';
 import refreshStoredTokensUsage from './refresh-stored-tokens-usage';
 import triggerTaskLoadDatasource from './trigger-task-load-datasource';
+import mime from 'mime-types';
 
 export type DatasourceExtended<T extends {} = DatasourceSchema> =
   Prisma.AppDatasourceGetPayload<typeof updateDatasourceArgs> & T;
@@ -169,47 +170,19 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
 
   logger.info(`${data.datasourceId}: loading finished`);
 
-  const updated = await prisma.appDatasource.update({
-    where: {
-      id: datasource.id,
-    },
-    data: {
-      nbTokens: nbTokens,
-      nbChunks: chunks.length,
-      textSize: textSize,
-      status: DatasourceStatus.synched,
-      lastSynch: new Date(),
-      nbSynch: datasource?.nbSynch! + 1,
-      hash,
-      // Update usage
-      organization: {
-        update: {
-          usage: {
-            update: {
-              nbDataProcessingBytes:
-                (datasource?.organization?.usage?.nbDataProcessingBytes || 0) +
-                new TextEncoder().encode(text).length,
-            },
-          },
-        },
-      },
-    },
-    include: {
-      datastore: true,
-    },
-  });
+  // **Obtener la extensión correcta**
+  const fileExtension = datasource.config?.mime_type
+    ? mime.extension(datasource.config?.mime_type)
+    : 'txt'; // Si no hay MIME, usar .txt
 
-  // Add to S3
+  const fileName = `${datasource.id}.${fileExtension}`;
 
-  const originalFileName = datasource.id; // Usa el ID como base del archivo
-const fileExtension = 'json'; // Forzar siempre JSON
-const fileName = `${datasource.id}.json`; // Siempre JSON
+  console.log("🚀 Subiendo archivo a S3...");
+  console.log("📌 Nombre del archivo:", fileName);
+  console.log("📌 Ruta completa:", `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`);
 
-console.log("🚀 Subiendo archivo JSON a S3...");
-console.log("📌 Nombre del archivo:", fileName);
-console.log("📌 Ruta completa:", `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`);
-
-const params = {
+  // **Subir el archivo con la extensión correcta**
+  const params = {
     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
     Key: `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`,
     Body: Buffer.from(
@@ -219,24 +192,23 @@ const params = {
       })
     ),
     CacheControl: 'no-cache',
-    ContentType: 'application/json',
-};
+    ContentType: datasource.config?.mime_type || 'text/plain',
+  };
 
-// Subir el archivo a S3
-await s3.putObject(params).promise();
+  await s3.putObject(params).promise();
 
-console.log("✅ Archivo subido correctamente como JSON");
+  console.log("✅ Archivo subido correctamente:", fileName);
 
+  // **Actualizar la base de datos con el nombre real**
+  await prisma.appDatasource.update({
+    where: { id: datasource.id },
+    data: {
+      status: DatasourceStatus.synched,
+      fileName, // Guarda el nombre correcto
+    },
+  });
 
-// Guarda el nombre correcto en la DB
-await prisma.appDatasource.update({
-  where: { id: datasource.id },
-  data: { 
-    status: DatasourceStatus.synched,
-    fileName, // Guarda el nombre real del archivo en la BD
-  },
-});
-console.log("✅ Archivo guardado en la BD:", fileName);
+  console.log("✅ Archivo guardado en la BD:", fileName);
 
   await refreshStoredTokensUsage(datasource.organizationId!);
 

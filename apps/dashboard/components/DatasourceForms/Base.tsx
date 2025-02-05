@@ -52,26 +52,27 @@ const DatasourceText = (props: {
 }) => {
   const methods = useFormContext();
 
+  // Obtener detalles del datasource
   const { data: datasource } = useSWR(
     props?.datasourceId ? `/api/datasources/${props?.datasourceId}` : null,
     fetcher
   );
-  
-const fileName = `${props?.datasourceId}.json`; // Siempre busca JSON
 
-console.log("📌 Archivo esperado desde API:", fileName);
+  // Obtener la extensión real del archivo (ejemplo: .csv, .pdf)
+  const fileExtension = datasource?.fileExtension || 'txt'; // Fallback en txt si no existe
+  const fileName = `${props?.datasourceId}.${fileExtension}`;
 
-const query = useSWR(
-  props?.datasourceId
-    ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${fileName}`
-    : null,
-  fetcher
-);
+  console.log("📌 Archivo esperado desde API:", fileName);
 
+  const query = useSWR(
+    fileName
+      ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${fileName}`
+      : null,
+    fetcher
+  );
 
-  
   console.log("🛠 URL generada para acceder a S3:", query);
-  
+
   useEffect(() => {
     if (query.data?.text) {
       methods.reset({
@@ -251,24 +252,6 @@ export default function BaseForm(props: Props) {
               }
             />
           </details>
-        )}
-
-        {props?.customSubmitButton ? (
-          React.createElement(props.customSubmitButton, {
-            isLoading: isLoading || upsertDatasourceMutation.isMutating,
-            disabled: !isDirty || !isValid,
-          })
-        ) : (
-          <Button
-            type="submit"
-            variant="soft"
-            color="primary"
-            loading={isLoading || upsertDatasourceMutation.isMutating}
-            disabled={!isDirty || !isValid}
-            {...props.submitButtonProps}
-          >
-            {props.submitButtonText || 'Submit'}
-          </Button>
         )}
       </form>
     </FormProvider>
