@@ -52,14 +52,13 @@ const DatasourceText = (props: {
 }) => {
   const methods = useFormContext();
 
-  // Obtener detalles del datasource
   const { data: datasource } = useSWR(
     props?.datasourceId ? `/api/datasources/${props?.datasourceId}` : null,
     fetcher
   );
 
-  // Obtener la extensión real del archivo (ejemplo: .csv, .pdf)
-  const fileExtension = datasource?.fileExtension || 'txt'; // Fallback en txt si no existe
+  // Si existe un archivo, obtener la extensión correcta
+  const fileExtension = datasource?.fileName?.split('.').pop() || 'json';
   const fileName = `${props?.datasourceId}.${fileExtension}`;
 
   console.log("📌 Archivo esperado desde API:", fileName);
@@ -200,7 +199,6 @@ export default function BaseForm(props: Props) {
 
   const onSubmitWrapper = (e: any) => {
     e.stopPropagation();
-
     handleSubmit(onSubmit)(e);
   };
 
@@ -223,6 +221,18 @@ export default function BaseForm(props: Props) {
           {...register('name')}
         />
 
+        <Button
+          variant="outlined"
+          component="label"
+        >
+          Subir Archivo
+          <input
+            type="file"
+            hidden
+            {...register('file')}
+          />
+        </Button>
+
         {props?.defaultValues?.type &&
           [DatasourceType.file, DatasourceType.text].includes(
             props.defaultValues.type as any
@@ -240,19 +250,15 @@ export default function BaseForm(props: Props) {
 
         <DatasourceTagsInput />
 
-        {!props.hideText && defaultValues?.datastoreId && defaultValues?.id && (
-          <details>
-            <summary>Extracted Text</summary>
-            <DatasourceText
-              datastoreId={defaultValues?.datastoreId}
-              datasourceId={defaultValues?.id}
-              disabled={
-                defaultValues.type !== DatasourceType.text &&
-                (defaultValues as any)?.config?.mime_type !== 'text/plain'
-              }
-            />
-          </details>
-        )}
+        <Button
+          type="submit"
+          variant="soft"
+          color="primary"
+          loading={isLoading || upsertDatasourceMutation.isMutating}
+          disabled={!isDirty || !isValid}
+        >
+          {props.submitButtonText || 'Submit'}
+        </Button>
       </form>
     </FormProvider>
   );
