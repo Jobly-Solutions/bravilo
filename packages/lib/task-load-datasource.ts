@@ -203,7 +203,11 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
 
   const originalFileName = datasource.id; // Usa el ID como base del archivo
 const fileExtension = 'json'; // Forzar siempre JSON
-const fileName = `${originalFileName}.${fileExtension}`;
+const fileName = `${datasource.id}.json`; // Siempre JSON
+
+console.log("🚀 Subiendo archivo JSON a S3...");
+console.log("📌 Nombre del archivo:", fileName);
+console.log("📌 Ruta completa:", `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`);
 
 const params = {
     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
@@ -218,7 +222,11 @@ const params = {
     ContentType: 'application/json',
 };
 
+// Subir el archivo a S3
 await s3.putObject(params).promise();
+
+console.log("✅ Archivo subido correctamente como JSON");
+
 
 // Guarda el nombre correcto en la DB
 await prisma.appDatasource.update({

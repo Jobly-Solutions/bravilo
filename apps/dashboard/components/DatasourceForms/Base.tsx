@@ -57,17 +57,18 @@ const DatasourceText = (props: {
     fetcher
   );
   
-  // Si el API devuelve el nombre real del archivo, úsalo. Si no, usa `.json` por defecto.
-  const fileName = datasource?.fileName || `${props?.datasourceId}.json`;
-  
-  console.log("📌 Archivo esperado desde API:", fileName);
-  
-  const query = useSWR(
-    fileName
-      ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${fileName}`
-      : null,
-    fetcher
-  );
+const fileName = `${props?.datasourceId}.json`; // Siempre busca JSON
+
+console.log("📌 Archivo esperado desde API:", fileName);
+
+const query = useSWR(
+  props?.datasourceId
+    ? `${getS3RootDomain()}/datastores/${props?.datastoreId}/${props?.datasourceId}/${fileName}`
+    : null,
+  fetcher
+);
+
+
   
   console.log("🛠 URL generada para acceder a S3:", query);
   
