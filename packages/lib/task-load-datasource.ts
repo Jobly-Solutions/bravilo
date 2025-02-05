@@ -170,7 +170,7 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
   logger.info(`${data.datasourceId}: loading finished`);
 
   
-// Detectar la extensión real del archivo
+// Detectar la extensión correcta del archivo
 const fileExtension = mime.extension(datasource.config?.mime_type) || 'txt';
 const fileName = `${datasource.id}.${fileExtension}`;
 
@@ -185,16 +185,18 @@ const params = {
 // Subir a S3
 await s3.putObject(params).promise();
 
-// Guardar el nombre correcto en la base de datos
-await prisma.appDatasource.update({
+// ⚠️ Verificación: Asegurarse de que el nombre del archivo realmente se guarda en la BD
+const updatedDatasource = await prisma.appDatasource.update({
   where: { id: datasource.id },
   data: { 
     status: DatasourceStatus.synched,
     fileName, // Guarda el nombre real del archivo
   },
+  select: { fileName: true }, // Asegurar que el campo se guarda correctamente
 });
 
-console.log("✅ Archivo guardado en la BD:", fileName);
+console.log("✅ Archivo guardado en la BD:", updatedDatasource.fileName);
+
 
 
 

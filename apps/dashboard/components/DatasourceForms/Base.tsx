@@ -23,17 +23,26 @@ import type { DatasourceFormProps } from './types';
 const DatasourceText = ({ datasourceId, datastoreId, disabled }: { datasourceId?: string; datastoreId: string; disabled?: boolean }) => {
   const methods = useFormContext();
 
+  // 🔍 Consultar la BD para obtener la información del datasource
   const { data: datasource } = useSWR(
     datasourceId ? `/api/datasources/${datasourceId}` : null,
     fetcher
   );
 
-  if (!datasource?.fileName) {
-    console.error("❌ No se encontró `fileName` en la BD");
-    return null;
+  useEffect(() => {
+    if (!datasource?.fileName) {
+      console.error("❌ No se encontró `fileName` en la BD para", datasourceId);
+    } else {
+      console.log("✅ Archivo encontrado en BD:", datasource.fileName);
+    }
+  }, [datasource]);
+
+  let fileName = datasource?.fileName; // Obtener el nombre real del archivo desde la BD
+  if (!fileName) {
+    console.warn("⚠ No se encontró `fileName` en la BD. Intentando inferirlo...");
+    fileName = `${datasourceId}.txt`; // Default en caso de que no exista en la BD
   }
 
-  const fileName = datasource.fileName; // Ahora usamos el nombre real del archivo
   console.log("📌 Archivo esperado desde API:", fileName);
 
   const query = useSWR(
@@ -69,6 +78,7 @@ const DatasourceText = ({ datasourceId, datastoreId, disabled }: { datasourceId?
     />
   );
 };
+
 
 export default function BaseForm(props: DatasourceFormProps) {
   const [isLoading, setIsLoading] = useState(false);
