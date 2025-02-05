@@ -200,17 +200,22 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
   });
 
   // Add to S3
-  const fileExtension = datasource.config?.mime_type
-  ? `.${mime.extension(datasource.config.mime_type)}`
-  : '.json'; // Si no hay extensión válida, usa JSON por defecto
 
-const fileName = `${datasource.id}${fileExtension}`;
-
-console.log("📦 Guardando archivo en S3 con nombre:", fileName);
+  const originalFileName = datasource.id; // Usa el ID como base del archivo
+const fileExtension = 'json'; // Forzar siempre JSON
+const fileName = `${originalFileName}.${fileExtension}`;
 
 const params = {
-  Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-  Key: `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`,
+    Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
+    Key: `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`,
+    Body: Buffer.from(
+      JSON.stringify({
+        hash,
+        text,
+      })
+    ),
+    CacheControl: 'no-cache',
+    ContentType: 'application/json',
 };
 
 await s3.putObject(params).promise();
