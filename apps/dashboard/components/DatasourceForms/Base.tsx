@@ -57,8 +57,10 @@ const DatasourceText = (props: {
     fetcher
   );
   
-  // Obtiene el nombre real del archivo o usa un .json por defecto
+  // Si el API devuelve el nombre real del archivo, úsalo. Si no, usa `.json` por defecto.
   const fileName = datasource?.fileName || `${props?.datasourceId}.json`;
+  
+  console.log("📌 Archivo esperado desde API:", fileName);
   
   const query = useSWR(
     fileName
@@ -67,7 +69,8 @@ const DatasourceText = (props: {
     fetcher
   );
   
-
+  console.log("🛠 URL generada para acceder a S3:", query);
+  
   useEffect(() => {
     if (query.data?.text) {
       methods.reset({
