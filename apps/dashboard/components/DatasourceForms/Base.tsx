@@ -83,7 +83,7 @@ const DatasourceText = ({ datasourceId, datastoreId, disabled }: { datasourceId?
 export default function BaseForm(props: DatasourceFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const methods = useForm<DatasourceSchema>({
-    resolver: zodResolver(props.schema),
+    resolver: props.schema ? zodResolver(props.schema) : undefined,
     mode: props.mode,
     defaultValues: { ...props?.defaultValues },
   });
