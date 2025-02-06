@@ -11,5 +11,6 @@ export type DatasourceFormProps<T extends {} = DatasourceSchema> = {
   onSubmitSuccess?: (datasource: Partial<Datasource>) => any;
   mode?: "onChange" | "onBlur" | "onSubmit" | "all"; // <-- Agregado para evitar el error
   hideName?: boolean; // <-- Agregado para evitar el error
+  children?: ReactNode; // <-- Agregado para evitar el error
 
 };
