@@ -10,8 +10,12 @@ export type DatasourceFormProps<T extends {} = DatasourceSchema> = {
   submitButtonProps?: any;
   onSubmitSuccess?: (datasource: Partial<Datasource>) => any;
   mode?: "onChange" | "onBlur" | "onSubmit" | "all"; // <-- Agregado para evitar el error
-  hideName?: boolean; // <-- Agregado para evitar el error
-  children?: ReactNode; // <-- Agregado para evitar el error
-  hideText?: boolean; // <-- Agregado para evitar el error
+  
+    // 🚀 Propiedades que faltaban:
+    hideName?: boolean;  // Para ocultar el campo de nombre
+    hideText?: boolean;  // Para ocultar el campo de texto extraído
+    children?: ReactNode; // Para permitir contenido dentro del form
+    onBack?: () => void;  // Para manejar el botón "Back"
+  
 
 };
