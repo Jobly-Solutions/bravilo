@@ -58,7 +58,7 @@ const createReport = async (org: Organization) => {
     attachments: [
       {
         filename: 'leads.csv',
-        content: Buffer.from(buffer as Uint8Array),
+        content: Buffer.from(await buffer.arrayBuffer()),
       },
     ],
     html: render(
