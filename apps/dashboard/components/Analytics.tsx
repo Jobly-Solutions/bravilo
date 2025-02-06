@@ -5,9 +5,6 @@ import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
 import React, { createContext, useEffect } from 'react';
 
-
-
-
 // Check that PostHog is client-side (used to handle Next.js SSR)
 if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_POSTHOG_KEY) {
   posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
@@ -56,9 +53,9 @@ function Analytics({ children, userId }: Props) {
           mixpanel.track(data.event, data.payload);
         }
 
-        if (process.env.NEXT_PUBLIC_GA_ID && typeof window !== "undefined") {
-          (window as any).gtag?.("event", data.event, data.payload);
-        }        
+        if (process.env.NEXT_PUBLIC_GA_ID && window?.gtag) {
+          window?.gtag?.('event', data.event, data.payload);
+        }
 
         if (process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID) {
           (window as any)?.fbq?.('track', data.event, data.payload);
@@ -74,8 +71,8 @@ function Analytics({ children, userId }: Props) {
     if (process.env.NEXT_PUBLIC_FATHOM_SITE_ID) {
       Fathom.load(process.env.NEXT_PUBLIC_FATHOM_SITE_ID, {
         includedDomains: [
-          'www.braviloai.com',
-          'dev.braviloai.com',
+          'www.chaindesk.ai',
+          'app.chaindesk.ai',
           'www.resolveai.io',
           'www.chatbotgpt.ai',
         ],

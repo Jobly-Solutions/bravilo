@@ -19,7 +19,6 @@ import { DatasourceLoader } from './loaders';
 import logger from './logger';
 import refreshStoredTokensUsage from './refresh-stored-tokens-usage';
 import triggerTaskLoadDatasource from './trigger-task-load-datasource';
-import mime from 'mime-types';
 
 export type DatasourceExtended<T extends {} = DatasourceSchema> =
   Prisma.AppDatasourceGetPayload<typeof updateDatasourceArgs> & T;
@@ -113,6 +112,7 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
   } catch (err) {
     if (err instanceof ApiError) {
       if (err.name === ApiErrorType.WEBPAGE_IS_SITEMAP) {
+        // WebPage is a sitemap re-run as a sitemap
         await prisma.appDatasource.update({
           where: {
             id: datasource.id,
@@ -169,36 +169,51 @@ const taskLoadDatasource = async (data: TaskLoadDatasourceRequestSchema) => {
 
   logger.info(`${data.datasourceId}: loading finished`);
 
-  
-// Detectar la extensión correcta del archivo
-const fileExtension = mime.extension(datasource.config?.mime_type) || 'txt';
-const fileName = `${datasource.id}.${fileExtension}`;
+  const updated = await prisma.appDatasource.update({
+    where: {
+      id: datasource.id,
+    },
+    data: {
+      nbTokens: nbTokens,
+      nbChunks: chunks.length,
+      textSize: textSize,
+      status: DatasourceStatus.synched,
+      lastSynch: new Date(),
+      nbSynch: datasource?.nbSynch! + 1,
+      hash,
+      // Update usage
+      organization: {
+        update: {
+          usage: {
+            update: {
+              nbDataProcessingBytes:
+                (datasource?.organization?.usage?.nbDataProcessingBytes || 0) +
+                new TextEncoder().encode(text).length,
+            },
+          },
+        },
+      },
+    },
+    include: {
+      datastore: true,
+    },
+  });
 
-const params = {
+  // Add to S3
+  const params = {
     Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME!,
-    Key: `datastores/${datasource.datastore?.id}/${datasource.id}/${fileName}`,
-    Body: Buffer.from(JSON.stringify({ hash, text })),
+    Key: `datastores/${datasource.datastore?.id}/${datasource.id}/data.json`,
+    Body: Buffer.from(
+      JSON.stringify({
+        hash,
+        text,
+      })
+    ),
     CacheControl: 'no-cache',
-    ContentType: datasource.config?.mime_type || 'application/octet-stream',
-};
+    ContentType: 'application/json',
+  };
 
-// Subir a S3
-await s3.putObject(params).promise();
-
-// ⚠️ Verificación: Asegurarse de que el nombre del archivo realmente se guarda en la BD
-const updatedDatasource = await prisma.appDatasource.update({
-  where: { id: datasource.id },
-  data: { 
-    status: DatasourceStatus.synched,
-    fileName, // Guarda el nombre real del archivo
-  },
-  select: { fileName: true }, // Asegurar que el campo se guarda correctamente
-});
-
-console.log("✅ Archivo guardado en la BD:", updatedDatasource.fileName);
-
-
-
+  await s3.putObject(params).promise();
 
   await refreshStoredTokensUsage(datasource.organizationId!);
 

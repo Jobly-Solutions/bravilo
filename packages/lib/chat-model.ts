@@ -15,8 +15,8 @@ export default class ChatModel {
     this.openai = new OpenAI({
       ...options,
       defaultHeaders: {
-        'HTTP-Referer': 'https://www.braviloai.com/', // Optional, for including your app on openrouter.ai rankings.
-        'X-Title': 'Chaindesk', // Optional. Shows in rankings on openrouter.ai.
+        'HTTP-Referer': 'https://dev.braviloai.com/', // Optional, for including your app on openrouter.ai rankings.
+        'X-Title': 'BraviloAI', // Optional. Shows in rankings on openrouter.ai.
         ...options?.defaultHeaders,
       },
     });
