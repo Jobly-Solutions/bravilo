@@ -43,10 +43,9 @@ export default function AgentTable({ items }: { items: Agent[] }) {
         >
           <thead>
             <tr>
-              <th style={{ width: 120, padding: 12 }}>Name</th>
-              <th style={{ width: 120, padding: 12 }}>Description</th>
-              <th style={{ width: 120, padding: 12 }}>Model</th>
-              <th style={{ width: 220, padding: 12 }}>Visibility</th>
+              <th style={{ width: 120, padding: 12 }}>Nombre</th>
+              <th style={{ width: 120, padding: 12 }}>Descripcion</th>
+              <th style={{ width: 220, padding: 12 }}>Visibilidad</th>
               <th style={{ width: 160, padding: 12 }}> </th>
             </tr>
           </thead>
@@ -60,7 +59,6 @@ export default function AgentTable({ items }: { items: Agent[] }) {
                         className="truncate hover:underline"
                         fontWeight={'bold'}
                         color="primary"
-                        // fontSize={'md'}
                         sx={{
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
@@ -82,12 +80,6 @@ export default function AgentTable({ items }: { items: Agent[] }) {
                   >
                     {agent.description}
                   </Typography>
-                </td>
-
-                <td>
-                  <Chip variant="soft" size="sm" color={'neutral'}>
-                    {agent.modelName}
-                  </Chip>
                 </td>
                 <td>
                   <Chip

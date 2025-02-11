@@ -196,7 +196,7 @@ export default function AgentsPage() {
             maxHeight: '95vh',
           }}
         >
-          <Typography level="h3">Agent</Typography>
+          <Typography level="h3">Scouts</Typography>
           <Divider sx={{ my: 4 }} />
           <AgentForm
             onSubmitSucces={(agent: Agent) => {
