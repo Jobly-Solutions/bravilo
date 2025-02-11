@@ -45,7 +45,6 @@ import useStateReducer from '@chaindesk/ui/hooks/useStateReducer';
 import { getAgents } from '../api/agents';
 import { getDatastores } from '../api/datastores';
 
-
 export default function AgentsPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -107,7 +106,7 @@ export default function AgentsPage() {
           <HomeRoundedIcon />
         </Link>
         <Typography fontSize="inherit" color="neutral">
-          Crear Scout
+          Agents
         </Typography>
       </Breadcrumbs>
 
@@ -147,7 +146,7 @@ export default function AgentsPage() {
                 accountConfig[session?.organization?.currentPlan!]?.limits
                   ?.maxAgents
               ) {
-                return setState({f
+                return setState({
                   isUsageLimitModalOpen: true,
                 });
               }
@@ -155,7 +154,7 @@ export default function AgentsPage() {
               setState({ isAgentModalOpen: true });
             }}
           >
-            Crear Scout
+            New Agent
           </Button>
         </Box>
       </Box>
@@ -166,11 +165,9 @@ export default function AgentsPage() {
         startDecorator={<InfoRoundedIcon />}
         sx={{ mb: 2 }}
       >
-       Los Scouts de Jobly son tu equipo de reclutamiento AI. Analizan, filtran y entrevistan candidatos automáticamente, 
-       aprendiendo de tus bases de datos para optimizar cada contratación.
-       Inteligencia real para decisiones de talento sin fricción.
-
-
+        Agents are customizable instances of large language models tailored to
+        fit your specific use cases. By connecting them to a datastore, you can
+        train them on your unique knowledge base.
       </Alert>
 
       {getAgentsQuery.data && <AgentTable items={getAgentsQuery.data} />}
