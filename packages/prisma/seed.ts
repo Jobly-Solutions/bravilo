@@ -175,7 +175,7 @@ async function main() {
         id: user2Id,
         emailVerified: new Date(),
         email: 'dev2@braviloai.com',
-        name: 'Adam',
+        name: 'Clara',
         memberships: {
           create: [
             {
@@ -186,30 +186,30 @@ async function main() {
         },
       },
       update: {
-        name: 'Adam',
+        name: 'Clara',
       },
     });
 
     const agentCreateProps = {
       id: premiumAgentId,
-      name: 'Adam',
-      description: 'Chaindesk AI Agent for Customer Support',
+      name: 'Clara',
+      description: 'Scout de IA de Bravilo para Soporte al candidato',
       organization: {
         connect: {
           id: premiumOrgId,
         },
       },
-      handle: 'adam',
+      handle: 'clara',
       owner: {
         connect: {
           id: userId,
         },
       },
-      systemPrompt: `Your name is Adam, and you are a Customer Support Specialist at Chaindesk.ai
-As a customer support agent, please provide a helpful and professional response to the user's question or issue.
-Support email is support@braviloai.com
-Answer briefly.
-Inject humor, playfulness, and a spirited tone into the content. You can use emojies.`,
+        systemPrompt: `Tu nombre es Clara, y eres Especialista en Atención al Cliente en Jobly.  
+Como agente de soporte, brinda respuestas útiles y profesionales a las consultas de los usuarios.  
+El correo de soporte es soporte@jobly.com.  
+Responde de manera breve.  
+Agrega un toque cercano, dinámico y amigable en las respuestas. Puedes usar emojis.`,
       userPrompt: '{query}',
       visibility: 'public',
       useMarkdown: true,
