@@ -121,7 +121,7 @@ export default function AgentGeneralSettingsTab(props: Props) {
         submitButtonProps={{
           onClick: handleDeleteAgent,
           color: 'danger',
-          children: 'Delete',
+          children: 'Borrar',
           startDecorator: <DeleteIcon />,
         }}
       >

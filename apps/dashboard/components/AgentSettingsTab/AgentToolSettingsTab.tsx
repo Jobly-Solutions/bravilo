@@ -72,12 +72,12 @@ export default function AgentToolSettingsTab(props: Props) {
               const includeSources = watch('includeSources');
               return (
                 <SettingCard
-                  title="Sources"
+                  title="Fuentes"
                   description="Visualiza el contenido extraído de tus Bases de Datos para generar respuestas."
                   submitButtonProps={{
                     loading: mutation.isMutating,
                     disabled: !formState.isDirty || !formState.isValid,
-                    children: 'Save',
+                    children: 'Guardar',
                   }}
                 >
                   <Stack direction="row" mb={2}>
