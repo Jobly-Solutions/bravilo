@@ -128,7 +128,7 @@ export default function AgentsPage() {
         }}
       >
         <Typography level="h1" fontSize="xl4">
-          Scouts
+          Agents
         </Typography>
         {/* <Box sx={{ flex: 999999 }} /> */}
         <Box sx={{ display: 'flex', gap: 1, '& > *': { flexGrow: 1 } }}>
