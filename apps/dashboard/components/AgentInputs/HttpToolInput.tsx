@@ -325,7 +325,7 @@ const KeyValueFieldArray = ({
                 <Card variant="outlined" size="sm">
                   <Checkbox
                     size="sm"
-                    label="Provided By User"
+                    label="Proporcionado por el usuario"
                     checked={!!field.isUserProvided}
                     slotProps={{
                       label: {
@@ -415,7 +415,7 @@ const KeyValueFieldArray = ({
                         <SettingsIcon fontSize="sm" color="primary" />
                       }
                     >
-                      Advanced
+                      Avanzado
                     </Typography>
                   </AccordionSummary>
                   <AccordionDetails>
@@ -423,18 +423,18 @@ const KeyValueFieldArray = ({
                       <Divider />
                       <Input
                         control={methods.control}
-                        label="Describe your key usage for better AI inference :"
-                        placeholder="Description"
+                        label="Describe el uso de tu clave para una mejor inferencia del Scout en Bravilo : "
+                        placeholder="Descripcion"
                         {...methods.register(
                           `${name}.${index}.description` as any
                         )}
                       />
 
                       <Choices<HttpToolSchema | CreateAgentSchema>
-                        actionLabel="Add A Value"
+                        actionLabel="Agregar un valor"
                         name={`${name}.${index}.acceptedValues`}
                         init={false}
-                        label="Specify the accepted values for the key :"
+                        label="Especifica los valores aceptados para la clave :"
                       />
                       <Divider sx={{ my: 2 }} />
                     </Stack>
@@ -455,7 +455,7 @@ const KeyValueFieldArray = ({
             })
           }
         >
-          + Add
+          + Añadir
         </Button>
       </Stack>
     </FormControl>
@@ -486,7 +486,7 @@ function HttpToolInput({ name }: Props) {
 
   return (
     <Stack>
-      <Stack direction="row">
+      {/*<Stack direction="row">
         <Button
           variant="outlined"
           onClick={templatesModal.open}
@@ -495,34 +495,33 @@ function HttpToolInput({ name }: Props) {
         >
           Start from a template
         </Button>
-      </Stack>
+      </Stack>*/}
 
       <Stack gap={2}>
         <Input
           control={methods.control}
-          label={'Name'}
+          label={'Nombre'}
           {...methods.register(`${prefix}config.name`)}
         />
 
         <Input
           control={methods.control}
-          label={'Description'}
+          label={'Descripcion'}
           {...methods.register(`${prefix}config.description`)}
-          placeholder="e.g: Useful for getting the current weather in a given city."
+          placeholder="Por ejemplo: Útil para obtener información actualizada sobre candidatos en un proceso de selección a través de Bravilo."
         />
         <Alert color="warning" startDecorator={<InfoRoundedIcon />}>
           <Stack>
             <p>
-              The description is very important, this is what the Agent will use
-              to decide when to use it and what to do.
+            La descripción es muy importante, ya que el Scout la utilizará para decidir cuándo usarla y qué hacer.
             </p>
-            <p>{`For instance for tool that retrieves the current weather of a given city: "Useful for getting the current weather in a given city." is better than "Weather API"`}</p>
+            <p>{`Por ejemplo, para una herramienta que recupera información de candidatos en un proceso de selección: "Útil para obtener detalles actualizados sobre un candidato en evaluación" es mejor que "Base de datos de candidatos".`}</p>
           </Stack>
         </Alert>
 
         <Input
           control={methods.control}
-          label={'URL to call'}
+          label={'URL'}
           {...methods.register(`${prefix}config.url`)}
         />
 
@@ -585,7 +584,7 @@ function HttpToolInput({ name }: Props) {
         {/* <Card size="sm" variant="outlined"> */}
         <FormControl>
           <Checkbox
-            label="Approval Required"
+            label="Aprobación requerida"
             checked={!!withApprovalChecked}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               methods.setValue(
@@ -599,7 +598,7 @@ function HttpToolInput({ name }: Props) {
             }}
           />
           <FormHelperText>
-            {`When enabled, an administrator's approval is required to proceed with the action`}
+            {`Cuando está activado, se necesita la aprobación de un administrador para continuar con la acción.`}
           </FormHelperText>
         </FormControl>
         {/* </Card> */}

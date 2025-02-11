@@ -583,7 +583,7 @@ function ToolsInput({}: Props) {
                 }
               }}
             >
-              {isToolValidRef.current ? 'Update' : 'Validate Config'}
+              {isToolValidRef.current ? 'Update' : 'Validar configuracion'}
             </Button>
           </Stack>
         )}

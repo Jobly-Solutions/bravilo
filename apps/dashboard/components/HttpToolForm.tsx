@@ -422,7 +422,7 @@ function HttpToolForm({ onSubmit, defaultValues }: Props) {
         <HttpToolInput />
 
         <Button type="submit" color="success">
-          {isToolValidRef.current ? 'Create' : 'Validate Config'}
+          {isToolValidRef.current ? 'Create' : 'Validar configuracion'}
         </Button>
 
         <validateToolModal.component
