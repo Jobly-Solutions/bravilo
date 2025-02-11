@@ -187,7 +187,7 @@ export default function AgentPage() {
                     color="neutral"
                     className="hover:underline"
                   >
-                    Agents
+                    Scouts
                   </Typography>
                 </Link>
                 <Typography
@@ -274,13 +274,13 @@ export default function AgentPage() {
                     <ListItemDecorator>
                       <RocketLaunchRoundedIcon />
                     </ListItemDecorator>
-                    Deploy
+                    Implementar
                   </Tab>
                   <Tab indicatorInset value={'settings'}>
                     <ListItemDecorator>
                       <SettingsIcon />
                     </ListItemDecorator>
-                    Settings
+                    Configurar
                   </Tab>
                 </TabList>
               </Tabs>
