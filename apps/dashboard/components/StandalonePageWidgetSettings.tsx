@@ -131,7 +131,7 @@ export default function StandalonePageSettings(props: Props) {
                 <Stack gap={3} sx={{ width: '100%' }}>
                   <Alert color="warning">
                     {
-                      '🚨 To use this feature Agent visibility "public" is required'
+                      '🚨 Para usar esta función, la visibilidad del Scout debe estar configurada como "pública".'
                     }
                   </Alert>
 

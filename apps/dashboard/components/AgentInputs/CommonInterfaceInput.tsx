@@ -42,14 +42,7 @@ export default function CommonInterfaceInput(props: Props) {
         field="isMarkAsResolvedDisabled"
         label="Disable the ability to mark a conversation as resolved"
       /> */}
-      <InterfaceConfigCheckbox
-        field="isBrandingDisabled"
-        label="Remove Chaindesk Branding (Pro plan required)"
-        disabled={
-          !session?.organization?.isPremium ||
-          session?.organization?.subscriptions?.[0]?.plan === 'level_1'
-        }
-      />
+      
       <SuggestionsInput />
 
       <FormControl>

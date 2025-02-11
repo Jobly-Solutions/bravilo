@@ -273,13 +273,7 @@ const Features = function (props: {
             </svg>
           )}
 
-          <Tooltip
-            id="06"
-            content="Remove 'Powered by Bravilo' from all widgets"
-            dark={props.highlighted}
-          >
-            Remove Chaindesk branding
-          </Tooltip>
+          
         </li>
 
         {['level_0'].includes(props.plan) && (
