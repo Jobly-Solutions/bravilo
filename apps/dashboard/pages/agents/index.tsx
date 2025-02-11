@@ -210,12 +210,7 @@ export default function AgentsPage() {
               <Stack gap={4}>
                 <GeneralInput />
 
-                <details>
-                  <summary>GPT Model / Prompt Settings</summary>
-                  <Stack sx={{ pt: 2, px: 1 }}>
-                    <ModelInput />
-                  </Stack>
-                </details>
+                
 
                 <SettingCard
                   title="Tools"
