@@ -39,6 +39,21 @@ export type NormalizedTool = {
 };
 
 export const agentToolConfig = {
+  [ToolType.datastore]: {
+    icon: '🧠',
+    title: '🧠 Almacén de Datos',
+    description: 'Conecta datos personalizados a tu Scout.',
+  },
+  [ToolType.http]: {
+    icon: '🛜',
+    title: '🛜 Herramienta HTTP',
+    description: 'El Scout puede realizar una solicitud HTTP a una API externa.',
+  },
+  [ToolType.form]: {
+    icon: '📋',
+    title: '📋 Formulario',
+    description: 'Conecta un formulario a tu Scout.',
+  },
   [ToolType.mark_as_resolved]: {
     hidden: true,
     icon: '✅',
@@ -55,7 +70,7 @@ export const agentToolConfig = {
     hidden: true,
     icon: '🎯',
     title: '🎯 Captura de Leads (⚠️ Obsoleto: Usa la herramienta de formulario en su lugar)',
-    description: `El scout puede recopilar correos electrónicos o números de teléfono de los usuarios.`,
+    description: `El Scout puede recopilar correos electrónicos o números de teléfono de los usuarios.`,
   },
 };
 
