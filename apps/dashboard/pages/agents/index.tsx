@@ -45,6 +45,9 @@ import useStateReducer from '@chaindesk/ui/hooks/useStateReducer';
 import { getAgents } from '../api/agents';
 import { getDatastores } from '../api/datastores';
 
+import { Box } from "@mui/material"; // Si usás Material UI
+
+
 export default function AgentsPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
