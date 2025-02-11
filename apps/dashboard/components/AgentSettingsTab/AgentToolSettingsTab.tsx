@@ -29,8 +29,8 @@ export default function AgentToolSettingsTab(props: Props) {
           <ConnectForm<CreateAgentSchema>>
             {({ formState }) => (
               <SettingCard
-                title="Tools"
-                description="Give tools to your Agent to make it smarter"
+                title="Herramientas"
+                description="Brinda herramientas a tu Scout para hacerlo más inteligente"
                 // submitButtonProps={{
                 //   loading: mutation.isMutating,
                 //   disabled: !formState.isDirty || !formState.isValid,

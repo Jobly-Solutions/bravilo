@@ -41,37 +41,21 @@ export type NormalizedTool = {
 export const agentToolConfig = {
   [ToolType.datastore]: {
     icon: '🧠',
-    title: `🧠 Datastore`,
-    description: `Connect custom data to your Agent`,
+    title: `🧠 Base de Datos`,
+    description: `Conecta datos personalizados a tu Scout`,
   },
   [ToolType.http]: {
     icon: '🛜',
-    title: '🛜 HTTP Tool',
-    description: `Agent can perform an HTTP request to an external API`,
+    title: '🛜 HTTP',
+    description: `El Scout puede realizar una solicitud a una API externa`,
   },
   [ToolType.form]: {
     icon: '📋',
-    title: '📋 Form',
-    description: `Connect a form to your Agent`,
-  },
-  [ToolType.mark_as_resolved]: {
-    icon: '✅',
-    title: '✅ Mark as Resolved',
-    // description: `Agent can mark the conversation as resolved when relevant`,
-    description: `User can mark the conversation as resolved `,
-  },
-  [ToolType.request_human]: {
-    icon: '🙋‍♂️',
-    title: '🙋‍♂️ Request Human',
-    // description: `Agent can request a human intervention when user asks for it.`,
-    description: `User can request a human operator.`,
-  },
-  [ToolType.lead_capture]: {
-    icon: '🎯',
-    title: '🎯 Lead Capture (⚠️ Deprecated: Use Form tool instead)',
-    description: `Agent can collect user email or phone number`,
+    title: '📋 Formulario',
+    description: `Conecta un formulario a tu Scout`,
   },
 };
+
 
 export const createTool = (payload: ToolSchema) => ({
   ...payload,

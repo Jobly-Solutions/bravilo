@@ -85,7 +85,7 @@ function AgentSettingsTab(props: Props) {
               <ListItemContent>General</ListItemContent>
             </ListItemButton>
           </ListItem>
-          <ListItem>
+          {/*<ListItem>
             <ListItemButton
               selected={state.currentTab === 'model'}
               onClick={() => handleChangeTab('model')}
@@ -95,7 +95,7 @@ function AgentSettingsTab(props: Props) {
               </ListItemDecorator>
               <ListItemContent>Model</ListItemContent>
             </ListItemButton>
-          </ListItem>
+          </ListItem>*/}
           <ListItem>
             <ListItemButton
               selected={state.currentTab === 'tools'}
@@ -104,7 +104,7 @@ function AgentSettingsTab(props: Props) {
               <ListItemDecorator>
                 <SpokeRoundedIcon />
               </ListItemDecorator>
-              <ListItemContent>Tools</ListItemContent>
+              <ListItemContent>Herramientas</ListItemContent>
             </ListItemButton>
           </ListItem>
           <ListItem>
@@ -115,7 +115,7 @@ function AgentSettingsTab(props: Props) {
               <ListItemDecorator>
                 <SecurityRoundedIcon />
               </ListItemDecorator>
-              <ListItemContent>Security</ListItemContent>
+              <ListItemContent>Seguridad</ListItemContent>
             </ListItemButton>
           </ListItem>
         </List>

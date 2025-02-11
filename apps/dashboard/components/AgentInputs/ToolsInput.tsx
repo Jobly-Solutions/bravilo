@@ -282,8 +282,7 @@ function ToolsInput({}: Props) {
           color="warning"
           variant="soft"
         >
-          Train your Agent with custom data by connecting it to a Datastore
-          below.
+         Entrena tu Scout con datos personalizados conectándolo a un Almacén de Datos a continuación.
         </Alert>
       )}
 
