@@ -154,7 +154,7 @@ export default function AgentsPage() {
               setState({ isAgentModalOpen: true });
             }}
           >
-            New Agent
+            Nuevo Scout
           </Button>
         </Box>
       </Box>
@@ -165,9 +165,12 @@ export default function AgentsPage() {
         startDecorator={<InfoRoundedIcon />}
         sx={{ mb: 2 }}
       >
-        Agents are customizable instances of large language models tailored to
-        fit your specific use cases. By connecting them to a datastore, you can
-        train them on your unique knowledge base.
+       Los Scouts de Jobly son tu equipo de reclutamiento AI. 
+       Analizan, filtran y entrevistan candidatos automáticamente,
+       aprendiendo de tus bases de datos para optimizar cada contratación. 
+       Inteligencia real para decisiones de talento sin fricción.
+
+
       </Alert>
 
       {getAgentsQuery.data && <AgentTable items={getAgentsQuery.data} />}
