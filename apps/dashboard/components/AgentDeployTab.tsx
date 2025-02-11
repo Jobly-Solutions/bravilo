@@ -14,9 +14,9 @@ import React from 'react';
 
 import useModal from '@app/hooks/useModal';
 
-import { AgentVisibility, DatastoreVisibility } from '@bravilo/prisma';
-import useAgent from '@bravilo/ui/hooks/useAgent';
-import useStateReducer from '@bravilo/ui/hooks/useStateReducer';
+import { AgentVisibility, DatastoreVisibility } from '@chaindesk/prisma';
+import useAgent from '@chaindesk/ui/hooks/useAgent';
+import useStateReducer from '@chaindesk/ui/hooks/useStateReducer';
 
 import SettingCard from './ui/SettingCard';
 import UsageLimitModal from './UsageLimitModal';
