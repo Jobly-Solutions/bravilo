@@ -136,7 +136,7 @@ export default function ExpandedNavigation({
               <div className="relative w-5 h-5 mt-[0.5px] flex justify-center ">
                 <Image layout="fill" src="/logo.png" alt="BraviloAI" />
               </div>
-              <Typography level="title-md">Bravilo AI HR</Typography>
+              <Typography level="title-md">Bravilo By Jobly</Typography>
             </Stack>
             <DarkModeToggle variant="plain" color="neutral" />
           </Stack>

@@ -351,7 +351,7 @@ export default function Layout(props: Props) {
   return (
     <>
       <SEO
-        title="Dashboard | Bravilo AI HR By Jobly."
+        title="Dashboard | Bravilo By Jobly."
         description="Build your own ChatGPT Chat Bot for your business."
         baseUrl={appUrl}
         uri={router.pathname}
