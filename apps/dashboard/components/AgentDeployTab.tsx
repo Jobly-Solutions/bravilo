@@ -14,36 +14,15 @@ import React from 'react';
 
 import useModal from '@app/hooks/useModal';
 
-import { AgentVisibility, DatastoreVisibility } from '@chaindesk/prisma';
-import useAgent from '@chaindesk/ui/hooks/useAgent';
-import useStateReducer from '@chaindesk/ui/hooks/useStateReducer';
+import { AgentVisibility, DatastoreVisibility } from '@bravilo/prisma';
+import useAgent from '@bravilo/ui/hooks/useAgent';
+import useStateReducer from '@bravilo/ui/hooks/useStateReducer';
 
 import SettingCard from './ui/SettingCard';
 import UsageLimitModal from './UsageLimitModal';
 
-const SlackBotModal = dynamic(
-  () => import('@app/components/SlackSettingsModal'),
-  {
-    ssr: false,
-  }
-);
-
-const IFrameWidgetSettings = dynamic(
-  () => import('@app/components/IFrameWidgetSettings'),
-  {
-    ssr: false,
-  }
-);
-
 const StandalonePageWidgetSettings = dynamic(
   () => import('@app/components/StandalonePageWidgetSettings'),
-  {
-    ssr: false,
-  }
-);
-
-const ZendeskSettings = dynamic(
-  () => import('@app/components/ZendeskSettings'),
   {
     ssr: false,
   }
@@ -72,17 +51,14 @@ function AgentDeployTab(props: Props) {
 
   const router = useRouter();
   const [state, setState] = useStateReducer({
-    isSlackModalOpen: false,
     isUsageModalOpen: false,
   });
 
-  const iframeWidgetModal = useModal();
   const standalonePageModal = useModal();
-  const zendeskModal = useModal();
   const whatsappModal = useModal();
   const telegramModal = useModal();
 
-  const { query, mutation } = useAgent({
+  const { query } = useAgent({
     id: props.agentId as string,
   });
 
@@ -114,9 +90,7 @@ function AgentDeployTab(props: Props) {
             {
               name: 'Web / Standalone - Página web sin código alojada en Bravilo',
               icon: <Typography sx={{ fontSize: 32 }}>💅</Typography>,
-              action: () => {
-                standalonePageModal.open();
-              },
+              action: standalonePageModal.open,
               publicAgentRequired: true,
             },
             {
@@ -131,9 +105,7 @@ function AgentDeployTab(props: Props) {
                   alt="Whatsapp Logo"
                 />
               ),
-              action: async () => {
-                whatsappModal.open();
-              },
+              action: whatsappModal.open,
               isPremium: true,
             },
             {
@@ -148,9 +120,7 @@ function AgentDeployTab(props: Props) {
                   alt="Telegram Logo"
                 />
               ),
-              action: async () => {
-                telegramModal.open();
-              },
+              action: telegramModal.open,
               isPremium: true,
             },
           ]
@@ -182,14 +152,38 @@ function AgentDeployTab(props: Props) {
                   variant="outlined"
                   startDecorator={<TuneRoundedIcon />}
                   sx={{ ml: 'auto' }}
-                  onClick={each.action}
+                  onClick={() => each.action()}
                 >
-                  Configuracion
+                  Configuración
                 </Button>
               </ListItem>
             ))}
         </List>
       </SettingCard>
+
+      <standalonePageModal.component
+        title="Configuración de Standalone"
+        description="Ajusta la configuración de la página web alojada en Bravilo."
+        dialogProps={{ sx: { maxWidth: 'md', height: 'auto' } }}
+      >
+        <StandalonePageWidgetSettings agentId={props.agentId} />
+      </standalonePageModal.component>
+
+      <whatsappModal.component
+        title="Configuración de WhatsApp"
+        description="Ajusta la configuración para la integración con WhatsApp."
+        dialogProps={{ sx: { maxWidth: 'md', height: 'auto' } }}
+      >
+        <WhatsAppSettings agentId={props.agentId} />
+      </whatsappModal.component>
+
+      <telegramModal.component
+        title="Configuración de Telegram"
+        description="Ajusta la configuración para la integración con Telegram."
+        dialogProps={{ sx: { maxWidth: 'md', height: 'auto' } }}
+      >
+        <TelegramSettings agentId={props.agentId} />
+      </telegramModal.component>
     </>
   );
 }
