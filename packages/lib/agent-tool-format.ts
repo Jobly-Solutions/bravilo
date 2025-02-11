@@ -54,10 +54,11 @@ export const agentToolConfig = {
   [ToolType.lead_capture]: {
     hidden: true,
     icon: '🎯',
-    title: '🎯 Captura de Leads (⚠️ Obsoleto: Usa la herramienta de formulario en su lugar)`,
+    title: '🎯 Captura de Leads (⚠️ Obsoleto: Usa la herramienta de formulario en su lugar)',
     description: `El scout puede recopilar correos electrónicos o números de teléfono de los usuarios.`,
   },
 };
+
 
 
 
