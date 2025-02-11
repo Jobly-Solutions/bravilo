@@ -106,7 +106,7 @@ export default function AgentsPage() {
           <HomeRoundedIcon />
         </Link>
         <Typography fontSize="inherit" color="neutral">
-          Agents
+          Crear Scout
         </Typography>
       </Breadcrumbs>
 
