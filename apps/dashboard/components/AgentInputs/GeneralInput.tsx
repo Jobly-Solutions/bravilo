@@ -100,7 +100,7 @@ function GeneralInput({}: Props) {
         iconUrl,
       } as any);
 
-      toast.success('Agent icon updated successfully!');
+      toast.success('Scout icon updated successfully!');
     } catch (err) {
       console.log(err, err);
     } finally {
@@ -127,7 +127,7 @@ function GeneralInput({}: Props) {
     <Stack gap={2}>
       {id && (
         <Stack gap={1}>
-          <Typography level="body-sm">Icon</Typography>
+          <Typography level="body-sm">Imagen perfil</Typography>
           <input
             type="file"
             hidden
@@ -172,12 +172,12 @@ function GeneralInput({}: Props) {
           </Stack>
         </Stack>
       )}
-      <Input control={control} label="Name (optional)" {...register('name')} />
+      <Input control={control} label="Nombre (opcional)" {...register('name')} />
 
       <FormControl>
         <Input
           control={control}
-          label="Description"
+          label="Descripcion"
           {...register('description')}
         />
         {/* <Typography level="body-xs" mt={1}>
