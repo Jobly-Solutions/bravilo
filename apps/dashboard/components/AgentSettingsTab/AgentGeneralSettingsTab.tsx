@@ -34,7 +34,7 @@ export default function AgentGeneralSettingsTab(props: Props) {
   const handleDeleteAgent = async () => {
     if (
       window.confirm(
-        'Are you sure you want to delete this agent? This action is irreversible.'
+        '¿Estás seguro de que quieres eliminar este Scout? Esta acción es irreversible.'
       )
     ) {
       try {
@@ -56,11 +56,11 @@ export default function AgentGeneralSettingsTab(props: Props) {
             {({ formState }) => {
               return (
                 <SettingCard
-                  title="General Settings"
+                  title="Configuracion General"
                   submitButtonProps={{
                     loading: mutation.isMutating,
                     disabled: !formState.isDirty || !formState.isValid,
-                    children: 'Save',
+                    children: 'Guardar',
                   }}
                 >
                   <GeneralInput />
@@ -71,9 +71,9 @@ export default function AgentGeneralSettingsTab(props: Props) {
         )}
       </AgentForm>
 
-      <SettingCard
-        title="Agent ID"
-        description="Use the Agent ID to query the agent through Chaindesk API"
+     {/*  <SettingCard
+        title="Scout ID"
+        description="Usa el ID del Scout para consultar al Scout a través de la API de Bravilo."
         disableSubmitButton
       >
         <Stack spacing={2}>
@@ -110,11 +110,11 @@ export default function AgentGeneralSettingsTab(props: Props) {
             {props.agentId}
           </Alert>
         </Stack>
-      </SettingCard>
+      </SettingCard>*/}
 
       <SettingCard
-        title="Delete Agent"
-        description="It will delete the agent permanently"
+        title="Borrar Scout"
+        description="Esto eliminará el scout de forma permanente"        
         cardProps={{
           color: 'danger',
         }}
@@ -126,7 +126,7 @@ export default function AgentGeneralSettingsTab(props: Props) {
         }}
       >
         <FormControl sx={{ gap: 1 }}>
-          <Alert color="danger">Delete the Agent permanently</Alert>
+        <Alert color="danger">Eliminar el Scout permanentemente</Alert>
         </FormControl>
       </SettingCard>
     </Stack>

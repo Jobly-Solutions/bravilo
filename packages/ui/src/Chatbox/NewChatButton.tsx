@@ -16,7 +16,7 @@ function NewChatButton(props: Props) {
 
   return (
     <Tooltip
-      title="New Chat"
+      title="Nuevo Chat"
       variant="solid"
       placement="bottom"
       arrow

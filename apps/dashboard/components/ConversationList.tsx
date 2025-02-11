@@ -150,7 +150,7 @@ function ConversationList({
         startDecorator={<AddRoundedIcon fontSize="sm" />}
         sx={{ m: 1, whiteSpace: 'nowrap' }}
       >
-        New Chat
+        Nuevo Chat
       </Button>
 
       <List
