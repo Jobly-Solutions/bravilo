@@ -69,6 +69,10 @@ export const createTool = (payload: ToolSchema) => ({
 const agentToolFormat = (
   tool: Exclude<ToolSchema, { type: 'connector' } | { type: 'agent' }>
 ) => {
+  if (agentToolConfig[tool.type]?.hidden) {
+    return null; // No procesar herramientas ocultas
+  }
+
   let format = {
     name: tool.type,
     description: '',

@@ -286,26 +286,29 @@ function ToolsInput({}: Props) {
         </Alert>
       )}
 
-      <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
-        {formattedTools.map((tool, index) => (
-          <ToolCard
-            key={tool.id}
-            id={tool.id}
-            type={tool.type}
-            name={tool.name!}
-            description={tool.description!}
-            mode="edit"
-            onEdit={() =>
-              handleToolEdit({
-                tool: { type: tool.type, id: tool.id },
-                index,
-              })
-            }
-            onDelete={() => handleDeleteTool(tool.id)}
-            link={getToolLink(tool)}
-          />
-        ))}
-      </Stack>
+<Stack direction={'row'} gap={1} flexWrap={'wrap'}>
+  {formattedTools
+    .filter(tool => tool !== null) // Evita herramientas ocultas
+    .map((tool, index) => (
+      <ToolCard
+        key={tool.id}
+        id={tool.id}
+        type={tool.type}
+        name={tool.name!}
+        description={tool.description!}
+        mode="edit"
+        onEdit={() =>
+          handleToolEdit({
+            tool: { type: tool.type, id: tool.id },
+            index,
+          })
+        }
+        onDelete={() => handleDeleteTool(tool.id)}
+        link={getToolLink(tool)}
+      />
+    ))}
+</Stack>
+
 
       <Divider sx={{ my: 2 }} />
 
@@ -335,48 +338,6 @@ function ToolsInput({}: Props) {
         mode="create"
         onCreate={newFormToolModal.open}
       />
-
-      {!hasMarkAsResolved && (
-        <ToolCard
-          id="form-tool"
-          type={ToolType.mark_as_resolved}
-          name={agentToolConfig.mark_as_resolved.title}
-          description={agentToolConfig.mark_as_resolved.description}
-          mode="create"
-          onCreate={() => {
-            handleAddTool({
-              type: ToolType.mark_as_resolved,
-            });
-          }}
-        />
-      )}
-
-      {!hasRequestHuman && (
-        <ToolCard
-          id="form-tool"
-          type={ToolType.request_human}
-          mode="create"
-          name={agentToolConfig.request_human.title}
-          description={agentToolConfig.request_human.description}
-          onCreate={() =>
-            handleAddTool({
-              type: ToolType.request_human,
-            })
-          }
-        />
-      )}
-
-      {!hasLeadCapture && (
-        <ToolCard
-          type={ToolType.lead_capture}
-          id="form-tool"
-          name={agentToolConfig.lead_capture.title}
-          description={agentToolConfig.lead_capture.description}
-          mode="create"
-          onCreate={newLeadCaptureToolModal.open}
-        />
-      )}
-
       <newDatastoreModal.component
         title={agentToolConfig.datastore.title}
         description={agentToolConfig.datastore.description}
