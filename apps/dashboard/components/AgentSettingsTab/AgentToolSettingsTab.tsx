@@ -57,7 +57,7 @@ export default function AgentToolSettingsTab(props: Props) {
                     size="lg"
                     color="success"
                   >
-                    Save
+                    Guardar
                   </Button>
                 )}
               </SettingCard>
@@ -73,7 +73,7 @@ export default function AgentToolSettingsTab(props: Props) {
               return (
                 <SettingCard
                   title="Sources"
-                  description="View content pulled from your Datastores to generate answers."
+                  description="Visualiza el contenido extraído de tus Bases de Datos para generar respuestas."
                   submitButtonProps={{
                     loading: mutation.isMutating,
                     disabled: !formState.isDirty || !formState.isValid,
@@ -87,10 +87,9 @@ export default function AgentToolSettingsTab(props: Props) {
                         checked={!!includeSources}
                       />
                       <div className="flex flex-col">
-                        <FormLabel>Include sources in Agent Answer</FormLabel>
+                        <FormLabel>Incluir fuentes en la respuesta del Scout</FormLabel>
                         <Typography level="body-xs">
-                          When activated, your agent will include sources used
-                          to generate the answer.
+                        Cuando esté activado, tu Scout incluirá las fuentes utilizadas para generar la respuesta.
                         </Typography>
                       </div>
                     </FormControl>
