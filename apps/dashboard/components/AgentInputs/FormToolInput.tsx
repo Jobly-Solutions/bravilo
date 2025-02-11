@@ -61,9 +61,9 @@ export function NewFormToolInput({ saveFormTool }: Props) {
     >
       <Stack>
         <Typography level="body-md">
-          Connect a form or{' '}
+        Conecta un formulario o{' '}
           <Link className="text-purple-300 underline" href={RouteNames.FORMS}>
-            create a new one
+          crea uno nuevo
           </Link>
         </Typography>
         <Select
@@ -84,17 +84,17 @@ export function NewFormToolInput({ saveFormTool }: Props) {
       <Stack gap={1}>
         <Stack>
           <Typography level="body-sm">
-            Describe when should the user be prompted with the form:
+          Describe cuándo se debe mostrar el formulario al candidato:
           </Typography>
           <Textarea
-            placeholder="Use when the user wants to report a bug"
+            placeholder="Úsalo cuando el candidato necesite completar información para un proceso de selección o actualizar sus datos en Bravilo."
             minRows={3}
             onChange={(e) => setState({ trigger: e.target.value })}
           />
         </Stack>
         <Stack>
           <Typography level="body-sm">
-            Alternatively, Trigger form after a specified number of messages:
+          Alternativamente, activa el formulario después de una cantidad específica de mensajes.
           </Typography>
           <Input
             type="number"
@@ -111,7 +111,7 @@ export function NewFormToolInput({ saveFormTool }: Props) {
         sx={{ marginLeft: 'auto' }}
         disabled={!state.form || (!state.trigger && !state.messageCountTrigger)}
       >
-        Add Tool
+        Añadir
       </Button>
     </Stack>
   );

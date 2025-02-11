@@ -36,12 +36,12 @@ export default function AgentSecuritySettings(props: Props) {
 
               return (
                 <SettingCard
-                  title="Agent Access"
+                  title="Acceso del Scout"
                   //   description="Enable this if you want to use  "
                   submitButtonProps={{
                     loading: mutation.isMutating,
                     disabled: !formState.isDirty || !formState.isValid,
-                    children: 'Save',
+                    children: 'Guardar',
                   }}
                 >
                   <div className="flex flex-row">
@@ -63,10 +63,9 @@ export default function AgentSecuritySettings(props: Props) {
                         }}
                       />
                       <div className="flex flex-col">
-                        <FormLabel>Public</FormLabel>
+                        <FormLabel>Publico</FormLabel>
                         <Typography level="body-xs">
-                          When activated, your agent will be available without
-                          an API Key.
+                        Cuando esté activado, tu Scout estará disponible sin necesidad de una clave de API.
                         </Typography>
                       </div>
                     </FormControl>
@@ -85,12 +84,12 @@ export default function AgentSecuritySettings(props: Props) {
 
               return (
                 <SettingCard
-                  title="Authorized Domains"
-                  description="Restrict the chat widget to specific domains for security purposes. e.g: example.com"
+                  title="Dominios autorizados"
+                  description="Restringe el widget de chat a dominios específicos por razones de seguridad. Por ejemplo: example.com."
                   submitButtonProps={{
                     loading: mutation.isMutating,
                     disabled: !formState.isDirty || !formState.isValid,
-                    children: 'Save',
+                    children: 'Guardar',
                   }}
                 >
                   <Textarea
@@ -144,12 +143,12 @@ export default function AgentSecuritySettings(props: Props) {
 
               return (
                 <SettingCard
-                  title="Rate Limit"
-                  description="Use rate limiting to prevent abuse of your agent."
+                  title="Límite de Tasa"
+                  description="Utiliza la limitación de tasa para evitar el uso indebido de tu Scout."
                   submitButtonProps={{
                     loading: mutation.isMutating,
                     disabled: !formState.isDirty || !formState.isValid,
-                    children: 'Save',
+                    children: 'Guardar',
                   }}
                 >
                   <div className="flex space-x-4">
@@ -169,39 +168,38 @@ export default function AgentSecuritySettings(props: Props) {
                       checked={!!isRateLimitEnabled}
                     />
 
-                    <div className="flex flex-col">
-                      <FormLabel>Enable Rate Limit</FormLabel>
-                      <Typography level="body-xs">
-                        X messages max every Y seconds
-                      </Typography>
-                    </div>
-                  </div>
+<div className="flex flex-col">
+  <FormLabel>Habilitar Límite de Tasa</FormLabel>
+  <Typography level="body-xs">
+    X mensajes como máximo cada Y segundos
+  </Typography>
+</div>
+</div>
 
-                  <Stack gap={2} pl={4}>
-                    <Input
-                      control={control}
-                      label="Max number of queries"
-                      disabled={!isRateLimitEnabled}
-                      placeholder="10"
-                      {...register('interfaceConfig.rateLimit.maxQueries')}
-                    />
-                    <Input
-                      control={control}
-                      label="Interval (in seconds)"
-                      disabled={!isRateLimitEnabled}
-                      placeholder="60"
-                      {...register('interfaceConfig.rateLimit.interval')}
-                    />
-                    <Input
-                      control={control}
-                      label="Rate Limit Reached Message"
-                      placeholder="Usage limit reached"
-                      disabled={!isRateLimitEnabled}
-                      {...register(
-                        'interfaceConfig.rateLimit.limitReachedMessage'
-                      )}
-                    />
-                  </Stack>
+<Stack gap={2} pl={4}>
+  <Input
+    control={control}
+    label="Número máximo de consultas"
+    disabled={!isRateLimitEnabled}
+    placeholder="10"
+    {...register('interfaceConfig.rateLimit.maxQueries')}
+  />
+  <Input
+    control={control}
+    label="Intervalo (en segundos)"
+    disabled={!isRateLimitEnabled}
+    placeholder="60"
+    {...register('interfaceConfig.rateLimit.interval')}
+  />
+  <Input
+    control={control}
+    label="Mensaje cuando se alcanza el límite"
+    placeholder="Límite de uso alcanzado"
+    disabled={!isRateLimitEnabled}
+    {...register('interfaceConfig.rateLimit.limitReachedMessage')}
+  />
+</Stack>
+
                 </SettingCard>
               );
             }}
