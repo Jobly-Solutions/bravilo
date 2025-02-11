@@ -128,7 +128,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Agentes',
+              label: 'Scouts',
               route: RouteNames.AGENTS,
               icon: <SmartToyRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.AGENTS),
@@ -195,7 +195,7 @@ export default function Layout(props: Props) {
               isNew: false,
             },
             {
-              label: 'Agentes',
+              label: 'Scouts',
               route: RouteNames.AGENTS,
               icon: <SmartToyRoundedIcon style={{ fontSize: '18px' }} />,
               active: router.route.startsWith(RouteNames.AGENTS),
