@@ -213,9 +213,9 @@ export default function AgentsPage() {
                 
 
                 <SettingCard
-                  title="Tools"
+                  title="Herramientas"
                   disableSubmitButton
-                  description="Give tools to your Agent to make it smarter"
+                  description="Proporciona herramientas a tu Scout para hacerlo más inteligente"
                 >
                   <ToolsInput />
                 </SettingCard>
@@ -229,7 +229,7 @@ export default function AgentsPage() {
                   // disabled={!methods.formState.isValid}
                   // startDecorator={<SaveRoundedIcon />}
                 >
-                  {'Create'}
+                  {'Crear'}
                 </Button>
               </Stack>
             )}

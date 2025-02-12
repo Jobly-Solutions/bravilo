@@ -110,7 +110,7 @@ export default function DatasourcesPage() {
           <HomeRoundedIcon />
         </Link>
         <Typography fontSize="inherit" color="neutral">
-          Datastores
+        Bases de Datos
         </Typography>
         {/* <JoyLink
           underline="hover"
@@ -140,7 +140,7 @@ export default function DatasourcesPage() {
         }}
       >
         <Typography level="h1" fontSize="xl4">
-          Datastores
+          Bases de Datos
         </Typography>
         {/* <Box sx={{ flex: 999999 }} /> */}
         <Box sx={{ display: 'flex', gap: 1, '& > *': { flexGrow: 1 } }}>
@@ -157,7 +157,7 @@ export default function DatasourcesPage() {
             startDecorator={<AddIcon />}
             onClick={handleClickNewDatastore}
           >
-            New Datastore
+           Nueva Base de Datos
           </Button>
         </Box>
       </Box>
@@ -168,10 +168,8 @@ export default function DatasourcesPage() {
         startDecorator={<InfoRoundedIcon />}
         sx={{ mb: 2 }}
       >
-        A Datastore serves as a repository that contains various types of data
-        sources, including files, web pages, Notion notebooks, etc.. Once data
-        is uploaded to a Datastore, it undergoes processing (vectorization) to
-        prepare it for use by an Agent (Large Language Model).
+        Una Base de Datos funciona como un repositorio que contiene diversas fuentes de información, incluyendo archivos, páginas web, documentos de Notion, entre otros.
+        Una vez que los datos se cargan en el Almacén de Datos, se procesan (vectorización) para que el Scout pueda utilizarlos de manera eficiente en sus tareas de recursos humanos.
       </Alert>
 
       {getDatastoresQuery?.data && (

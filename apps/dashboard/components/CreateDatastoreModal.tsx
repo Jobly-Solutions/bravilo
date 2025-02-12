@@ -101,7 +101,7 @@ export default function CreateDatastoreModal(props: Props) {
     //   ),
     // },
     {
-      label: 'Datastore Configuration',
+      label: 'Configuración de la Base de Datos',
       // description: 'A Datastore can contain multiple datasources',
       disableButtons: true,
       component:
@@ -122,7 +122,7 @@ export default function CreateDatastoreModal(props: Props) {
                   loading={btnProps.isLoading}
                   sx={{ mt: 1, mr: 1 }}
                 >
-                  Continue
+                  Continuar
                 </Button>
                 {/* <Button
                   disabled={btnProps.isLoading}
@@ -138,8 +138,8 @@ export default function CreateDatastoreModal(props: Props) {
         } as DatastoreFormProps),
     },
     {
-      label: 'Choose a Datasource type',
-      description: `An empty Datastore is not very useful! Now add some data in it`,
+      label: 'Elige un tipo de Fuente de Fatos',
+      description: `¡Una Base de Datos vacía no es muy útil! Ahora agrega algunos datos en ella.`,
       disableButtons: true,
       component: (
         <DatasourceOptions
@@ -153,8 +153,8 @@ export default function CreateDatastoreModal(props: Props) {
       ),
     },
     {
-      label: 'Setup the Datasource',
-      description: `An empty Datastore is not very useful! Now add some data in it`,
+      label: 'Configura la Fuente de Datos',
+      description: `¡Una Fuente de Datos vacía no es muy útil! Ahora agrega algunos datos en ella.`,
       disableButtons: true,
       component: state.selectedSourceType && (
         <DatasourceForm
@@ -179,7 +179,7 @@ export default function CreateDatastoreModal(props: Props) {
                   loading={btnProps.isLoading}
                   sx={{ mt: 1, mr: 1 }}
                 >
-                  Finish
+                  Finalizar
                 </Button>
                 <Button
                   disabled={btnProps.isLoading}
@@ -187,7 +187,7 @@ export default function CreateDatastoreModal(props: Props) {
                   sx={{ mt: 1, mr: 1 }}
                   variant="plain"
                 >
-                  Back
+                  Atras
                 </Button>
               </div>
             </Box>
@@ -226,7 +226,7 @@ export default function CreateDatastoreModal(props: Props) {
               <StepLabel
                 optional={
                   index === 3 ? (
-                    <Typography variant="plain">Last step</Typography>
+                    <Typography variant="plain">Atras</Typography>
                   ) : null
                 }
               >
@@ -253,7 +253,7 @@ export default function CreateDatastoreModal(props: Props) {
                           onClick={handleBack}
                           sx={{ mt: 1, mr: 1 }}
                         >
-                          Back
+                          Atras
                         </Button>
                       </div>
                     </Box>

@@ -403,7 +403,7 @@ function ToolsInput({}: Props) {
             size="sm"
             onClick={() => setIsCreateDatastoreModalOpen(true)}
           >
-            Create a Datastore
+            Crear Base de Datos
           </Button>
         </Stack>
       </newDatastoreModal.component>

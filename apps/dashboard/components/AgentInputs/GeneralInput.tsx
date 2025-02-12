@@ -155,7 +155,7 @@ function GeneralInput({}: Props) {
                 startDecorator={<AutorenewIcon />}
                 loading={state.isUploadingAgentIcon}
               >
-                Replace
+                Reemplazar
               </Button>
               {state?.iconUrl && state?.iconUrl !== defaultIconUrl && (
                 <Button
@@ -165,7 +165,7 @@ function GeneralInput({}: Props) {
                   size="sm"
                   startDecorator={<DeleteIcon />}
                 >
-                  Delete
+                  Eliminar
                 </Button>
               )}
             </Stack>
