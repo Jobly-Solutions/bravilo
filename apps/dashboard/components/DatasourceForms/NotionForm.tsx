@@ -88,7 +88,7 @@ function Nested() {
   return (
     <>
       <FormControl>
-        <FormLabel>Select Account</FormLabel>
+        <FormLabel>Seleccionar Cuenta</FormLabel>
         <Select
           {...register('config.serviceProviderId')}
           onChange={(_, value) => {
@@ -115,13 +115,13 @@ function Nested() {
         variant={'plain'}
         sx={{ mr: 'auto' }}
       >
-        Notion: Add Account
+        Notion: Agregar Cuenta
       </Button>
 
       {state.currentProviderId && (
         <>
           <FormControl>
-            <FormLabel sx={{ mt: 2 }}>Notebooks</FormLabel>
+            <FormLabel sx={{ mt: 2 }}>Libretas</FormLabel>
             <Autocomplete
               multiple
               disabled={getNotebooksQuery.isValidating}
@@ -130,7 +130,7 @@ function Nested() {
                   <CircularProgress size="sm" />
                 ) : null
               }
-              placeholder="Notebooks"
+              placeholder="Libretas"
               getOptionLabel={(option) => option.title || ''}
               options={getNotebooksQuery?.data || []}
               defaultValue={getNotebooksQuery?.data}
@@ -142,7 +142,7 @@ function Nested() {
           </FormControl>
 
           <Alert color="warning" startDecorator={<BugReportRoundedIcon />}>
-            {`Can't see your notebooks? There is currently an issue with the Notion API that requires you to manually link a page to our integration. For guidance on how to do this, please watch the video below.`}
+            {`¿No puedes ver tus libretas? Actualmente hay un problema con la API de Notion que requiere que vincules manualmente una página a nuestra integración. Para obtener ayuda sobre cómo hacerlo, mira el video a continuación.`}
           </Alert>
           <Box
             component={'video'}

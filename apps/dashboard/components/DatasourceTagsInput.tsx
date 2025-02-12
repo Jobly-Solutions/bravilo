@@ -33,7 +33,7 @@ function DatasourceTagsInput({}: Props) {
     <FormControl>
       <FormLabel>Tags</FormLabel>
       <FormHelperText>
-        Use tags to attach extra context to a Datasource
+      Usa tags para añadir contexto adicional a una Fuente de Datos.
       </FormHelperText>
       <Stack spacing={2} sx={{ mt: 1, display: 'flex' }}>
         <Stack spacing={1}>
@@ -41,7 +41,7 @@ function DatasourceTagsInput({}: Props) {
             <Input
               key={field.id} // important to include key with field's id
               control={control as any}
-              placeholder={`Tag (e.g. "Country: France" or "Customer Support")`}
+              placeholder={`Tag  (por ejemplo, "Puesto: Desarrollador Frontend" o "Experiencia: +5 años")`}
               {...register(`config.tags.${index}`)}
               endDecorator={
                 <IconButton
@@ -62,7 +62,7 @@ function DatasourceTagsInput({}: Props) {
         onClick={() => append('')}
         sx={{ mt: 2, ml: 'auto' }}
       >
-        Add Tag
+        Añadir Tag
       </Button>
     </FormControl>
   );

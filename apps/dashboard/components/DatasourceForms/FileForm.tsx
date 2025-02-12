@@ -145,15 +145,15 @@ function Nested() {
             color={state.isDragEnter ? 'primary' : 'neutral'}
             variant="soft"
           >
-            Select or Drop file
+            Selecciona o arrastra un archivo
           </Button>
           <Typography level="body-xs" textAlign={'center'} mt={2}>
-            PDF, PowerPoint, Excel, Word, Text, Markdown,
+            Archivos permitidos: PDF, PowerPoint, Excel, Word, Texto, Markdown.
           </Typography>
           <UsageLimitModal
             isOpen={state.isUsageLimitModalOpen}
-            title="File size limit exceeded"
-            description="Please upgrade your plan to upload larger files."
+            title="Límite de tamaño de archivo excedido"
+            description="Por favor, mejora tu plan para subir archivos más grandes."
             handleClose={() =>
               setState({
                 isUsageLimitModalOpen: false,

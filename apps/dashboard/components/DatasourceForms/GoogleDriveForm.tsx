@@ -91,10 +91,12 @@ function Nested() {
   console.log('hasOptIn--------->', hasOptIn);
   return (
     <>
+      return (
+    <>
       <Stack gap={2}>
         <FormControl>
-          <FormLabel>Select Account</FormLabel>
-          {/* <Button onClick={handleSignIn}>Google Drive: Sign-In</Button> */}
+          <FormLabel>Seleccionar Cuenta</FormLabel>
+          {/* <Button onClick={handleSignIn}>Google Drive: Iniciar Sesión</Button> */}
 
           <Stack gap={1}>
             <Select
@@ -121,7 +123,7 @@ function Nested() {
               variant={'plain'}
               sx={{ mr: 'auto' }}
             >
-              Google Drive: Add Account
+              Google Drive: Agregar Cuenta
             </Button>
           </Stack>
         </FormControl>
@@ -165,7 +167,7 @@ function Nested() {
                     width: '100%',
                   }}
                   loading={listFolderQuery?.isLoading}
-                  placeholder="Select Folder or Single File"
+                  placeholder="Selecciona una Carpeta o Archivo Único"
                   slotProps={{
                     listbox: {
                       sx: (theme) => ({
@@ -265,7 +267,7 @@ function Nested() {
               <Checkbox
                 sx={{ mt: 2 }}
                 {...register('hasOptIn')}
-                label="I acknowledge and consent to the transfer of subsets of my data to large language model providers as part of the service's functionality and improvement."
+                label="Reconozco y doy mi consentimiento para la transferencia de subconjuntos de mis datos a proveedores de modelos de lenguaje como parte de la funcionalidad y mejora del servicio."
               />
             </Alert>
           )}
@@ -274,6 +276,7 @@ function Nested() {
     </>
   );
 }
+
 
 export default function GoogleDriveForm(props: Props) {
   const { defaultValues, ...rest } = props;
@@ -285,7 +288,7 @@ export default function GoogleDriveForm(props: Props) {
           return (val as any).hasOptIn === true;
         },
         {
-          message: 'Please aknowledge the opt-in.',
+          message: 'Por favor, confirma tu consentimiento.',
         }
       )}
       {...rest}

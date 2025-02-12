@@ -73,14 +73,14 @@ function Nested() {
   return (
     <>
       <Alert startDecorator={<InfoRoundedIcon />}>
-        The Q&A datasource can help Agents to answer explicit questions
+        La fuente de datos de Preguntas y Respuestas puede ayudar a los Scouts a responder preguntas explícitas.
       </Alert>
 
       <Input
-        label="Source URL (optional)"
+        label="URL de la Fuente (opcional)"
         control={control as any}
-        placeholder="https://en.wikipedia.org/wiki/Nuclear_fusion"
-        helperText='The URL to use for the "sources" section of an Agent answer'
+        placeholder="https://es.wikipedia.org/wiki/Reclutamiento"
+        helperText='La URL que se utilizará en la sección de "fuentes" de la respuesta del Scout'
         {...register('config.source_url')}
       />
 
@@ -90,7 +90,7 @@ function Nested() {
           !!errors?.config?.question?.message
         }
       >
-        <FormLabel>Question</FormLabel>
+        <FormLabel>Pregunta</FormLabel>
         <Textarea maxRows={12} minRows={2} {...register('config.question')} />
 
         {errors?.config?.question?.message && (
@@ -104,7 +104,7 @@ function Nested() {
           !!errors?.config?.answer?.message
         }
       >
-        <FormLabel>Answer</FormLabel>
+        <FormLabel>Respuesta</FormLabel>
         <Textarea maxRows={21} minRows={4} {...register('config.answer')} />
         {errors?.config?.answer?.message && (
           <FormHelperText>{errors?.config?.answer?.message}</FormHelperText>
@@ -122,6 +122,7 @@ function Nested() {
     </>
   );
 }
+
 
 export default function QAForm(props: Props) {
   const { defaultValues, ...rest } = props;

@@ -41,13 +41,14 @@ function Nested() {
 
   return (
     <Input
-      label="Youtube URL (video, playlist or channel)"
-      helperText="e.g.: https://www.youtube.com/watch?v=Jq_XKf5slVc"
+      label="URL de YouTube (video, lista de reproducción o canal)"
+      helperText="Ejemplo: https://www.youtube.com/watch?v=Jq_XKf5slVc"
       control={control as any}
       {...register('config.source_url')}
     />
   );
 }
+
 
 export default function YoutubeForm(props: Props) {
   const { defaultValues, ...rest } = props;
