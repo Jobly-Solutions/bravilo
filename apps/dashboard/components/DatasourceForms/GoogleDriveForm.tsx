@@ -87,7 +87,7 @@ function Nested() {
   const id = watch('id');
   const hasOptIn = watch('hasOptIn');
 
-  console.log('ID--------->', id);
+  console.log('ID--------->', id); 
   console.log('hasOptIn--------->', hasOptIn);
   return (
       return (
