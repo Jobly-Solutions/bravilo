@@ -31,100 +31,101 @@ function Nested() {
 
   return (
     <Stack gap={1}>
-      <Stack gap={1}>
-        <Input
-          label="Web Site URL"
-          helperText="e.g.: https://example.com/"
-          control={control as any}
-          {...register('config.source_url')}
-        />
-        <Alert color="neutral">
-          <Stack>
-            Will automatically try to find all pages on the website during 45s
-            max.
-            <strong>
-              Limited to{' '}
-              {
-                accountConfig[session?.organization?.currentPlan!]?.limits
-                  ?.maxWebsiteURL
-              }
-              {' Pages on your plan.'}
-            </strong>
-          </Stack>
-        </Alert>
+  <Stack gap={1}>
+    <Input
+      label="URL del Sitio Web"
+      helperText="Ejemplo: https://example.com/"
+      control={control as any}
+      {...register('config.source_url')}
+    />
+    <Alert color="neutral">
+      <Stack>
+        Intentará automáticamente encontrar todas las páginas del sitio web durante un máximo de 45 segundos.
+        <strong>
+          Limitado a{' '}
+          {
+            accountConfig[session?.organization?.currentPlan!]?.limits
+              ?.maxWebsiteURL
+          }
+          {' páginas según tu plan.'}
+        </strong>
       </Stack>
+    </Alert>
+  </Stack>
 
-      <Typography color="primary" fontWeight={'bold'} mx={'auto'} mt={2}>
-        Or
-      </Typography>
+  <Typography color="primary" fontWeight={'bold'} mx={'auto'} mt={2}>
+    O
+  </Typography>
 
-      <Stack gap={1}>
-        <Input
-          label="Sitemap URL"
-          helperText="e.g.: https://example.com/sitemap.xml"
-          control={control as any}
-          {...register('config.sitemap')}
-        />
+  <Stack gap={1}>
+    <Input
+      label="URL del Sitemap"
+      helperText="Ejemplo: https://example.com/sitemap.xml"
+      control={control as any}
+      {...register('config.sitemap')}
+    />
 
-        <Alert color="neutral">
-          <Stack>
-            Will process all pages in the sitemap.
-            <strong>
-              Limited to{' '}
-              {
-                accountConfig[session?.organization?.currentPlan!]?.limits
-                  ?.maxWebsiteURL
-              }
-              {' Pages on your plan.'}
-            </strong>
-          </Stack>
-        </Alert>
+    <Alert color="neutral">
+      <Stack>
+        Procesará todas las páginas dentro del sitemap.
+        <strong>
+          Limitado a{' '}
+          {
+            accountConfig[session?.organization?.currentPlan!]?.limits
+              ?.maxWebsiteURL
+          }
+          {' páginas según tu plan.'}
+        </strong>
       </Stack>
-      <Divider sx={{ my: 2 }} />
-      <Stack gap={1}>
-        <Typography>Blacklisted URLs</Typography>
-        <Alert color="neutral">
-          <Stack>
-            <Typography>
-              Blacklisted URLs will be ignored during the scan. Glob patterns
-              can be used, e.g.: https://example.com/blog/*
-            </Typography>
-          </Stack>
-        </Alert>
+    </Alert>
+  </Stack>
 
-        <Stack gap={1}>
-          {parameters.fields.map((field, index) => (
-            <Stack key={index} direction="row" gap={1}>
-              <Input
-                key={index}
-                control={control}
-                sx={{ width: '100%', flex: 1 }}
-                formControlProps={{ sx: { flex: 1 } }}
-                {...register(`config.black_listed_urls.${index}`)}
-              />
-              <IconButton
-                variant="outlined"
-                color="neutral"
-                onClick={() => parameters.remove(index)}
-              >
-                <DeleteIcon fontSize="md" />
-              </IconButton>
-            </Stack>
-          ))}
-          <Button
+  <Divider sx={{ my: 2 }} />
+
+  <Stack gap={1}>
+    <Typography>URLs Excluidas</Typography>
+    <Alert color="neutral">
+      <Stack>
+        <Typography>
+          Las URLs excluidas serán ignoradas durante el escaneo. Se pueden usar patrones globales, por ejemplo: https://example.com/blog/*
+        </Typography>
+      </Stack>
+    </Alert>
+
+    <Stack gap={1}>
+      {parameters.fields.map((field, index) => (
+        <Stack key={index} direction="row" gap={1}>
+          <Input
+            key={index}
+            control={control}
+            sx={{ width: '100%', flex: 1 }}
+            formControlProps={{ sx: { flex: 1 } }}
+            {...register(`config.black_listed_urls.${index}`)}
+          />
+          <IconButton
             variant="outlined"
-            startDecorator={<AddIcon fontSize="md" />}
-            size="sm"
-            onClick={() => {
-              parameters.append('');
-            }}
-            sx={{ width: '70px' }}
+            color="neutral"
+            onClick={() => parameters.remove(index)}
           >
-            Add
-          </Button>
+            <DeleteIcon fontSize="md" />
+          </IconButton>
         </Stack>
-      </Stack>
+      ))}
+      <Button
+        variant="outlined"
+        startDecorator={<AddIcon fontSize="md" />}
+        size="sm"
+        onClick={() => {
+          parameters.append('');
+        }}
+        sx={{ width: '70px' }}
+      >
+        Agregar
+      </Button>
     </Stack>
+  </Stack>
+</Stack>
+
   );
 }
 
