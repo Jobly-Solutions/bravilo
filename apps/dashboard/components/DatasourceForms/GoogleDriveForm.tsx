@@ -90,7 +90,7 @@ function Nested() {
   console.log('ID--------->', id); 
   console.log('hasOptIn--------->', hasOptIn);
   return (
-      return (
+      
     
       <Stack gap={2}>
         <FormControl>
@@ -272,7 +272,6 @@ function Nested() {
           )}
         </Stack>
       </Stack>
-    </>
   );
 }
 
