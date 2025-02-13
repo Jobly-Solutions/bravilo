@@ -221,36 +221,38 @@ export default function FormsPage() {
         }}
       >
         <Stack gap={2}>
-          {[
-            FROM_SCRATCH,
-            LEAD_FORM,
-            ONBOARDING_FORM,
-            PRODUCT_FEEDBACK_FORM,
-            INBOUND_LEAD,
-            CONTACT_SALES,
-            FEEDBACK,
-          ].map((each) => (
-            <Card
-              size="sm"
-              key={each.name}
-              onClick={() => onSubmit(each.schema)}
-              variant="outlined"
-              sx={(t) => ({
-                transition: 'all 0.1s ease-in-out',
-                '&:hover': {
-                  backgroundColor: t.palette.background.popup,
-                  cursor: 'pointer',
-                  transform: 'scale(1.005)',
-                  '& > p:first-child': {
-                    color: t.palette.primary.main,
-                  },
-                },
-              })}
-            >
-              <Typography level="title-lg">{each.name}</Typography>
-              <Typography level="body-md">{each.description}</Typography>
-            </Card>
-          ))}
+        {[
+  FROM_SCRATCH,
+  LEAD_FORM,
+  ONBOARDING_FORM,
+  PRODUCT_FEEDBACK_FORM,
+  INBOUND_LEAD,
+  CONTACT_SALES,
+  FEEDBACK,
+]
+  .filter((each) => each) // Filtra elementos undefined
+  .map((each) => (
+    <Card
+      size="sm"
+      key={each.name}
+      onClick={() => onSubmit(each.schema)}
+      variant="outlined"
+      sx={(t) => ({
+        transition: 'all 0.1s ease-in-out',
+        '&:hover': {
+          backgroundColor: t.palette.background.popup,
+          cursor: 'pointer',
+          transform: 'scale(1.005)',
+          '& > p:first-child': {
+            color: t.palette.primary.main,
+          },
+        },
+      })}
+    >
+      <Typography level="title-lg">{each.name}</Typography>
+      <Typography level="body-md">{each.description}</Typography>
+    </Card>
+  ))}
         </Stack>
       </createFormModal.component>
     </Box>
