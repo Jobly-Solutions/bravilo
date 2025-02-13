@@ -351,7 +351,7 @@ export default function Layout(props: Props) {
   return (
     <>
       <SEO
-        title="Scouts Bravilo By Jobly."
+        title="Scouts Bravilo By Jobly"
         description="Encuentra, conecta y contrata al talento ideal en segundos"
         baseUrl={appUrl}
         uri={router.pathname}
