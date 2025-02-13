@@ -208,141 +208,132 @@ function Form({ formId }: Props) {
               </AccordionDetails>
             </Accordion> */}
 
-            <Accordion
-              expanded={state.currentAccordionIndex === 0}
-              onChange={(event, expanded) => {
-                setState({
-                  currentAccordionIndex: expanded ? 0 : null,
-                });
-              }}
-            >
-              <AccordionSummary>
-                <Typography startDecorator={<LooksOneRoundedIcon />}>
-                  {type === 'conversational' ? 'Start Screen' : 'Form Details'}
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Stack gap={2}>
-                  <FormControl>
-                    <FormLabel>Title</FormLabel>
-                    <Input
-                      control={methods.control}
-                      {...methods.register('draftConfig.startScreen.title')}
-                    />
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel>Description</FormLabel>
-                    <Textarea
-                      minRows={2}
-                      maxRows={4}
-                      {...methods.register(
-                        'draftConfig.startScreen.description'
-                      )}
-                    />
-                  </FormControl>
+<Accordion
+  expanded={state.currentAccordionIndex === 0}
+  onChange={(event, expanded) => {
+    setState({
+      currentAccordionIndex: expanded ? 0 : null,
+    });
+  }}
+>
+  <AccordionSummary>
+    <Typography startDecorator={<LooksOneRoundedIcon />}>
+      {type === 'conversational' ? 'Pantalla de inicio' : 'Detalles del formulario'}
+    </Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+    <Stack gap={2}>
+      <FormControl>
+        <FormLabel>Título</FormLabel>
+        <Input
+          control={methods.control}
+          {...methods.register('draftConfig.startScreen.title')}
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Descripción</FormLabel>
+        <Textarea
+          minRows={2}
+          maxRows={4}
+          {...methods.register('draftConfig.startScreen.description')}
+        />
+      </FormControl>
 
-                  {type === 'conversational' && (
-                    <FormControl>
-                      <FormLabel>Call to action</FormLabel>
-                      <Input
-                        control={methods.control}
-                        {...methods.register(
-                          'draftConfig.startScreen.cta.label'
-                        )}
-                      />
-                    </FormControl>
-                  )}
-                </Stack>
-              </AccordionDetails>
-            </Accordion>
+      {type === 'conversational' && (
+        <FormControl>
+          <FormLabel>Llamada a la acción</FormLabel>
+          <Input
+            control={methods.control}
+            {...methods.register('draftConfig.startScreen.cta.label')}
+          />
+        </FormControl>
+      )}
+    </Stack>
+  </AccordionDetails>
+</Accordion>
 
-            <Accordion
-              expanded={state.currentAccordionIndex === 1}
-              onChange={(event, expanded) => {
-                setState({
-                  currentAccordionIndex: expanded ? 1 : null,
-                });
-              }}
-            >
-              <AccordionSummary>
-                <Typography startDecorator={<LooksTwoRoundedIcon />}>
-                  Form Fields
-                </Typography>
-              </AccordionSummary>
-              {/* <Alert startDecorator={<InfoRoundedIcon />}>
-               {`Field names have an impact on context understanding for
-           the AI`}
-             </Alert> */}
-              <AccordionDetails>
-                <FieldsInput type={type} />
-              </AccordionDetails>
-            </Accordion>
+<Accordion
+  expanded={state.currentAccordionIndex === 1}
+  onChange={(event, expanded) => {
+    setState({
+      currentAccordionIndex: expanded ? 1 : null,
+    });
+  }}
+>
+  <AccordionSummary>
+    <Typography startDecorator={<LooksTwoRoundedIcon />}>
+      Campos del formulario
+    </Typography>
+  </AccordionSummary>
+  {/* <Alert startDecorator={<InfoRoundedIcon />}>
+    {`Los nombres de los campos influyen en la comprensión del contexto por parte de la IA.`}
+  </Alert> */}
+  <AccordionDetails>
+    <FieldsInput type={type} />
+  </AccordionDetails>
+</Accordion>
 
-            <Accordion
-              expanded={state.currentAccordionIndex === 2}
-              onChange={(event, expanded) => {
-                setState({
-                  currentAccordionIndex: expanded ? 2 : null,
-                });
-              }}
-            >
-              <AccordionSummary>
-                <Typography startDecorator={<Looks3RoundedIcon />}>
-                  End Screen
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Stack gap={2}>
-                  <FormControl>
-                    <FormLabel>Message</FormLabel>
-                    <Input
-                      control={methods.control}
-                      {...methods.register(
-                        'draftConfig.endScreen.successMessage'
-                      )}
-                    />
-                  </FormControl>
+<Accordion
+  expanded={state.currentAccordionIndex === 2}
+  onChange={(event, expanded) => {
+    setState({
+      currentAccordionIndex: expanded ? 2 : null,
+    });
+  }}
+>
+  <AccordionSummary>
+    <Typography startDecorator={<Looks3RoundedIcon />}>
+      Pantalla final
+    </Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+    <Stack gap={2}>
+      <FormControl>
+        <FormLabel>Mensaje</FormLabel>
+        <Input
+          control={methods.control}
+          {...methods.register('draftConfig.endScreen.successMessage')}
+        />
+      </FormControl>
 
-                  <FormControl>
-                    <FormLabel>Call to action</FormLabel>
-                    <Input
-                      control={methods.control}
-                      {...methods.register('draftConfig.endScreen.cta.label')}
-                    />
-                  </FormControl>
-                  <FormControl>
-                    <FormLabel>Call to action URL</FormLabel>
-                    <Input
-                      control={methods.control}
-                      // endDecorator={}
-                      {...methods.register('draftConfig.endScreen.cta.url')}
-                    />
+      <FormControl>
+        <FormLabel>Llamada a la acción</FormLabel>
+        <Input
+          control={methods.control}
+          {...methods.register('draftConfig.endScreen.cta.label')}
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel>URL de la llamada a la acción</FormLabel>
+        <Input
+          control={methods.control}
+          {...methods.register('draftConfig.endScreen.cta.url')}
+        />
 
-                    <Stack direction="row-reverse" mt={1}>
-                      <Controller
-                        name="draftConfig.endScreen.cta.target"
-                        render={({ field }) => (
-                          <Select
-                            defaultValue={'_blank'}
-                            variant="outlined"
-                            size="sm"
-                            sx={{ height: '8px' }}
-                            {...field}
-                            onChange={(_, val) => {
-                              field.onChange(val);
-                            }}
-                          >
-                            <Option value="_blank">_blank</Option>
-                            <Option value="_self">_self</Option>
-                          </Select>
-                        )}
-                      ></Controller>
-                    </Stack>
-                  </FormControl>
-                </Stack>
-              </AccordionDetails>
-            </Accordion>
-
+        <Stack direction="row-reverse" mt={1}>
+          <Controller
+            name="draftConfig.endScreen.cta.target"
+            render={({ field }) => (
+              <Select
+                defaultValue={'_blank'}
+                variant="outlined"
+                size="sm"
+                sx={{ height: '8px' }}
+                {...field}
+                onChange={(_, val) => {
+                  field.onChange(val);
+                }}
+              >
+                <Option value="_blank">_blank</Option>
+                <Option value="_self">_self</Option>
+              </Select>
+            )}
+          ></Controller>
+        </Stack>
+      </FormControl>
+    </Stack>
+  </AccordionDetails>
+</Accordion>
             <Accordion
               expanded={state.currentAccordionIndex === 3}
               onChange={(event, expanded) => {
