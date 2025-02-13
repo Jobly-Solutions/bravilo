@@ -5,7 +5,7 @@ import Typography from '@mui/joy/Typography';
 import { useSession } from 'next-auth/react';
 import React from 'react';
 
-import { DatasourceType } from '@chaindesk/prisma';
+import { DatasourceType } from '@bravilo/prisma'; // Cambiado de @chaindesk/prisma a @bravilo/prisma
 
 import UsageLimitModal from '../UsageLimitModal';
 
@@ -25,47 +25,47 @@ type DatsourceOption = {
 const options: DatsourceOption[] = [
   {
     type: DatasourceType.web_page,
-    label: 'Web Page',
-    description: 'Crawl text from a single web page',
+    label: 'Página Web',
+    description: 'Extrae texto de una página web específica',
     icon: undefined,
   },
   {
     type: DatasourceType.web_site,
-    label: 'Web Site',
-    description: 'Crawl all pages of a web site',
+    label: 'Sitio Web',
+    description: 'Extrae texto de todas las páginas de un sitio web',
     icon: undefined,
     isPremium: true,
   },
   {
     type: 'file' as any,
-    label: 'File',
-    description: 'It can be: PDF, CSV, JSON, Text, PowerPoint, Word, Excel',
+    label: 'Archivo',
+    description: 'Puede ser: PDF, CSV, JSON, Texto, PowerPoint, Word, Excel',
     disabled: false,
   },
   {
     type: DatasourceType.qa,
-    label: 'Q&A',
-    description: 'Improve Answers with explicit Q&A pairs',
+    label: 'Preguntas y Respuestas',
+    description: 'Mejora las respuestas con pares explícitos de preguntas y respuestas',
     disabled: false,
   },
   {
     type: DatasourceType.text,
-    label: 'Text',
-    description: 'Paste some text',
+    label: 'Texto',
+    description: 'Pega algún texto',
     icon: undefined,
   },
   {
     type: 'google_drive_folder' as any,
     label: 'Google Drive™',
-    description: 'Talk to your Google Drive files',
+    description: 'Conéctate a tus archivos de Google Drive',
     isPremium: true,
     icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/1024px-Google_Drive_icon_%282020%29.svg.png?20221103153031',
   },
   {
     type: 'youtube_video',
-    label: 'Youtube',
+    label: 'YouTube',
     description:
-      'Paste a youtube video, playlist or channel and make it your source of knowlege',
+      'Pega un video, lista de reproducción o canal de YouTube y conviértelo en tu fuente de conocimiento',
     disabled: false,
     icon: 'https://www.svgrepo.com/show/13671/youtube.svg',
     isPremium: true,
@@ -73,7 +73,7 @@ const options: DatsourceOption[] = [
   {
     type: 'notion' as any,
     label: 'Notion',
-    description: 'Connect your Notion workspace',
+    description: 'Conecta tu espacio de trabajo de Notion',
     icon: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Notion-logo.svg',
     disabled: false,
     isPremium: true,
@@ -109,14 +109,14 @@ const DatasourceOptions = (props: Props) => {
                 <Typography level="body-md" fontWeight={'bold'}>
                   {each.label}
                 </Typography>
-                {each.isPremium && (
+                {/*{each.isPremium && (
                   <Chip variant="soft" color="warning" size="sm">
                     premium
                   </Chip>
-                )}
+                )}*/}
                 {each.disabled && (
                   <Chip variant="soft" color="neutral" size="sm">
-                    Coming Soon
+                    Próximamente
                   </Chip>
                 )}
               </Stack>
@@ -129,8 +129,8 @@ const DatasourceOptions = (props: Props) => {
       <UsageLimitModal
         isOpen={showUsageLimitModal}
         handleClose={() => setShowUsageLimitModal(false)}
-        title="Premium Feature"
-        description="Upgrade your account to access this feature"
+        title="Función Premium"
+        description="Actualiza tu cuenta para acceder a esta función"
       />
     </div>
   );
