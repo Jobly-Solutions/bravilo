@@ -35,9 +35,9 @@ import {
 import { MembershipRole, Prisma } from '@chaindesk/prisma';
 import useStateReducer from '@chaindesk/ui/hooks/useStateReducer';
 
-import IconInput from '@/ui/IconInput';
-import SettingCard from '@/ui/SettingCard';
-import Input from '@/Input';
+import IconInput from './ui/IconInput';
+import SettingCard from './ui/SettingCard';
+import Input from './Input';
 
 type Props = {};
 
