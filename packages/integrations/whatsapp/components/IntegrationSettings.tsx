@@ -32,7 +32,7 @@ const Schema = AddServiceProviderWhatsappSchema;
 
 type Schema = z.infer<typeof Schema>;
 
-const steps = ['Requirements', 'User Token', 'Phone Number', 'Webhook'];
+const steps = ['Requisitos', 'Token', 'Número de Teléfono', 'Webhook'];
 
 function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
   const [activeStep, setActiveStep] = React.useState(0);
