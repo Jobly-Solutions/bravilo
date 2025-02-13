@@ -1,112 +1,8 @@
-import cuid from 'cuid';
-
-import { FormConfigSchema } from '../types/dtos';
-
-type FormTemplate = {
-  name: string;
-  description?: string;
-  schema: FormConfigSchema;
-};
-
-export const FROM_SCRATCH: FormTemplate = {
-  name: 'Comenzar desde cero',
-  description:
-    'Crea un formulario desde cero. Puedes agregar cualquier campo que desees y personalizar el diseño.',
-  schema: {
-    fields: [
-      {
-        id: cuid(),
-        type: 'email',
-        shouldCreateContact: true,
-        name: 'email',
-        required: true,
-      },
-    ],
-    startScreen: {
-      title: 'Título',
-      description: 'Descripción',
-    },
-  },
-};
-
-export const CANDIDATE_INTAKE_FORM: FormTemplate = {
-  name: 'Formulario de ingreso de candidatos',
-  description: 'Un formulario para capturar información básica de los candidatos.',
-  schema: {
-    overview: `Este formulario está diseñado para recopilar información esencial de los candidatos, como correo electrónico y número de teléfono, para facilitar el proceso de selección.`,
-    fields: [
-      {
-        id: cuid(),
-        type: 'email',
-        shouldCreateContact: true,
-        name: 'email',
-        required: true,
-        placeholder: 'Ingresa tu correo electrónico',
-      },
-      {
-        id: cuid(),
-        type: 'phoneNumber',
-        name: 'phone',
-        required: true,
-        placeholder: 'Ingresa tu número de teléfono',
-      },
-      {
-        id: cuid(),
-        type: 'textArea',
-        name: 'comment',
-        required: false,
-        placeholder: 'Ingresa comentarios adicionales',
-      },
-    ],
-    startScreen: {
-      title: 'Únete a nuestro equipo',
-      description: '¡Estamos aquí para ayudarte! Por favor, completa el formulario a continuación.',
-    },
-  },
-};
-
-export const EMPLOYEE_FEEDBACK_FORM: FormTemplate = {
-  name: 'Formulario de retroalimentación de empleados',
-  description: 'Un formulario para recopilar comentarios sobre el ambiente laboral y procesos internos.',
-  schema: {
-    overview: `Este formulario está diseñado para recopilar retroalimentación de los empleados. Tu opinión es valiosa y nos ayuda a mejorar.`,
-    fields: [
-      {
-        id: cuid(),
-        type: 'email',
-        shouldCreateContact: true,
-        name: 'email',
-        required: true,
-        placeholder: 'Ingresa tu correo electrónico',
-      },
-      {
-        id: cuid(),
-        type: 'select',
-        name: 'type',
-        required: true,
-        options: ['Sugerencia', 'Problema', 'Elogio', 'Otro'],
-        placeholder: 'Selecciona el tipo de retroalimentación',
-      },
-      {
-        id: cuid(),
-        type: 'textArea',
-        name: 'comment',
-        required: true,
-        placeholder: 'Ingresa tus comentarios aquí',
-      },
-    ],
-    startScreen: {
-      title: 'Tu opinión es importante',
-      description: '¡Estamos aquí para escucharte! Por favor, comparte tus comentarios.',
-    },
-  },
-};
-
 export const ONBOARDING_FORM: FormTemplate = {
-  name: 'Formulario de incorporación',
-  description: 'Un formulario para recopilar información inicial de nuevos empleados.',
+  name: 'Formulario de Incorporación',
+  description: 'Un formulario para recoger información inicial sobre nuevos usuarios.',
   schema: {
-    overview: `Este formulario está diseñado para recopilar información inicial de nuevos empleados y ayudarnos a personalizar su experiencia.`,
+    overview: `Este formulario está diseñado para recoger información inicial sobre nuevos usuarios y ayudarnos a personalizar nuestros servicios según sus necesidades.`,
     fields: [
       {
         id: cuid(),
@@ -114,56 +10,65 @@ export const ONBOARDING_FORM: FormTemplate = {
         shouldCreateContact: true,
         name: 'email',
         required: true,
-        placeholder: 'Ingresa tu correo electrónico',
+        placeholder: 'Ingresa tu email',
       },
       {
         id: cuid(),
         type: 'select',
-        name: 'department',
+        name: 'industry',
         required: true,
         options: [
-          'Recursos Humanos',
           'Tecnología',
-          'Ventas',
-          'Marketing',
+          'E-commerce',
+          'Salud',
           'Finanzas',
+          'Retail',
+          'Manufactura',
           'Otro',
         ],
-        placeholder: 'Selecciona tu departamento',
+        placeholder: 'Selecciona tu industria',
       },
       {
         id: cuid(),
         type: 'select',
-        name: 'role',
+        name: 'company size',
         required: true,
-        options: ['Gerente', 'Analista', 'Desarrollador', 'Diseñador', 'Otro'],
-        placeholder: 'Selecciona tu puesto',
+        options: ['1-10', '10-100', '100+'],
+        placeholder: 'Selecciona el tamaño de tu empresa',
       },
       {
         id: cuid(),
-        type: 'text',
-        name: 'emergencyContact',
+        type: 'select',
+        name: '¿Dónde escuchaste sobre nosotros?',
         required: true,
-        placeholder: 'Nombre y teléfono de contacto de emergencia',
+        options: [
+          'Google',
+          'Redes Sociales',
+          'Boletín Informativo',
+          'Boca a boca',
+          'Feria Comercial',
+          'Otro',
+        ],
+        placeholder: '¿Dónde escuchaste sobre nosotros?',
       },
     ],
     startScreen: {
-      title: 'Bienvenido a Bravilo',
-      description: '¡Estamos emocionados de tenerte aquí! Comencemos con el proceso de incorporación.',
+      title: 'Bienvenido a nuestra plataforma',
+      description: "¡Estamos emocionados de tenerte aquí! Vamos a empezar.",
     },
   },
 };
 
-// Ocultar plantillas no relevantes para HR
-/*
 export const INBOUND_LEAD: FormTemplate = {
-  name: 'Inbound Lead',
+  name: 'Lead Entrante',
   description:
-    'Attract potential clients at the beginning of any funnel, prompting them to submit their contact information.',
+    'Atrae posibles clientes al inicio de cualquier embudo, solicitando su información de contacto.',
   schema: {
-    overview: `A conversation to convince potential prospect about Acme Inc. solution.
-    Start by giving a brief intro about Acme.
-    Ask for the email only if they are interested in receiving email updates.`,
+    overview: `Una conversación para convencer a los posibles prospectos sobre la solución de Acme Inc.
+
+    Comienza dando una breve introducción sobre Acme.
+    
+    Pide el email solo si están interesados en recibir actualizaciones por correo electrónico.`,
     fields: [
       {
         id: cuid(),
@@ -181,33 +86,36 @@ export const INBOUND_LEAD: FormTemplate = {
       {
         id: cuid(),
         type: 'select',
-        name: 'Intested in',
+        name: 'Interesado en',
         options: [
-          'Website Dev',
-          'Content Marketing',
-          'Social Media',
-          'UI/UX Design',
+          'Desarrollo de Sitios Web',
+          'Marketing de Contenidos',
+          'Redes Sociales',
+          'Diseño UI/UX',
         ],
         required: true,
       },
     ],
     startScreen: {
-      title: 'Awesome Company',
-      description: "Welcome on board! Let's get to know each other!",
+      title: 'Empresa Asombrosa',
+      description: "¡Bienvenido a bordo! Conozcámonos mejor.",
     },
   },
 };
 
 export const CONTACT_SALES: FormTemplate = {
-  name: 'Contact sales',
+  name: 'Contactar Ventas',
   description:
-    'Prepare and assess potential clients before they arrange a discussion with your sales representatives.',
+    'Prepara y evalúa posibles clientes antes de que agenden una reunión con tu equipo de ventas.',
   schema: {
-    overview: `A conversation to convince potential prospect about Acme Inc. solution.
-    Start by giving a brief intro about Acme.
-    Ask for the email only if they are interested in receiving email updates.
-    At Acme Inc., we're dedicated to providing top-notch solutions and services to meet your needs. 
-    With a team of experts committed to excellence, we strive to deliver innovative products that redefine industry standards.`,
+    overview: `Una conversación para convencer a los posibles prospectos sobre la solución de Acme Inc.
+
+    Comienza dando una breve introducción sobre Acme.
+    
+    Pide el email solo si están interesados en recibir actualizaciones por correo electrónico.
+
+    En Acme Inc., estamos dedicados a ofrecer soluciones y servicios de primer nivel para satisfacer tus necesidades. 
+    Con un equipo de expertos comprometidos con la excelencia, nos esforzamos por ofrecer productos innovadores que redefinen los estándares de la industria.`,
     fields: [
       {
         id: cuid(),
@@ -225,61 +133,19 @@ export const CONTACT_SALES: FormTemplate = {
       {
         id: cuid(),
         type: 'select',
-        name: 'Interested in',
+        name: 'Interesado en',
         options: [
-          'Website Dev',
-          'Content Marketing',
-          'Social Media',
-          'UI/UX Design',
+          'Desarrollo de Sitios Web',
+          'Marketing de Contenidos',
+          'Redes Sociales',
+          'Diseño UI/UX',
         ],
         required: true,
       },
     ],
     startScreen: {
-      title: 'Contact sales',
-      description: 'Learn about our Enterprise Plan',
+      title: 'Contactar Ventas',
+      description: 'Conoce nuestro Plan Empresarial',
     },
   },
 };
-
-export const FEEDBACK: FormTemplate = {
-  name: 'Product Feedback',
-  description:
-    'Obtain opinions on a product through an engaging dialogue-based approach.',
-  schema: {
-    overview: `Gather feedback from new customer of one of our model of sneaker
-    Acme Clothes is a distinguished fashion brand renowned for its high-quality, stylish apparel. 
-    Offering a wide range of clothing options for men, women, and kids, Acme Clothes combines comfort with contemporary trends to create unique and versatile pieces suitable for every occasion.`,
-    fields: [
-      {
-        id: cuid(),
-        type: 'text',
-        name: 'model purchased',
-        required: true,
-      },
-      {
-        id: cuid(),
-        type: 'text',
-        name: 'Size fitting',
-        required: true,
-      },
-      {
-        id: cuid(),
-        type: 'text',
-        name: 'Price value assessment ',
-        required: true,
-      },
-      {
-        id: cuid(),
-        type: 'number',
-        name: 'Overall satisfaction (1-5)',
-        required: true,
-      },
-    ],
-    startScreen: {
-      title: 'Sneaker.com',
-      description: 'Let us know how we can improve our product',
-    },
-  },
-};
-*/

@@ -352,7 +352,7 @@ export default function Layout(props: Props) {
     <>
       <SEO
         title="Scouts Bravilo By Jobly."
-        description="."
+        description="Encuentra, conecta y contrata al talento ideal en segundos"
         baseUrl={appUrl}
         uri={router.pathname}
       />
