@@ -256,7 +256,7 @@ function PluginSettings({ datastore }: { datastore: Datastore }) {
           loading={state.isUpdatingPlugin}
           type="submit"
         >
-          Update
+          Actualizar
         </Button>
 
         <Stack gap={1}>
@@ -398,7 +398,7 @@ function DatastoreSettings() {
       )}
 
       <Divider sx={{ my: 4 }} />
-      <FormControl sx={{ gap: 1 }}>
+      {/*<FormControl sx={{ gap: 1 }}>
         <Stack spacing={2}>
           <FormLabel>Datastore ID</FormLabel>
 
@@ -435,7 +435,7 @@ function DatastoreSettings() {
             {getDatastoreQuery?.data?.id}
           </Alert>
         </Stack>
-      </FormControl>
+      </FormControl>*/}
 
       <Divider sx={{ my: 4 }} />
 
@@ -490,9 +490,9 @@ function DatastoreSettings() {
       <Divider sx={{ my: 4 }} /> */}
 
       <FormControl sx={{ gap: 1 }}>
-        <FormLabel>Delete Datastore</FormLabel>
+        <FormLabel>Borrar datos</FormLabel>
         <Typography level="body-xs">
-          It will delete the datastore and all its datasources
+        Se eliminará el almacén de datos y todas sus fuentes de datos.
         </Typography>
         <Button
           color="danger"
@@ -501,7 +501,7 @@ function DatastoreSettings() {
           onClick={handleDeleteDatastore}
           loading={isDeleting}
         >
-          Delete
+          Borrar
         </Button>
       </FormControl>
     </Box>

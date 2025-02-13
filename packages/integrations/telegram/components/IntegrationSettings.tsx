@@ -55,7 +55,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
         });
         return;
       }
-      toast.success('Your new telegram integration is live!', {
+      toast.success('¡Tu nueva integración de Telegram está activa!', {
         duration: 4000,
       });
       onSubmitSuccess();
@@ -82,10 +82,10 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
       <Stack gap={2}>
         <Markdown>
           {`
-### Instructions
-1. [Create a Telegram bot](https://docs.braviloai.com/integrations/telegram)
-2. Get yout bot HTTP token
-3. (optional) Add your bot to a Telegram channel
+### Instrucciones
+1. [Crea un bot de Telegram](https://docs.braviloai.com/integrations/telegram)
+2. Obtén el token HTTP de tu bot
+3. (opcional) Agrega tu bot a un canal de Telegram
         `}
         </Markdown>
         {/* <LinkButton
@@ -100,12 +100,12 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
             variant: 'soft',
           }}
         >
-          Quick tutorial
+          Tutorial rápido
         </LinkButton> */}
       </Stack>
       <Input
         control={methods.control}
-        label="Telegram Bot HTTP token"
+        label="Token HTTP del bot de Telegram"
         {...methods.register('config.http_token')}
       />
       <Button
@@ -113,7 +113,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
         disabled={!methods.formState.isValid}
         loading={loading}
       >
-        Create
+        Crear
       </Button>
     </Stack>
   );

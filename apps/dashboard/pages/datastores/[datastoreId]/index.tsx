@@ -133,7 +133,7 @@ export default function DatastorePage() {
               color="neutral"
               className="hover:underline"
             >
-              Datastores
+              Datos
             </Typography>
           </Link>
 
@@ -210,7 +210,7 @@ export default function DatastorePage() {
                 }
               }}
             >
-              Add Datasource
+              Agregar Datos
             </Button>
           </Box>
         </Box>
@@ -273,7 +273,7 @@ export default function DatastorePage() {
                 <ListItemDecorator>
                   <SettingsIcon />
                 </ListItemDecorator>
-                Settings
+                Configuracion
               </Tab>
             </TabList>
           </Tabs>

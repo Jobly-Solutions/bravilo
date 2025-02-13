@@ -201,16 +201,17 @@ export default function DatasourceTable({
       <Alert startDecorator={<InfoRoundedIcon />} sx={{ mt: -3, mb: 2 }}>
         <Stack>
           {/* <p>
-            Datastores are{' '}
-            <strong>automatically synchronized every Monday</strong> at
-            approximately <strong>2 AM UTC</strong> to ensure the most
-            up-to-date information is available{' '}
-            <strong>(for premium users only)</strong>.
+            Los almacenes de datos se{' '}
+            <strong>sincronizan automáticamente todos los lunes</strong> a las
+            aproximadamente <strong>2 AM UTC</strong> para garantizar que la
+            información más actualizada esté disponible{' '}
+            <strong>(solo para usuarios premium)</strong>.
           </p> */}
           <p>
-            Datastores are <strong>automatically synchronized</strong> when the
-            underlying data changes{' '}
-            <strong>(Auto-sync is enabled for premium users only)</strong>.
+            Los almacenes de datos se{' '}
+            <strong>sincronizan automáticamente</strong> cuando los datos
+            subyacentes cambian{' '}
+            <strong>(La sincronización automática está habilitada solo para usuarios premium)</strong>.
           </p>
         </Stack>
       </Alert>
@@ -228,7 +229,7 @@ export default function DatasourceTable({
             mb: 1,
           }}
         >
-          Delete Selection
+          Eliminar selección
         </Button>
       )}
 
@@ -277,15 +278,15 @@ export default function DatasourceTable({
               justifyContent={'space-between'}
               alignItems={'center'}
             >
-              <FormLabel>Search for datasource (name)</FormLabel>
-              <Typography level="body-sm" color="primary">{`${total} result${
+              <FormLabel>Buscar fuente de datos (nombre)</FormLabel>
+              <Typography level="body-sm" color="primary">{`${total} resultado${
                 total > 1 ? 's' : ''
               }`}</Typography>
             </Stack>
             <Input
               autoFocus
               defaultValue={search}
-              placeholder="Search"
+              placeholder="Buscar"
               startDecorator={<SearchRoundedIcon />}
               endDecorator={
                 getDatastoreQuery?.isLoading ? (
@@ -301,9 +302,9 @@ export default function DatasourceTable({
           </FormControl>
 
           <FormControl size="sm">
-            <FormLabel sx={{ ml: 'auto' }}>Type</FormLabel>
+            <FormLabel sx={{ ml: 'auto' }}>Tipo</FormLabel>
             <Select
-              placeholder="Filter by type"
+              placeholder="Filtrar por tipo"
               value={type}
               slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
               onChange={(_, value) => {
@@ -344,9 +345,9 @@ export default function DatasourceTable({
           </FormControl>
 
           <FormControl size="sm">
-            <FormLabel sx={{ ml: 'auto' }}>Status</FormLabel>
+            <FormLabel sx={{ ml: 'auto' }}>Estado</FormLabel>
             <Select
-              placeholder="Filter by status"
+              placeholder="Filtrar por estado"
               value={status}
               slotProps={{ button: { sx: { whiteSpace: 'nowrap' } } }}
               onChange={(_, value) => {
@@ -391,16 +392,16 @@ export default function DatasourceTable({
 
 
           <FormControl size="sm">
-            <FormLabel>Category</FormLabel>
-            <Select placeholder="All">
-              <Option value="all">All</Option>
+            <FormLabel>Categoría</FormLabel>
+            <Select placeholder="Todos">
+              <Option value="all">Todos</Option>
             </Select>
           </FormControl>
 
           <FormControl size="sm">
-            <FormLabel>Customer</FormLabel>
-            <Select placeholder="All">
-              <Option value="all">All</Option>
+            <FormLabel>Cliente</FormLabel>
+            <Select placeholder="Todos">
+              <Option value="all">Todos</Option>
             </Select>
           </FormControl>
         </React.Fragment> */}
@@ -448,12 +449,12 @@ export default function DatasourceTable({
                   sx={{ verticalAlign: 'text-bottom' }}
                 />
               </th>
-              <th style={{ width: 220, padding: 12 }}>Name</th>
-              <th style={{ width: 120, padding: 12 }}>Type</th>
-              <th style={{ width: 120, padding: 12 }}>Size</th>
-              <th style={{ width: 120, padding: 12 }}>Last Sync</th>
-              <th style={{ width: 120, padding: 12 }}>Status</th>
-              {/* <th style={{ width: 120, padding: 12 }}>Subscription</th> */}
+              <th style={{ width: 220, padding: 12 }}>Nombre</th>
+              <th style={{ width: 120, padding: 12 }}>Tipo</th>
+              <th style={{ width: 120, padding: 12 }}>Tamaño</th>
+              <th style={{ width: 120, padding: 12 }}>Última sincronización</th>
+              <th style={{ width: 120, padding: 12 }}>Estado</th>
+              {/* <th style={{ width: 120, padding: 12 }}>Suscripción</th> */}
               <th style={{ width: 120, padding: 12 }}> </th>
             </tr>
           </thead>
@@ -463,8 +464,8 @@ export default function DatasourceTable({
                 datasource.status === 'running' ||
                 datasource?.children?.length > 0;
               /*
-                datasource?.children?.length > 0 is a trick to know if datasource group has a running child job
-                Backend returns children datasources only if status is running or pending, 
+                datasource?.children?.length > 0 es un truco para saber si un grupo de fuentes de datos tiene un trabajo secundario en ejecución
+                El backend devuelve fuentes de datos secundarias solo si el estado es "running" o "pending".
               */
 
               return (
@@ -655,7 +656,7 @@ export default function DatasourceTable({
                   </td>
                   <td className="space-x-2">
                     {/* <Button size="sm" variant="outlined">
-                    Sync
+                    Sincronizar
                   </Button> */}
                     <SynchButton
                       datasource={datasource}
@@ -674,7 +675,7 @@ export default function DatasourceTable({
         sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}
       >
         <IconButton
-          aria-label="previous page"
+          aria-label="página anterior"
           variant="outlined"
           color="neutral"
           size="sm"
@@ -682,10 +683,10 @@ export default function DatasourceTable({
           <i data-feather="arrow-left" />
         </IconButton>
         <Typography level="body-sm" mx="auto">
-          Page 1 of 10
+          Página 1 de 10
         </Typography>
         <IconButton
-          aria-label="next page"
+          aria-label="página siguiente"
           variant="outlined"
           color="neutral"
           size="sm"
@@ -717,7 +718,7 @@ export default function DatasourceTable({
             }
           }}
         >
-          Previous
+          Anterior
         </Button>
 
         <Box sx={{ flex: 1 }} />
@@ -756,7 +757,7 @@ export default function DatasourceTable({
             }
           }}
         >
-          Next
+          Siguiente
         </Button>
       </Box>
 
@@ -765,7 +766,7 @@ export default function DatasourceTable({
         sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}
       >
         <IconButton
-          aria-label="previous page"
+          aria-label="página anterior"
           variant="outlined"
           color="neutral"
           size="sm"
@@ -773,10 +774,10 @@ export default function DatasourceTable({
           <i data-feather="arrow-left" />
         </IconButton>
         <Typography level="body-sm" mx="auto">
-          Page 1 of 10
+          Página 1 de 10
         </Typography>
         <IconButton
-          aria-label="next page"
+          aria-label="página siguiente"
           variant="outlined"
           color="neutral"
           size="sm"
@@ -802,7 +803,7 @@ export default function DatasourceTable({
           color="neutral"
           startDecorator={<i data-feather="arrow-left" />}
         >
-          Previous
+          Anterior
         </Button>
 
         <Box sx={{ flex: 1 }} />
@@ -824,7 +825,7 @@ export default function DatasourceTable({
           color="neutral"
           endDecorator={<i data-feather="arrow-right" />}
         >
-          Next
+          Siguiente
         </Button>
       </Box> */}
     </React.Fragment>

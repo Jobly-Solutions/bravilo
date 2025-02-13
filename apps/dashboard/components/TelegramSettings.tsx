@@ -28,7 +28,7 @@ function TelegramSettings({ agentId }: Props) {
         <ListServiceProviders
           type={'telegram'}
           agentId={agentId}
-          emptyLabel={'No Teletgram Bot Is Added Yet.'}
+          emptyLabel={'Aún no se ha agregado ningún bot de Telegram.'}
           withDelete
         />
 
@@ -36,7 +36,7 @@ function TelegramSettings({ agentId }: Props) {
           startDecorator={<AddCircleRoundedIcon fontSize="md" />}
           onClick={() => addBotModal.open()}
         >
-          Add A Telegram Bot
+          Agregar un bot de Telegram
         </Button>
       </Stack>
       <addBotModal.component
