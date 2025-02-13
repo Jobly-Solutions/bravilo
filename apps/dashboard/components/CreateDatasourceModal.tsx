@@ -114,7 +114,7 @@ export default function CreateDatastoreModal(props: Props) {
                   variant="solid"
                   sx={{ mt: 1, mr: 1 }}
                 >
-                  Finish
+                  Finalizar
                 </Button>
                 <Button
                   disabled={btnProps.isLoading}
@@ -122,7 +122,7 @@ export default function CreateDatastoreModal(props: Props) {
                   sx={{ mt: 1, mr: 1 }}
                   variant="plain"
                 >
-                  Back
+                  Atras
                 </Button>
               </div>
             </Box>
@@ -178,13 +178,7 @@ export default function CreateDatastoreModal(props: Props) {
                   <div className="flex flex-col space-y-4">
                     <Typography>{step.description}</Typography>
 
-                    {index === 0 && (
-                      <Alert color="primary">
-                        Chaindesk works best with unstructured data. Better
-                        support for tabular data (csv, spreadsheet, etc...) is
-                        coming soon 😉
-                      </Alert>
-                    )}
+                    
 
                     {step.component}
                     {!step.disableButtons && (
@@ -202,7 +196,7 @@ export default function CreateDatastoreModal(props: Props) {
                             onClick={handleBack}
                             sx={{ mt: 1, mr: 1 }}
                           >
-                            Back
+                            Atras
                           </Button>
                         </div>
                       </Box>

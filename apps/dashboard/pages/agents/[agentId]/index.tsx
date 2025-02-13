@@ -199,7 +199,7 @@ export default function AgentPage() {
                 </Typography>
               </Breadcrumbs>
 
-              <Chip
+              {/*<Chip
                 size="sm"
                 variant="soft"
                 color={'primary'}
@@ -210,7 +210,7 @@ export default function AgentPage() {
                 }}
               >
                 {query?.data?.modelName}
-              </Chip>
+              </Chip>*/}
               <Chip
                 size="sm"
                 variant="soft"
