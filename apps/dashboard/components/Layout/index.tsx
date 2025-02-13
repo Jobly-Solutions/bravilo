@@ -150,7 +150,7 @@ export default function Layout(props: Props) {
               isNew: false,
               isExperimental: false,
             },
-            {
+           /* {
               label: 'Analytics',
               route: RouteNames.ANALYTICS,
               icon: <ShowChartIcon style={{ fontSize: '18px' }} />,
@@ -164,7 +164,7 @@ export default function Layout(props: Props) {
               active: router.route.startsWith(RouteNames.EMAIL_INBOXES),
               // isExperimental: true,
               isNew: false,
-            },
+            },*/
             {
               label: 'Contactos',
               route: RouteNames.CONTACTS,

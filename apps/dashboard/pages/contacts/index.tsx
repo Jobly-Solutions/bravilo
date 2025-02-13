@@ -125,7 +125,7 @@ export default function FormsPage() {
           <HomeRoundedIcon />
         </Link>
         <Typography fontSize="inherit" color="primary">
-          Contacts
+          Contactos
         </Typography>
       </Breadcrumbs>
 
@@ -144,7 +144,7 @@ export default function FormsPage() {
         }}
       >
         <Typography level="h1" fontSize="xl4">
-          Contacts
+          Contactos
         </Typography>
         {/* <Box sx={{ flex: 999999 }} /> */}
         <Box sx={{ display: 'flex', gap: 1, '& > *': { flexGrow: 1 } }}>
@@ -187,9 +187,7 @@ export default function FormsPage() {
         startDecorator={<InfoRoundedIcon />}
         sx={{ mb: 2 }}
       >
-        Contacts by Bravilo is cutting edge CRM powered by AI. Here you can
-        view all leads, customers and contacts that you have collected from your
-        Agents or Forms.
+        Aquí puedes ver todos los datos de candidatos que has recopilado a través de tus Scouts o Formularios.
       </Alert>
 
       {getContactsQuery.data && <ContactsTable />}
