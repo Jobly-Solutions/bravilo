@@ -167,20 +167,9 @@ function AccountCard({}: Props) {
                 accountConfig?.[session?.data?.organization?.currentPlan!]
                   ?.limits?.maxAgentsQueries
               }
-              label={'Queries'}
+              label={'Consultas'}
             />
-            <UsageGauge
-              value={
-                (session?.data?.organization?.usage?.nbStoredTokens || 0) /
-                1000000
-              }
-              max={
-                accountConfig?.[session?.data?.organization?.currentPlan!]
-                  ?.limits?.maxStoredTokens / 1000000
-              }
-              label={'Million words stored'}
-              fixed={3}
-            />
+            
 
             {['chaindesk'].includes(product) && (
               <UsageGauge
@@ -189,7 +178,7 @@ function AccountCard({}: Props) {
                   accountConfig?.[session?.data?.organization?.currentPlan!]
                     ?.limits?.maxAgents
                 }
-                label={'Agents'}
+                label={'Scouts'}
               />
             )}
 
@@ -199,7 +188,7 @@ function AccountCard({}: Props) {
                 accountConfig?.[session?.data?.organization?.currentPlan!]
                   ?.limits?.maxDatastores
               }
-              label={'Datastores'}
+              label={'Bases de Datos'}
             />
           </Stack>
         </Stack>
