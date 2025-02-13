@@ -44,11 +44,11 @@ export default function FormsTable({ items = [] }: { items: Form[] }) {
           <thead>
             <tr>
               <th style={{ width: '80%' }} rowSpan={5}>
-                Name
+                Nombre
               </th>
               {/* <th style={{ width: 120,  }}>Description</th>
               <th style={{ width: 120,  }}>Model</th> */}
-              <th style={{}}>Submissions</th>
+              <th style={{}}>Respuestas</th>
               {/* <th style={{ width: 160,  }}> </th> */}
             </tr>
           </thead>

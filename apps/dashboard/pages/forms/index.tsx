@@ -173,7 +173,7 @@ export default function FormsPage() {
         }}
       >
         <Typography level="h1" fontSize="xl4">
-          Forms
+          Formularios
         </Typography>
         {/* <Box sx={{ flex: 999999 }} /> */}
         <Box sx={{ display: 'flex', gap: 1, '& > *': { flexGrow: 1 } }}>
@@ -193,7 +193,7 @@ export default function FormsPage() {
             }}
             loading={formMutation.isMutating}
           >
-            New Form
+            Nuevo Formulario
           </Button>
         </Box>
       </Box>
