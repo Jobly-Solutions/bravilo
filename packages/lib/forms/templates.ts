@@ -1,3 +1,5 @@
+import cuid from 'cuid';
+
 export const ONBOARDING_FORM: FormTemplate = {
   name: 'Formulario de Incorporación',
   description: 'Un formulario para recoger información inicial sobre nuevos usuarios.',
