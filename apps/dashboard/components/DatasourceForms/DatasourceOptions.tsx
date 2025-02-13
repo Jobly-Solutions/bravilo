@@ -5,7 +5,7 @@ import Typography from '@mui/joy/Typography';
 import { useSession } from 'next-auth/react';
 import React from 'react';
 
-import { DatasourceType } from '@bravilo/prisma'; // Cambiado de @chaindesk/prisma a @bravilo/prisma
+import { DatasourceType } from '@chaindesk/prisma'; // Cambiado de @chaindesk/prisma a @chaindesk/prisma
 
 import UsageLimitModal from '../UsageLimitModal';
 
