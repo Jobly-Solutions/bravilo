@@ -7,6 +7,9 @@ import React from 'react';
 
 import Markdown from '@chaindesk/ui/Markdown';
 
+import { Typography } from '@mui/joy'; // Añadir Typography aquí
+
+
 type Props = {
   formId: string;
 };
