@@ -1,10 +1,18 @@
 import cuid from 'cuid';
 
-export const ONBOARDING_FORM: FormTemplate = {
-  name: 'Formulario de Incorporación',
-  description: 'Un formulario para recoger información inicial sobre nuevos usuarios.',
+import { FormConfigSchema } from '../types/dtos';
+
+type FormTemplate = {
+  name: string;
+  description?: string;
+  schema: FormConfigSchema;
+};
+
+export const FROM_SCRATCH: FormTemplate = {
+  name: 'Start From Scratch',
+  description:
+    'Create a form tailored to your HR needs. Add fields that best represent your candidate evaluation and recruitment process.',
   schema: {
-    overview: `Este formulario está diseñado para recoger información inicial sobre nuevos usuarios y ayudarnos a personalizar nuestros servicios según sus necesidades.`,
     fields: [
       {
         id: cuid(),
@@ -12,65 +20,159 @@ export const ONBOARDING_FORM: FormTemplate = {
         shouldCreateContact: true,
         name: 'email',
         required: true,
-        placeholder: 'Ingresa tu email',
-      },
-      {
-        id: cuid(),
-        type: 'select',
-        name: 'industry',
-        required: true,
-        options: [
-          'Tecnología',
-          'E-commerce',
-          'Salud',
-          'Finanzas',
-          'Retail',
-          'Manufactura',
-          'Otro',
-        ],
-        placeholder: 'Selecciona tu industria',
-      },
-      {
-        id: cuid(),
-        type: 'select',
-        name: 'company size',
-        required: true,
-        options: ['1-10', '10-100', '100+'],
-        placeholder: 'Selecciona el tamaño de tu empresa',
-      },
-      {
-        id: cuid(),
-        type: 'select',
-        name: '¿Dónde escuchaste sobre nosotros?',
-        required: true,
-        options: [
-          'Google',
-          'Redes Sociales',
-          'Boletín Informativo',
-          'Boca a boca',
-          'Feria Comercial',
-          'Otro',
-        ],
-        placeholder: '¿Dónde escuchaste sobre nosotros?',
       },
     ],
     startScreen: {
-      title: 'Bienvenido a nuestra plataforma',
-      description: "¡Estamos emocionados de tenerte aquí! Vamos a empezar.",
+      title: 'Welcome to Your Custom HR Form',
+      description: 'Begin building your recruitment process with personalized fields.',
+    },
+  },
+};
+
+export const LEAD_FORM: FormTemplate = {
+  name: 'Candidate Lead Form',
+  description: 'A form to capture essential candidate details including email, phone, and initial assessment.',
+  schema: {
+    overview: `This form helps you capture essential candidate information including email, phone number, and their initial assessment to start building a relationship.`,
+    fields: [
+      {
+        id: cuid(),
+        type: 'email',
+        shouldCreateContact: true,
+        name: 'email',
+        required: true,
+        placeholder: 'Enter your email',
+      },
+      {
+        id: cuid(),
+        type: 'phoneNumber',
+        name: 'phone',
+        required: true,
+        placeholder: 'Enter your phone number',
+      },
+      {
+        id: cuid(),
+        type: 'textArea',
+        name: 'comment',
+        required: false,
+        placeholder: 'Any additional comments?',
+      },
+    ],
+    startScreen: {
+      title: 'Connect with Candidates',
+      description: 'We are eager to get to know you. Please fill out the form below to initiate the recruitment process.',
+    },
+  },
+};
+
+export const PRODUCT_FEEDBACK_FORM: FormTemplate = {
+  name: 'Candidate Feedback Form',
+  description: 'A form to gather feedback on candidates’ job performance and fit within your organization.',
+  schema: {
+    overview: `Collect insights on how candidates perform and fit within your company culture. This feedback helps improve future hiring decisions.`,
+    fields: [
+      {
+        id: cuid(),
+        type: 'email',
+        shouldCreateContact: true,
+        name: 'email',
+        required: true,
+        placeholder: 'Enter your email',
+      },
+      {
+        id: cuid(),
+        type: 'select',
+        name: 'feedback_type',
+        required: true,
+        options: ['Positive', 'Neutral', 'Negative'],
+        placeholder: 'Select feedback type',
+      },
+      {
+        id: cuid(),
+        type: 'textArea',
+        name: 'comment',
+        required: true,
+        placeholder: 'Your feedback here',
+      },
+      {
+        id: cuid(),
+        type: 'file',
+        name: 'attachments',
+        required: false,
+        placeholder: 'Attach documents (optional)',
+      },
+    ],
+    startScreen: {
+      title: 'Your Feedback Is Valuable',
+      description: "We appreciate your input! Please share your feedback on this candidate's performance.",
+    },
+  },
+};
+
+export const ONBOARDING_FORM: FormTemplate = {
+  name: 'Employee Onboarding Form',
+  description: 'A form to gather initial details about new hires to better integrate them into your organization.',
+  schema: {
+    overview: `This form collects key information to help onboard new employees, ensuring a smooth transition into their roles.`,
+    fields: [
+      {
+        id: cuid(),
+        type: 'email',
+        shouldCreateContact: true,
+        name: 'email',
+        required: true,
+        placeholder: 'Enter your email',
+      },
+      {
+        id: cuid(),
+        type: 'select',
+        name: 'department',
+        required: true,
+        options: [
+          'Human Resources',
+          'Sales',
+          'Engineering',
+          'Marketing',
+          'Customer Support',
+        ],
+        placeholder: 'Select your department',
+      },
+      {
+        id: cuid(),
+        type: 'select',
+        name: 'team_size',
+        required: true,
+        options: ['Small (1-10)', 'Medium (10-50)', 'Large (50+)'],
+        placeholder: 'Select your team size',
+      },
+      {
+        id: cuid(),
+        type: 'select',
+        name: 'source_of_referral',
+        required: true,
+        options: [
+          'Referral',
+          'Job Board',
+          'Recruitment Agency',
+          'LinkedIn',
+          'Other',
+        ],
+        placeholder: 'How did you hear about us?',
+      },
+    ],
+    startScreen: {
+      title: 'Welcome to the Team',
+      description: 'We are thrilled to have you on board! Let’s start your journey with us.',
     },
   },
 };
 
 export const INBOUND_LEAD: FormTemplate = {
-  name: 'Lead Entrante',
+  name: 'Inbound Candidate Lead',
   description:
-    'Atrae posibles clientes al inicio de cualquier embudo, solicitando su información de contacto.',
+    'Attract potential candidates at the start of your recruitment funnel, prompting them to share their contact details.',
   schema: {
-    overview: `Una conversación para convencer a los posibles prospectos sobre la solución de Acme Inc.
-
-    Comienza dando una breve introducción sobre Acme.
-    
-    Pide el email solo si están interesados en recibir actualizaciones por correo electrónico.`,
+    overview: `This form is designed to attract potential candidates by offering them the opportunity to submit their contact information and express interest in job openings.`,
     fields: [
       {
         id: cuid(),
@@ -88,36 +190,29 @@ export const INBOUND_LEAD: FormTemplate = {
       {
         id: cuid(),
         type: 'select',
-        name: 'Interesado en',
+        name: 'interested_in',
         options: [
-          'Desarrollo de Sitios Web',
-          'Marketing de Contenidos',
-          'Redes Sociales',
-          'Diseño UI/UX',
+          'Software Developer',
+          'Marketing Specialist',
+          'Customer Support',
+          'HR Coordinator',
         ],
         required: true,
       },
     ],
     startScreen: {
-      title: 'Empresa Asombrosa',
-      description: "¡Bienvenido a bordo! Conozcámonos mejor.",
+      title: 'Explore Opportunities',
+      description: 'Welcome! Let’s start the process by collecting some basic information.',
     },
   },
 };
 
 export const CONTACT_SALES: FormTemplate = {
-  name: 'Contactar Ventas',
+  name: 'Contact HR',
   description:
-    'Prepara y evalúa posibles clientes antes de que agenden una reunión con tu equipo de ventas.',
+    'Prepare and assess potential candidates before scheduling a meeting with your HR representatives.',
   schema: {
-    overview: `Una conversación para convencer a los posibles prospectos sobre la solución de Acme Inc.
-
-    Comienza dando una breve introducción sobre Acme.
-    
-    Pide el email solo si están interesados en recibir actualizaciones por correo electrónico.
-
-    En Acme Inc., estamos dedicados a ofrecer soluciones y servicios de primer nivel para satisfacer tus necesidades. 
-    Con un equipo de expertos comprometidos con la excelencia, nos esforzamos por ofrecer productos innovadores que redefinen los estándares de la industria.`,
+    overview: `This form collects candidate details and helps HR assess their fit for available roles.`,
     fields: [
       {
         id: cuid(),
@@ -135,19 +230,19 @@ export const CONTACT_SALES: FormTemplate = {
       {
         id: cuid(),
         type: 'select',
-        name: 'Interesado en',
+        name: 'Interested_in',
         options: [
-          'Desarrollo de Sitios Web',
-          'Marketing de Contenidos',
-          'Redes Sociales',
-          'Diseño UI/UX',
+          'Human Resources',
+          'Sales',
+          'Technology',
+          'Marketing',
         ],
         required: true,
       },
     ],
     startScreen: {
-      title: 'Contactar Ventas',
-      description: 'Conoce nuestro Plan Empresarial',
+      title: 'Contact HR',
+      description: 'Let’s get in touch to discuss the next steps in your recruitment process.',
     },
   },
 };
