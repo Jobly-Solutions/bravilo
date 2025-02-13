@@ -30,7 +30,7 @@ function FormSettingsTab({ formId }: Props) {
         return (
           <Stack sx={{ width: '100%', mx: 'auto', gap: 2 }}>
             <SettingCard
-              title="General Settings"
+              title="Configuración General"
               disableSubmitButton
               cardProps={{
                 sx: {
@@ -39,8 +39,7 @@ function FormSettingsTab({ formId }: Props) {
               }}
             >
               <FormControl>
-                <FormLabel>Name</FormLabel>
-
+                <FormLabel>Nombre</FormLabel>
                 <Input
                   control={methods.control}
                   {...methods.register('name')}
@@ -49,8 +48,8 @@ function FormSettingsTab({ formId }: Props) {
             </SettingCard>
 
             <SettingCard
-              title="Delete Form"
-              description="It will delete the form permanently"
+              title="Eliminar Formulario"
+              description="Eliminará el formulario permanentemente"
               cardProps={{
                 color: 'danger',
               }}
@@ -60,7 +59,7 @@ function FormSettingsTab({ formId }: Props) {
                   e.stopPropagation();
 
                   const confirmed = await window.confirm(
-                    'All submissions will be deleted. Are you sure?'
+                    'Todas las respuestas serán eliminadas. ¿Estás seguro?'
                   );
 
                   if (confirmed) {
@@ -69,14 +68,14 @@ function FormSettingsTab({ formId }: Props) {
                   }
                 },
                 color: 'danger',
-                children: 'Delete',
+                children: 'Eliminar',
                 startDecorator: <DeleteIcon />,
                 loading: deleteMutation.isMutating,
               }}
             >
               <FormControl sx={{ gap: 1 }}>
                 <Alert color="danger">
-                  Delete the form and all submissions permanently
+                  Eliminar el formulario y todas las respuestas permanentemente
                 </Alert>
               </FormControl>
             </SettingCard>
@@ -86,5 +85,4 @@ function FormSettingsTab({ formId }: Props) {
     </BlablaFormProvider>
   );
 }
-
 export default FormSettingsTab;
