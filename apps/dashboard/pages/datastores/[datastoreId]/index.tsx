@@ -267,7 +267,7 @@ export default function DatastorePage() {
                 <ListItemDecorator>
                   <AutoGraphRoundedIcon />
                 </ListItemDecorator>
-                Datasources
+                Datos
               </Tab>
               <Tab indicatorInset value={'settings'}>
                 <ListItemDecorator>
