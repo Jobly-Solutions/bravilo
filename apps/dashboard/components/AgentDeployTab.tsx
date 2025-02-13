@@ -136,7 +136,12 @@ function AgentDeployTab(props: Props) {
                   minHeight: 70,
                 })}
               >
-                
+                <Stack direction="row" gap={2} alignItems={'center'}>
+                  {each.icon}
+                  <Typography fontWeight={'bold'}>{each.name}</Typography>
+
+                  
+                </Stack>
 
                 <Button
                   size="sm"
