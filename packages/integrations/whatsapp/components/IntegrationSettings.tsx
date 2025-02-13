@@ -282,7 +282,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
         <Stack gap={2}>
           <div className="text-sm prose-sm prose dark:prose-invert">
             <p>
-              Make sure you have{' '}
+              Asegúrate de haber{' '}
               <LinkButton
                 linkProps={{
                   href: 'https://docs.braviloai.com/integrations/whatsapp',
@@ -294,10 +294,10 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
                   variant: 'soft',
                 }}
               >
-                created a WhatsApp Meta App
+                creado una aplicación de WhatsApp Meta
               </LinkButton>
             </p>
-            <p>You should be able to get to this page:</p>
+            <p>Deberías poder llegar a esta página:</p>
             <img src="/integrations/whatsapp/meta-app-dashboard.jpg" alt="" />
           </div>
           <Button
@@ -305,7 +305,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
             sx={{ ml: 'auto' }}
             onClick={() => setActiveStep(1)}
           >
-            Continue
+            Continuar
           </Button>
         </Stack>
       )}
@@ -315,7 +315,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
           <div className="text-sm prose-sm prose dark:prose-invert">
             <ul className="space-y-3 text-lg list-decimal">
               <li>
-                Go to your{' '}
+                Ve a tu{' '}
                 <LinkButton
                   linkProps={{
                     href: 'https://business.facebook.com/settings/system-users',
@@ -327,34 +327,34 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
                     variant: 'soft',
                   }}
                 >
-                  System users page
+                  página de usuarios del sistema
                 </LinkButton>
               </li>
               <li>
                 <p>
-                  Create a new user by clicking on <kbd>Add</kbd>
+                  Crea un nuevo usuario haciendo clic en <kbd>Agregar</kbd>
                 </p>
               </li>
               <li>
-                Fill it with any name and give it the <kbd>Admin</kbd> role
+                Complétalo con cualquier nombre y asígnale el rol de <kbd>Admin</kbd>
               </li>
               <li>
-                Click on <kbd>Add assets</kbd>. Under <kbd>Apps</kbd>, look for
-                your previously created app, select it and check{' '}
-                <kbd>Manage app</kbd>
+                Haz clic en <kbd>Agregar activos</kbd>. En <kbd>Aplicaciones</kbd>, busca
+                tu aplicación creada previamente, selecciónala y marca{' '}
+                <kbd>Gestionar aplicación</kbd>
               </li>
-              <li>Now, click on Generate new token. Select your app.</li>
+              <li>Ahora, haz clic en Generar nuevo token. Selecciona tu aplicación.</li>
               <ul>
-                <li>Token expiration: Never</li>
+                <li>Expiración del token: Nunca</li>
                 <li>
-                  Available Permissions: <kbd>whatsapp_business_messaging</kbd>,{' '}
+                  Permisos disponibles: <kbd>whatsapp_business_messaging</kbd>,{' '}
                   <kbd>whatsapp_business_management</kbd>
                 </li>
               </ul>
-              <li>Copy and paste the generated token:</li>
+              <li>Copia y pega el token generado:</li>
               <Input
                 control={methods.control}
-                label="System User Token"
+                label="Token de usuario del sistema"
                 {...methods.register('accessToken')}
               />
             </ul>
@@ -366,7 +366,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
             disabled={!values.accessToken}
             onClick={() => handleValidateAccessToken(values.accessToken!)}
           >
-            Continue
+            Continuar
           </Button>
         </Stack>
       )}
@@ -375,7 +375,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
           <div className="text-sm prose-sm prose dark:prose-invert">
             <ul className="space-y-3 text-lg list-decimal">
               <li>
-                Go to your{' '}
+                Ve a tu{' '}
                 <LinkButton
                   linkProps={{
                     href: `https://developers.facebook.com/apps/${values?.config?.appId}/whatsapp-business/wa-dev-console`,
@@ -387,26 +387,26 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
                     variant: 'soft',
                   }}
                 >
-                  System users page
+                  página de usuarios del sistema
                 </LinkButton>
               </li>
               <li>
-                Add your phone number by clicking on the{' '}
-                <kbd>Add phone number</kbd> button.
+                Agrega tu número de teléfono haciendo clic en el botón{' '}
+                <kbd>Agregar número de teléfono</kbd>.
               </li>
               <li>
-                Select a phone number and paste the associated{' '}
-                <kbd>Phone number ID</kbd> and{' '}
-                <kbd>WhatsApp Business Account ID</kbd>:
+                Selecciona un número de teléfono y pega el{' '}
+                <kbd>ID del número de teléfono</kbd> y el{' '}
+                <kbd>ID de la cuenta de WhatsApp Business</kbd>:
                 <img
                   className="w-full h-auto"
                   src="/integrations/whatsapp/get-phone-number-id.jpg"
-                  alt="get phone number id"
+                  alt="obtener id del número de teléfono"
                 />
               </li>
               <Input
                 control={methods.control}
-                label="Phone Number ID"
+                label="ID del número de teléfono"
                 {...methods.register('config.phoneNumberId')}
               />
             </ul>
@@ -420,7 +420,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
               handleValidatePhoneNumberId(values.config.phoneNumberId!)
             }
           >
-            Continue
+            Continuar
           </Button>
         </Stack>
       )}
@@ -429,7 +429,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
           <div className="text-sm prose-sm prose dark:prose-invert">
             <ul className="space-y-3 text-lg list-decimal">
               <li>
-                In your{' '}
+                En tu{' '}
                 <LinkButton
                   linkProps={{
                     href: `https://developers.facebook.com/apps/${values?.config?.appId}/whatsapp-business/wa-settings`,
@@ -441,19 +441,19 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
                     variant: 'soft',
                   }}
                 >
-                  WhatsApp Settings page
+                  página de configuración de WhatsApp
                 </LinkButton>
-                , click on the Edit button and insert the following values:
+                , haz clic en el botón Editar e inserta los siguientes valores:
                 <ul className="space-y-4">
                   <li>
-                    Callback URL:
+                    URL de callback:
                     <JoyInput
                       value={webhookUrl}
                       endDecorator={<CopyButton text={webhookUrl} />}
                     />
                   </li>
                   <li>
-                    Verify Token:
+                    Token de verificación:
                     <JoyInput
                       value={values.config.webhookVerifyToken}
                       endDecorator={
@@ -464,7 +464,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
                     />
                   </li>
                   <li>
-                    Webhook fields: <kbd>check messages</kbd>
+                    Campos del webhook: <kbd>marcar mensajes</kbd>
                   </li>
                 </ul>
               </li>
@@ -479,7 +479,7 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
               onSubmitSuccess?.();
             }}
           >
-            Save
+            Guardar
           </Button>
         </Stack>
       )}
@@ -488,12 +488,12 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
         Zendesk
       </Typography> */}
       {/* <FormControl>
-        <FormLabel>Account Subdomain (required)</FormLabel>
+        <FormLabel>Subdominio de la cuenta (requerido)</FormLabel>
         <Stack direction="row" sx={{ alignItems: 'center' }} spacing={1}>
           <Typography color="neutral">https://</Typography>
           <Input
             control={methods.control}
-            placeholder="Zendesk Subdomain"
+            placeholder="Subdominio de Zendesk"
             {...methods.register('config.domain')}
           />
           <Typography color="neutral">.zendesk.com</Typography>
@@ -502,17 +502,17 @@ function IntegrationSettings({ onSubmitSuccess, agentId }: Props) {
 
       {/* <Input
         control={methods.control}
-        label="Email (required)"
+        label="Correo electrónico (requerido)"
         placeholder="email@company.com"
-        helperText="Should be the same email you use to login to administer your Zendesk account."
+        helperText="Debe ser el mismo correo electrónico que usas para iniciar sesión y administrar tu cuenta de Zendesk."
         {...methods.register('config.email')}
       />
 
       <Input
-        label="API Token (required)"
+        label="Token de API (requerido)"
         control={methods.control}
-        placeholder="Api Token"
-        helperText="Found in Admin > Channels > API."
+        placeholder="Token de API"
+        helperText="Se encuentra en Admin > Canales > API."
         {...methods.register('config.apiToken')}
       /> */}
     </Stack>

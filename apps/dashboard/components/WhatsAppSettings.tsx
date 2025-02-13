@@ -30,7 +30,7 @@ function WhatsAppSettings({ agentId }: Props) {
         <ListServiceProviders
           type={'whatsapp'}
           agentId={agentId}
-          emptyLabel={'No WhatsApp Accounts Linked'}
+          emptyLabel={'No hay cuentas de WhatsApp vinculadas'}
           listItemDecorator={<LocalPhoneRoundedIcon />}
           getListItemLabel={(provider) => {
             return (provider.config as ServiceProviderWhatsappSchema['config'])
@@ -46,7 +46,7 @@ function WhatsAppSettings({ agentId }: Props) {
                 target="_blank"
               >
                 <Button size="sm" color="neutral" variant="soft">
-                  Try it
+                Pruébalo
                 </Button>
               </a>
             );
@@ -60,7 +60,7 @@ function WhatsAppSettings({ agentId }: Props) {
           startDecorator={<AddCircleRoundedIcon fontSize="md" />}
           onClick={() => addAccountModal.open()}
         >
-          Add WhatsApp Account
+          Agregar cuenta de WhatsApp
         </Button>
       </Stack>
       <addAccountModal.component
