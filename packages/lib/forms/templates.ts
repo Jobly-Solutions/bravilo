@@ -4,6 +4,7 @@ import { FormConfigSchema } from '../types/dtos';
 
 type FormTemplate = {
   name: string;
+  // category: 'marketing' | 'product' | 'sales' | 'support';
   description?: string;
   schema: FormConfigSchema;
 };
@@ -11,7 +12,8 @@ type FormTemplate = {
 export const FROM_SCRATCH: FormTemplate = {
   name: 'Start From Scratch',
   description:
-    'Create a form tailored to your HR needs. Add fields that best represent your candidate evaluation and recruitment process.',
+    'Create a form from scratch. You can add any field you want and customize the design.',
+  // category: 'marketing',
   schema: {
     fields: [
       {
@@ -23,17 +25,17 @@ export const FROM_SCRATCH: FormTemplate = {
       },
     ],
     startScreen: {
-      title: 'Welcome to Your Custom HR Form',
-      description: 'Begin building your recruitment process with personalized fields.',
+      title: 'Title',
+      description: 'Description',
     },
   },
 };
 
 export const LEAD_FORM: FormTemplate = {
-  name: 'Candidate Lead Form',
-  description: 'A form to capture essential candidate details including email, phone, and initial assessment.',
+  name: 'Lead Form',
+  description: 'A form to capture lead information including email and phone.',
   schema: {
-    overview: `This form helps you capture essential candidate information including email, phone number, and their initial assessment to start building a relationship.`,
+    overview: `This form is designed to capture essential lead information, including email and phone, to facilitate further communication.`,
     fields: [
       {
         id: cuid(),
@@ -55,21 +57,21 @@ export const LEAD_FORM: FormTemplate = {
         type: 'textArea',
         name: 'comment',
         required: false,
-        placeholder: 'Any additional comments?',
+        placeholder: 'Enter any additional comments',
       },
     ],
     startScreen: {
-      title: 'Connect with Candidates',
-      description: 'We are eager to get to know you. Please fill out the form below to initiate the recruitment process.',
+      title: 'Get in Touch',
+      description: "We're here to help! Please fill out the form below.",
     },
   },
 };
 
 export const PRODUCT_FEEDBACK_FORM: FormTemplate = {
-  name: 'Candidate Feedback Form',
-  description: 'A form to gather feedback on candidates’ job performance and fit within your organization.',
+  name: 'Product Feedback Form',
+  description: 'A form to gather feedback on our products.',
   schema: {
-    overview: `Collect insights on how candidates perform and fit within your company culture. This feedback helps improve future hiring decisions.`,
+    overview: `This form is designed to collect feedback on our products. Your input is valuable to us and helps us improve our offerings.`,
     fields: [
       {
         id: cuid(),
@@ -82,9 +84,9 @@ export const PRODUCT_FEEDBACK_FORM: FormTemplate = {
       {
         id: cuid(),
         type: 'select',
-        name: 'feedback_type',
+        name: 'type',
         required: true,
-        options: ['Positive', 'Neutral', 'Negative'],
+        options: ['Feature Request', 'Bug Report', 'Other'],
         placeholder: 'Select feedback type',
       },
       {
@@ -92,28 +94,29 @@ export const PRODUCT_FEEDBACK_FORM: FormTemplate = {
         type: 'textArea',
         name: 'comment',
         required: true,
-        placeholder: 'Your feedback here',
+        placeholder: 'Enter your feedback here',
       },
       {
         id: cuid(),
         type: 'file',
-        name: 'attachments',
+        name: 'files',
         required: false,
-        placeholder: 'Attach documents (optional)',
+        placeholder: 'Attach files (optional)',
       },
     ],
     startScreen: {
-      title: 'Your Feedback Is Valuable',
-      description: "We appreciate your input! Please share your feedback on this candidate's performance.",
+      title: 'Your Feedback Matters',
+      description:
+        "We're here to listen! Please share your thoughts on our products.",
     },
   },
 };
 
 export const ONBOARDING_FORM: FormTemplate = {
-  name: 'Employee Onboarding Form',
-  description: 'A form to gather initial details about new hires to better integrate them into your organization.',
+  name: 'Onboarding Form',
+  description: 'A form to gather initial information about new users.',
   schema: {
-    overview: `This form collects key information to help onboard new employees, ensuring a smooth transition into their roles.`,
+    overview: `This form is designed to collect initial information about new users to help us tailor our services to their needs.`,
     fields: [
       {
         id: cuid(),
@@ -126,53 +129,61 @@ export const ONBOARDING_FORM: FormTemplate = {
       {
         id: cuid(),
         type: 'select',
-        name: 'department',
+        name: 'industry',
         required: true,
         options: [
-          'Human Resources',
-          'Sales',
-          'Engineering',
-          'Marketing',
-          'Customer Support',
-        ],
-        placeholder: 'Select your department',
-      },
-      {
-        id: cuid(),
-        type: 'select',
-        name: 'team_size',
-        required: true,
-        options: ['Small (1-10)', 'Medium (10-50)', 'Large (50+)'],
-        placeholder: 'Select your team size',
-      },
-      {
-        id: cuid(),
-        type: 'select',
-        name: 'source_of_referral',
-        required: true,
-        options: [
-          'Referral',
-          'Job Board',
-          'Recruitment Agency',
-          'LinkedIn',
+          'Technology',
+          'E-commerce',
+          'Healthcare',
+          'Finance',
+          'Retail',
+          'Manufacturing',
           'Other',
         ],
-        placeholder: 'How did you hear about us?',
+        placeholder: 'Select your industry',
+      },
+      {
+        id: cuid(),
+        type: 'select',
+        name: 'company size',
+        required: true,
+        options: ['1-10', '10-100', '100+'],
+        placeholder: 'Select your company size',
+      },
+      {
+        id: cuid(),
+        type: 'select',
+        name: 'Where did you hear about us ?',
+        required: true,
+        options: [
+          'Google',
+          'Social Media',
+          'Newsletter',
+          'Word of Mouth',
+          'Trade Show',
+          'Other',
+        ],
+        placeholder: 'Where did you hear about us?',
       },
     ],
     startScreen: {
-      title: 'Welcome to the Team',
-      description: 'We are thrilled to have you on board! Let’s start your journey with us.',
+      title: 'Welcome to Our Platform',
+      description: "We're excited to have you here! Let's get started.",
     },
   },
 };
 
 export const INBOUND_LEAD: FormTemplate = {
-  name: 'Inbound Candidate Lead',
+  name: 'Inbound Lead',
   description:
-    'Attract potential candidates at the start of your recruitment funnel, prompting them to share their contact details.',
+    'Attract potential clients at the beginning of any funnel, prompting them to submit their contact information.',
+  // category: 'marketing',
   schema: {
-    overview: `This form is designed to attract potential candidates by offering them the opportunity to submit their contact information and express interest in job openings.`,
+    overview: `A conversation to convince potential prospect about Acme Inc. solution.
+
+    Start by giving a brief intro about Acme.
+    
+    Ask for the email only if they are interested in receiving email updates.`,
     fields: [
       {
         id: cuid(),
@@ -190,29 +201,39 @@ export const INBOUND_LEAD: FormTemplate = {
       {
         id: cuid(),
         type: 'select',
-        name: 'interested_in',
+        name: 'Intested in',
         options: [
-          'Software Developer',
-          'Marketing Specialist',
-          'Customer Support',
-          'HR Coordinator',
+          'Website Dev',
+          'Content Marketing',
+          'Social Media',
+          'UI/UX Design',
         ],
         required: true,
       },
     ],
     startScreen: {
-      title: 'Explore Opportunities',
-      description: 'Welcome! Let’s start the process by collecting some basic information.',
+      title: 'Awesome Company',
+      description: "Welcome on board! Let's get to know each other!",
     },
   },
 };
 
 export const CONTACT_SALES: FormTemplate = {
-  name: 'Contact HR',
+  name: 'Contact sales',
   description:
-    'Prepare and assess potential candidates before scheduling a meeting with your HR representatives.',
+    'Prepare and assess potential clients before they arrange a discussion with your sales representatives.',
+  // category: 'marketing',
   schema: {
-    overview: `This form collects candidate details and helps HR assess their fit for available roles.`,
+    overview: `A conversation to convince potential prospect about Acme Inc. solution.
+
+    Start by giving a brief intro about Acme.
+    
+    Ask for the email only if they are interested in receiving email updates.
+    
+    
+    At Acme Inc., we're dedicated to providing top-notch solutions and services to meet your needs. 
+    With a team of experts committed to excellence, we strive to deliver innovative products that redefine industry standards.
+    `,
     fields: [
       {
         id: cuid(),
@@ -230,19 +251,62 @@ export const CONTACT_SALES: FormTemplate = {
       {
         id: cuid(),
         type: 'select',
-        name: 'Interested_in',
+        name: 'Interested in',
         options: [
-          'Human Resources',
-          'Sales',
-          'Technology',
-          'Marketing',
+          'Website Dev',
+          'Content Marketing',
+          'Social Media',
+          'UI/UX Design',
         ],
         required: true,
       },
     ],
     startScreen: {
-      title: 'Contact HR',
-      description: 'Let’s get in touch to discuss the next steps in your recruitment process.',
+      title: 'Contact sales',
+      description: 'Learn about our Enterprise Plan',
+    },
+  },
+};
+
+export const FEEDBACK: FormTemplate = {
+  name: 'Product Feedback',
+  description:
+    'Obtain opinions on a product through an engaging dialogue-based approach.',
+  // category: 'marketing',
+  schema: {
+    overview: `Gather feedback from new customer of one of our model of sneaker
+    Acme Clothes is a distinguished fashion brand renowned for its high-quality, stylish apparel. 
+    Offering a wide range of clothing options for men, women, and kids, Acme Clothes combines comfort with contemporary trends to create unique and versatile pieces suitable for every occasion.
+    `,
+    fields: [
+      {
+        id: cuid(),
+        type: 'text',
+        name: 'model purchased',
+        required: true,
+      },
+      {
+        id: cuid(),
+        type: 'text',
+        name: 'Size fitting',
+        required: true,
+      },
+      {
+        id: cuid(),
+        type: 'text',
+        name: 'Price value assessment ',
+        required: true,
+      },
+      {
+        id: cuid(),
+        type: 'number',
+        name: 'Overall satisfaction (1-5)',
+        required: true,
+      },
+    ],
+    startScreen: {
+      title: 'Sneaker.com',
+      description: 'Let us know how we can improve our product',
     },
   },
 };
