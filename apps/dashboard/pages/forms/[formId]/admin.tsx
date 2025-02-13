@@ -115,7 +115,7 @@ function FormDashboard(props: FormDashboardProps) {
               color="neutral"
               className="hover:underline"
             >
-              Forms
+              Formularios
             </Typography>
           </Link>
 
@@ -216,19 +216,19 @@ function FormDashboard(props: FormDashboardProps) {
               <ListItemDecorator>
                 <SettingsIcon />
               </ListItemDecorator>
-              Settings
+              Configuracion
             </Tab>
             <Tab indicatorInset value={'submissions'}>
               <ListItemDecorator>
                 <TocRoundedIcon />
               </ListItemDecorator>
-              Submissions
+              Respuestas
             </Tab>
             <Tab indicatorInset value={'install'}>
               <ListItemDecorator>
                 <ReplyAllRoundedIcon sx={{ transform: 'scale(-1, 1)' }} />
               </ListItemDecorator>
-              Install
+              Instalar
             </Tab>
           </TabList>
 

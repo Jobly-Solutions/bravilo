@@ -107,7 +107,7 @@ function FormSubmissionsTab({ formId }: Props) {
               </Typography>
 
               <Button disabled size="sm">
-                Export
+                Exportar
               </Button>
             </Stack>
           </Card>
@@ -123,14 +123,14 @@ function FormSubmissionsTab({ formId }: Props) {
             >
               <InboxRoundedIcon fontSize={'xl3'} />
 
-              <Typography level="h3">No submissions</Typography>
+              <Typography level="h3">Todavia no hay respuestas</Typography>
             </Stack>
           </Card>
         )}
         {(submissions?.length || 0) > 0 && (
           <Card size="sm">
             <Table
-              aria-label="Form Submissions Table"
+              aria-label="Formulario de respuestas"
               sx={{ maxHeight: '100%', overflowY: 'auto' }}
             >
               <thead>
