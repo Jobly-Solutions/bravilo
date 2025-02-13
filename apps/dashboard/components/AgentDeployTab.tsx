@@ -88,8 +88,8 @@ function AgentDeployTab(props: Props) {
         >
           {[
             {
-              name: 'Web / Standalone - Página web sin código alojada en Bravilo',
-              icon: <Typography sx={{ fontSize: 32 }}>💅</Typography>,
+              name: 'Página web sin código alojada en Bravilo',
+              icon: <Typography sx={{ fontSize: 32 }}>🛜</Typography>,
               action: standalonePageModal.open,
               publicAgentRequired: true,
             },
@@ -136,16 +136,7 @@ function AgentDeployTab(props: Props) {
                   minHeight: 70,
                 })}
               >
-                <Stack direction="row" gap={2} alignItems={'center'}>
-                  {each.icon}
-                  <Typography fontWeight={'bold'}>{each.name}</Typography>
-
-                  {each.isPremium && (
-                    <Chip color="warning" size="sm" variant="soft">
-                      premium
-                    </Chip>
-                  )}
-                </Stack>
+                
 
                 <Button
                   size="sm"
