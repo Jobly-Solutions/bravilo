@@ -101,10 +101,14 @@ export default function AgentPage() {
     conversationAttachments,
   } = methods;
 
-  const handleChangeTab = (tab: string) => {
-    router.query.tab = tab;
-    router.replace(router);
-  };
+  const handleChangeTab = React.useCallback(
+    (tab: string) => {
+      router.query.tab = tab;
+      router.replace(router);
+    },
+    [router] // Agregar router como dependencia
+  );
+  
 
   const editApiToolModal = useModal();
   const editLeadToolModal = useModal();
@@ -123,11 +127,13 @@ export default function AgentPage() {
       shallow: true,
     });
   };
+  
   React.useEffect(() => {
     if (router.isReady && typeof window !== 'undefined' && !router.query.tab) {
       handleChangeTab('chat');
     }
-  }, [router.isReady, router.query.tab]);
+  }, [router.isReady, router.query.tab, handleChangeTab]); // Agregar handleChangeTab aquí
+  
 
   if (!query?.data) {
     return <Loader />;
