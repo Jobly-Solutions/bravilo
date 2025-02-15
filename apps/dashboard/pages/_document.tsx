@@ -13,7 +13,6 @@ import { themeKeys } from '@chaindesk/ui/themes/dashboard';
 class CustomDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
-
     return initialProps;
   }
 
@@ -21,24 +20,19 @@ class CustomDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta
-            key="viewport"
-            name="viewport"
-            content="initial-scale=1, width=device-width"
-          />
-
+          {/* Fuentes optimizadas con display=swap */}
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Public+Sans&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
           />
 
           <link
-            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
             rel="stylesheet"
           />
 
           <link
-            href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@100..900&display=optional"
             rel="stylesheet"
           />
 
@@ -47,16 +41,7 @@ class CustomDocument extends Document {
             rel="stylesheet"
           />
 
-          <link
-            href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:wght@100..900&display=swap"
-            rel="stylesheet"
-          ></link>
-
-          {/* <link
-            href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,300;12..96,500;12..96,600;12..96,700;12..96,800&display=swap"
-            rel="stylesheet"
-          /> */}
-
+          {/* Scripts de terceros optimizados */}
           {process.env.NEXT_PUBLIC_GA_ID && (
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
@@ -67,50 +52,49 @@ class CustomDocument extends Document {
           {process.env.NEXT_PUBLIC_GA_ID && (
             <Script id="google-analytics" strategy="afterInteractive">
               {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
-          
-          gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-          `}
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+              `}
             </Script>
           )}
 
           {process.env.NEXT_PUBLIC_HOTJAR_ID && (
             <Script id="hotjar" strategy="afterInteractive">
               {`(function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:${process.env.NEXT_PUBLIC_HOTJAR_ID},hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`}
+                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                h._hjSettings={hjid:${process.env.NEXT_PUBLIC_HOTJAR_ID},hjsv:6};
+                a=o.getElementsByTagName('head')[0];
+                r=o.createElement('script');r.async=1;
+                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                a.appendChild(r);
+              })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`}
             </Script>
           )}
 
           {process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID && (
             <Script id="facebook-pixel" strategy="afterInteractive">
               {`
-                  !function(f,b,e,v,n,t,s)
-                  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                !function(f,b,e,v,n,t,s){
+                  if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
                   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
                   n.queue=[];t=b.createElement(e);t.async=!0;
                   t.src=v;s=b.getElementsByTagName(e)[0];
-                  s.parentNode.insertBefore(t,s)}(window, document,'script',
+                  s.parentNode.insertBefore(t,s)}(window,document,'script',
                   'https://connect.facebook.net/en_US/fbevents.js');
                   fbq('init', ${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID});
                   fbq('track', 'PageView');
-                `}
+              `}
             </Script>
           )}
 
-          <script
-            async
+          <Script
             src="https://r.wdfl.co/rw.js"
             data-rewardful="cb12e7"
-          ></script>
+            strategy="afterInteractive"
+          />
           <Script id="rewardfull" strategy="afterInteractive">
             {`(function(w,r){w._rwq=r;w[r]=w[r]||function(){(w[r].q=w[r].q||[]).push(arguments)}})(window,'rewardful');`}
           </Script>
@@ -130,16 +114,12 @@ class CustomDocument extends Document {
                     const mode = document.documentElement.getAttribute(
                       '${themeKeys.attribute}'
                     );
-    
-                    if (mode) {
-                      document.body.classList.add(mode);
-                    }
-    
-                  }catch {}
+                    if (mode) document.body.classList.add(mode);
+                  } catch {}
                 })()
               `,
             }}
-          ></script>
+          />
           <Main />
           <NextScript />
         </body>

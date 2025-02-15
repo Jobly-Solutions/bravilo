@@ -9,6 +9,7 @@ import '@react-pdf-viewer/highlight/lib/styles/index.css';
 
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { SessionProvider } from 'next-auth/react';
 import React, { useEffect } from 'react';
@@ -34,9 +35,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const TopProgressBar = dynamic(
-  () => {
-    return import('@app/components/TopProgressBar');
-  },
+  () => import('@app/components/TopProgressBar'),
   { ssr: false }
 );
 
@@ -55,41 +54,39 @@ export default function App({
     if (typeof window !== 'undefined') {
       setProduct(getProductFromHostname(window.location.hostname));
     }
-  }, []);
+  }, [setProduct]); // Añadida dependencia setProduct
 
-  if (
-    router.pathname === '/agents/[agentId]/iframe' ||
-    router.pathname === '/agents/[agentId]/standalone'
-  ) {
-    return getLayout(
-      <ProductContext.Provider value={product}>
-        {/* <SessionProvider> */}
+  const commonProviders = (
+    <ProductContext.Provider value={product}>
+      <SessionProvider> {/* SessionProvider unificado */}
         <Analytics>
           <Toaster />
           <DefaultSEOTags />
           <SynchTailwindColorMode />
-          <Component {...pageProps} />
-        </Analytics>
-        {/* </SessionProvider> */}
-      </ProductContext.Provider>
-    );
-  }
-
-  return (
-    <ProductContext.Provider value={product}>
-      <ThemeProvider {...otherProps} theme={theme}>
-        <TopProgressBar />
-        <SessionProvider>
-          <Analytics>
-            <Toaster />
-            <DefaultSEOTags />
-            <SynchTailwindColorMode />
+          <Head>
+            <meta
+              name="viewport"
+              content="initial-scale=1, width=device-width"
+              key="viewport"
+            />
+          </Head>
+          {router.pathname === '/agents/[agentId]/iframe' ||
+          router.pathname === '/agents/[agentId]/standalone' ? (
+            <Component {...pageProps} />
+          ) : (
             <NavbarProvider>
               {getLayout(<Component {...pageProps} />)}
             </NavbarProvider>
-          </Analytics>
-        </SessionProvider>
-      </ThemeProvider>
+          )}
+        </Analytics>
+      </SessionProvider>
     </ProductContext.Provider>
+  );
+
+  return (
+    <ThemeProvider {...otherProps} theme={theme}>
+      <TopProgressBar />
+      {commonProviders}
+    </ThemeProvider>
   );
 }

@@ -56,15 +56,16 @@ export default function AgentPage() {
     return pickColorBasedOnBgColor(primaryColor, '#ffffff', '#000000');
   }, [primaryColor]);
 
-  useEffect(() => {
-    if (getAgentConfigQuery?.isLoading) {
-      setTimeout(() => {
-        setState({
-          isPageReady: true,
-        });
-      }, 300);
-    }
-  }, [getAgentConfigQuery?.isLoading]);
+ // Línea 67 (~línea 92 en el código completo)
+useEffect(() => {
+  if (getAgentConfigQuery?.isLoading) {
+    setTimeout(() => {
+      setState({
+        isPageReady: true,
+      });
+    }, 300);
+  }
+}, [getAgentConfigQuery?.isLoading, setState]); // Añadir setState aquí
 
   return (
     <>
