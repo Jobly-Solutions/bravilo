@@ -120,24 +120,27 @@ export default function AnalyticsPage() {
     fetcher
   );
   console.log('0000', state.conversationEvolution);
-  const fetchAnalytics = useCallback(async () => {
-    try {
-      setState({ isLoading: true });
-      const response = await axios.get(
-        `${ANALYTICS_API_URL}?view=${state.view}&agentId=${state.agentId}`
-      );
-      setState(response.data);
-    } catch (e) {
-      toast.error('Unable to fetch your analytics');
-      console.error(e);
-    } finally {
-      setState({ isLoading: false });
-    }
-  }, [state.view, state.agentId]);
 
-  useEffect(() => {
-    fetchAnalytics();
-  }, [state.view, state.agentId]);
+  // 🔽🔽🔽 Modificar el useCallback existente 🔽🔽🔽
+const fetchAnalytics = useCallback(async () => {
+  try {
+    setState({ isLoading: true });
+    const response = await axios.get(
+      `${ANALYTICS_API_URL}?view=${state.view}&agentId=${state.agentId}`
+    );
+    setState(response.data);
+  } catch (e) {
+    toast.error('Unable to fetch your analytics');
+    console.error(e);
+  } finally {
+    setState({ isLoading: false });
+  }
+}, [state.view, state.agentId, setState]); // ← Añadir setState aquí
+
+// 🔽🔽🔽 Modificar el useEffect existente 🔽🔽🔽
+useEffect(() => {
+  fetchAnalytics();
+}, [fetchAnalytics]); // ← Usar fetchAnalytics como dependencia
 
   return (
     <Box
