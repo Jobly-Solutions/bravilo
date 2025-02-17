@@ -60,7 +60,7 @@ const CreateDatastoreModal = dynamic(
 );
 
 // ******************************************************************
-// 1. Definición del type guard para las herramientas normalizadas válidas
+// 1. Definición del type guard para herramientas normalizadas válidas
 // ******************************************************************
 
 // 1.1 Definimos el tipo que representa una herramienta normalizada válida
@@ -69,8 +69,10 @@ type ValidNormalizedTool =
   | (NormalizedTool & { type: 'datastore'; datastoreId: string })
   | (NormalizedTool & { type: Exclude<NormalizedTool['type'], 'form' | 'datastore'> });
 
-// 1.2 Función type guard para validar que el objeto cumple con las propiedades necesarias
-function isValidNormalizedTool(tool: any): tool is ValidNormalizedTool {
+// 1.2 Función type guard actualizada para aceptar nulos
+function isValidNormalizedTool(
+  tool: NormalizedTool | null | undefined
+): tool is ValidNormalizedTool {
   if (!tool || typeof tool !== 'object') return false;
   if (!('id' in tool && 'type' in tool && 'name' in tool && 'description' in tool))
     return false;
@@ -315,7 +317,7 @@ function ToolsInput({}: Props) {
       )}
       <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
         {formattedTools
-          // Aquí usamos el type guard que definimos previamente
+          // Usamos el type guard actualizado para filtrar nulos y elementos inválidos
           .filter(isValidNormalizedTool)
           .map((tool, index) => (
             <ToolCard
@@ -407,7 +409,7 @@ function ToolsInput({}: Props) {
           >
             {getDatastoresQuery.data
               ?.filter(
-                // No mostrar datastores que ya han sido seleccionados
+                // No mostrar datastores ya seleccionados
                 (each) =>
                   !tools.find((one) => (one as any).datastoreId === each.id)
               )
