@@ -41,7 +41,6 @@ import {
   FEEDBACK,
   FROM_SCRATCH,
   INBOUND_LEAD,
-  LEAD_FORM,
   ONBOARDING_FORM,
   PRODUCT_FEEDBACK_FORM,
 } from '@chaindesk/lib/forms/templates';
@@ -222,7 +221,6 @@ export default function FormsPage() {
         <Stack gap={2}>
         {[
   FROM_SCRATCH,
-  LEAD_FORM,
   ONBOARDING_FORM,
   PRODUCT_FEEDBACK_FORM,
   INBOUND_LEAD,
