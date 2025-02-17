@@ -315,29 +315,30 @@ function ToolsInput({}: Props) {
           Entrena tu Scout con datos personalizados conectándolo a un Almacén de Datos a continuación.
         </Alert>
       )}
-      <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
-        {formattedTools
-          // Usamos el type guard actualizado para filtrar nulos y elementos inválidos
-          .filter(isValidNormalizedTool)
-          .map((tool, index) => (
-            <ToolCard
-              key={tool.id || `tool-${index}`}
-              id={tool.id}
-              type={tool.type}
-              name={tool.name}
-              description={tool.description}
-              mode="edit"
-              onEdit={() =>
-                handleToolEdit({
-                  tool: { type: tool.type, id: tool.id },
-                  index,
-                })
-              }
-              onDelete={() => handleDeleteTool(tool.id)}
-              link={getToolLink(tool)}
-            />
-          ))}
-      </Stack>
+     <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
+  {formattedTools
+    // Se filtran para que se descarten los valores nulos y se apliquen las validaciones del type guard
+    .filter((tool): tool is ValidNormalizedTool => tool != null && isValidNormalizedTool(tool))
+    .map((tool, index) => (
+      <ToolCard
+        key={tool.id || `tool-${index}`}
+        id={tool.id}
+        type={tool.type}
+        name={tool.name}
+        description={tool.description}
+        mode="edit"
+        onEdit={() =>
+          handleToolEdit({
+            tool: { type: tool.type, id: tool.id },
+            index,
+          })
+        }
+        onDelete={() => handleDeleteTool(tool.id)}
+        link={getToolLink(tool)}
+      />
+    ))}
+</Stack>
+
 
       <Divider sx={{ my: 2 }} />
 
