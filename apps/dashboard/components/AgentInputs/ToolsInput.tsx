@@ -47,6 +47,7 @@ import LeadCaptureToolFormInput from '../LeadCaptureToolForm/LeadCaptureToolForm
 
 import { EditFormToolInput, NewFormToolInput } from './FormToolInput';
 import HttpToolInput from './HttpToolInput';
+
 type Props = {
   onHttpToolClick?: (index: number) => any;
 };
@@ -57,6 +58,33 @@ const CreateDatastoreModal = dynamic(
     ssr: false,
   }
 );
+
+// ******************************************************************
+// 1. Definición del type guard para las herramientas normalizadas válidas
+// ******************************************************************
+
+// 1.1 Definimos el tipo que representa una herramienta normalizada válida
+type ValidNormalizedTool =
+  | (NormalizedTool & { type: 'form'; formId: string })
+  | (NormalizedTool & { type: 'datastore'; datastoreId: string })
+  | (NormalizedTool & { type: Exclude<NormalizedTool['type'], 'form' | 'datastore'> });
+
+// 1.2 Función type guard para validar que el objeto cumple con las propiedades necesarias
+function isValidNormalizedTool(tool: any): tool is ValidNormalizedTool {
+  if (!tool || typeof tool !== 'object') return false;
+  if (!('id' in tool && 'type' in tool && 'name' in tool && 'description' in tool))
+    return false;
+  
+  switch (tool.type) {
+    case 'form':
+      return 'formId' in tool;
+    case 'datastore':
+      return 'datastoreId' in tool;
+    default:
+      return true;
+  }
+}
+// ******************************************************************
 
 type ToolCardProps = Partial<NormalizedTool> & {
   type: ToolType;
@@ -268,7 +296,7 @@ function ToolsInput({}: Props) {
     );
   };
 
-  // config changed, allow re-test.
+  // Cuando la configuración cambia, se permite re-testear.
   useDeepCompareEffect(() => {
     isToolValidRef.current = false;
   }, [currentToolConfig]);
@@ -282,48 +310,32 @@ function ToolsInput({}: Props) {
           color="warning"
           variant="soft"
         >
-         Entrena tu Scout con datos personalizados conectándolo a un Almacén de Datos a continuación.
+          Entrena tu Scout con datos personalizados conectándolo a un Almacén de Datos a continuación.
         </Alert>
       )}
       <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
-      {formattedTools
-  .filter((tool): tool is NormalizedTool => {
-    if (!tool || typeof tool !== 'object') return false;
-    if (!('id' in tool && 'type' in tool && 'name' in tool && 'description' in tool)) return false;
-    
-    // Verifica propiedades adicionales según el tipo
-    switch (tool.type) {
-      case 'form':
-        return 'formId' in tool;
-      case 'datastore':
-        return 'datastoreId' in tool;
-      // Para otros tipos, puedes agregar sus comprobaciones si es necesario.
-      default:
-        return true;
-    }
-  })
-  .map((tool, index) => (
-    <ToolCard
-      key={tool.id || `tool-${index}`}
-      id={tool.id}
-      type={tool.type}
-      name={tool.name}
-      description={tool.description}
-      mode="edit"
-      onEdit={() =>
-        handleToolEdit({
-          tool: { type: tool.type, id: tool.id },
-          index,
-        })
-      }
-      onDelete={() => handleDeleteTool(tool.id)}
-      link={getToolLink(tool)}
-    />
-  ))}
-
-</Stack>
-
-
+        {formattedTools
+          // Aquí usamos el type guard que definimos previamente
+          .filter(isValidNormalizedTool)
+          .map((tool, index) => (
+            <ToolCard
+              key={tool.id || `tool-${index}`}
+              id={tool.id}
+              type={tool.type}
+              name={tool.name}
+              description={tool.description}
+              mode="edit"
+              onEdit={() =>
+                handleToolEdit({
+                  tool: { type: tool.type, id: tool.id },
+                  index,
+                })
+              }
+              onDelete={() => handleDeleteTool(tool.id)}
+              link={getToolLink(tool)}
+            />
+          ))}
+      </Stack>
 
       <Divider sx={{ my: 2 }} />
 
@@ -366,7 +378,6 @@ function ToolsInput({}: Props) {
         <Stack direction="row" width="100%" gap={1}>
           <Select
             sx={{ width: '100%' }}
-            // value={tools[0]?.datastoreId || ''}
             placeholder="Choose a Datastore"
             onChange={(_, value) => {
               const datastore = getDatastoresQuery?.data?.find(
@@ -396,7 +407,7 @@ function ToolsInput({}: Props) {
           >
             {getDatastoresQuery.data
               ?.filter(
-                // Don't show already selected datastores
+                // No mostrar datastores que ya han sido seleccionados
                 (each) =>
                   !tools.find((one) => (one as any).datastoreId === each.id)
               )
@@ -409,11 +420,9 @@ function ToolsInput({}: Props) {
         </Stack>
 
         <Stack direction={'row'} gap={1}>
-          {/* {tools?.length === 0 && ( */}
           <Button
             sx={{ mr: 'auto' }}
             variant="plain"
-            // endDecorator={<ArrowForwardRoundedIcon />}
             startDecorator={<AddIcon />}
             size="sm"
             onClick={() => setIsCreateDatastoreModalOpen(true)}
@@ -519,7 +528,7 @@ function ToolsInput({}: Props) {
           currentToolIndex={state.currentToolIndex}
           onSubmit={() => {
             editFormToolModal.close();
-            //  save.
+            // Guardar cambios.
             btnSubmitRef?.current?.click();
           }}
         />
@@ -632,7 +641,7 @@ function ToolsInput({}: Props) {
         )}
       </editLeadCaptureToolModal.component>
 
-      {/* Trick to submit form from HttpToolInput modal */}
+      {/* Botón oculto para enviar el formulario desde el modal */}
       <button
         ref={btnSubmitRef}
         type="submit"
