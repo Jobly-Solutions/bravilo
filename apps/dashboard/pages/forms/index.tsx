@@ -38,7 +38,6 @@ import UsageLimitModal from '@app/components/UsageLimitModal';
 import useModal from '@app/hooks/useModal';
 
 import {
-  CONTACT_SALES,
   FEEDBACK,
   FROM_SCRATCH,
   INBOUND_LEAD,
@@ -227,7 +226,6 @@ export default function FormsPage() {
   ONBOARDING_FORM,
   PRODUCT_FEEDBACK_FORM,
   INBOUND_LEAD,
-  CONTACT_SALES,
   FEEDBACK,
 ]
   .filter((each) => each) // Filtra elementos undefined
