@@ -50,7 +50,7 @@ const createReport = async (org: Organization) => {
 
   await mailer.sendMail({
     from: {
-      name: 'Chaindesk',
+      name: 'Bravilo',
       address: process.env.EMAIL_FROM!,
     },
     to: ownerEmail,
@@ -58,7 +58,7 @@ const createReport = async (org: Organization) => {
     attachments: [
       {
         filename: 'leads.csv',
-        content: Buffer.from(await buffer.arrayBuffer()),
+        content: Buffer.from(new Uint8Array(await buffer)),
       },
     ],
     html: render(
@@ -68,7 +68,7 @@ const createReport = async (org: Organization) => {
       />
     ),
   });
-};
+  
 
 (async () => {
   logger.info('Starting cron job: daily-leads');
