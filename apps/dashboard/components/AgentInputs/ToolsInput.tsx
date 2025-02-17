@@ -286,34 +286,41 @@ function ToolsInput({}: Props) {
         </Alert>
       )}
       <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
-  {formattedTools
-    .filter((tool): tool is NormalizedTool =>
-      tool !== null &&
-      tool !== undefined &&
-      typeof tool === 'object' &&
-      'id' in tool &&
-      'type' in tool &&
-      'name' in tool &&
-      'description' in tool
-    )
-    .map((tool, index) => (
-      <ToolCard
-        key={tool.id || `tool-${index}`}
-        id={tool.id}
-        type={tool.type}
-        name={tool.name}
-        description={tool.description}
-        mode="edit"
-        onEdit={() =>
-          handleToolEdit({
-            tool: { type: tool.type, id: tool.id },
-            index,
-          })
-        }
-        onDelete={() => handleDeleteTool(tool.id)}
-        link={getToolLink(tool)}
-      />
-    ))}
+      {formattedTools
+  .filter((tool): tool is NormalizedTool => {
+    if (!tool || typeof tool !== 'object') return false;
+    if (!('id' in tool && 'type' in tool && 'name' in tool && 'description' in tool)) return false;
+    
+    // Verifica propiedades adicionales según el tipo
+    switch (tool.type) {
+      case 'form':
+        return 'formId' in tool;
+      case 'datastore':
+        return 'datastoreId' in tool;
+      // Para otros tipos, puedes agregar sus comprobaciones si es necesario.
+      default:
+        return true;
+    }
+  })
+  .map((tool, index) => (
+    <ToolCard
+      key={tool.id || `tool-${index}`}
+      id={tool.id}
+      type={tool.type}
+      name={tool.name}
+      description={tool.description}
+      mode="edit"
+      onEdit={() =>
+        handleToolEdit({
+          tool: { type: tool.type, id: tool.id },
+          index,
+        })
+      }
+      onDelete={() => handleDeleteTool(tool.id)}
+      link={getToolLink(tool)}
+    />
+  ))}
+
 </Stack>
 
 
