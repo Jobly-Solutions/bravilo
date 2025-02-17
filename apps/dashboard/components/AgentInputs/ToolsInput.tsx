@@ -63,29 +63,37 @@ const CreateDatastoreModal = dynamic(
 // 1. Definición del type guard para herramientas normalizadas válidas
 // ******************************************************************
 
-// 1.1 Definimos el tipo que representa una herramienta normalizada válida
+// 1. Definir el tipo válido de herramienta normalizada
 type ValidNormalizedTool =
   | (NormalizedTool & { type: 'form'; formId: string })
   | (NormalizedTool & { type: 'datastore'; datastoreId: string })
   | (NormalizedTool & { type: Exclude<NormalizedTool['type'], 'form' | 'datastore'> });
 
-// 1.2 Función type guard actualizada para aceptar nulos
+// 2. Actualizar el type guard para incluir comprobaciones de tipos (id, name, description, type)
 function isValidNormalizedTool(
   tool: NormalizedTool | null | undefined
 ): tool is ValidNormalizedTool {
   if (!tool || typeof tool !== 'object') return false;
-  if (!('id' in tool && 'type' in tool && 'name' in tool && 'description' in tool))
+  // Verifica que las propiedades comunes existan y sean strings
+  if (
+    typeof tool.id !== 'string' ||
+    typeof tool.name !== 'string' ||
+    typeof tool.description !== 'string' ||
+    typeof tool.type !== 'string'
+  ) {
     return false;
-  
+  }
+  // Según el tipo, comprueba propiedades específicas
   switch (tool.type) {
     case 'form':
-      return 'formId' in tool;
+      return typeof (tool as any).formId === 'string';
     case 'datastore':
-      return 'datastoreId' in tool;
+      return typeof (tool as any).datastoreId === 'string';
     default:
       return true;
   }
 }
+
 // ******************************************************************
 
 type ToolCardProps = Partial<NormalizedTool> & {
@@ -315,9 +323,9 @@ function ToolsInput({}: Props) {
           Entrena tu Scout con datos personalizados conectándolo a un Almacén de Datos a continuación.
         </Alert>
       )}
-     <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
+      <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
   {formattedTools
-    // Se filtran para que se descarten los valores nulos y se apliquen las validaciones del type guard
+    // Filtramos descartando valores nulos y aplicando el type guard
     .filter((tool): tool is ValidNormalizedTool => tool != null && isValidNormalizedTool(tool))
     .map((tool, index) => (
       <ToolCard
@@ -338,6 +346,7 @@ function ToolsInput({}: Props) {
       />
     ))}
 </Stack>
+
 
 
       <Divider sx={{ my: 2 }} />
