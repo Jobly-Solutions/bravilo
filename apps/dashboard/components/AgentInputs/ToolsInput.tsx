@@ -287,28 +287,30 @@ function ToolsInput({}: Props) {
       )}
 
 <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
-{formattedTools
-  .filter(tool => tool !== null) // Evita herramientas nulas
-  .map((tool, index) => (
-    <ToolCard
-      key={tool.id}
-      id={tool.id}
-      type={tool.type}
-      name={tool.name!}
-      description={tool.description!}
-      mode="edit"
-      onEdit={() =>
-        handleToolEdit({
-          tool: { type: tool.type, id: tool.id },
-          index,
-        })
-      }
-      onDelete={() => handleDeleteTool(tool.id)}
-      link={getToolLink(tool)}
-    />
-))}
-
+  {formattedTools
+    .filter((tool): tool is NormalizedTool => tool !== null && tool !== undefined) // Filtra valores inválidos
+    .map((tool, index) => {
+      return (
+        <ToolCard
+          key={tool.id || `tool-${index}`} // Evita error si tool.id es undefined
+          id={tool.id || `tool-${index}`}
+          type={tool.type}
+          name={tool.name || 'Sin nombre'}
+          description={tool.description || ''}
+          mode="edit"
+          onEdit={() =>
+            handleToolEdit({
+              tool: { type: tool.type, id: tool.id },
+              index,
+            })
+          }
+          onDelete={() => handleDeleteTool(tool.id)}
+          link={getToolLink(tool)}
+        />
+      );
+    })}
 </Stack>
+
 
 
       <Divider sx={{ my: 2 }} />
