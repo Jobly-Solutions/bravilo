@@ -285,21 +285,20 @@ function ToolsInput({}: Props) {
          Entrena tu Scout con datos personalizados conectándolo a un Almacén de Datos a continuación.
         </Alert>
       )}
-
-<Stack direction={'row'} gap={1} flexWrap={'wrap'}>
+      <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
   {formattedTools
-    .filter(
-      (tool): tool is NormalizedTool =>
-        tool !== null &&
-        tool !== undefined &&
-        'id' in tool &&
-        'type' in tool &&
-        'name' in tool &&
-        'description' in tool
-    ) // Filtra herramientas inválidas
+    .filter((tool): tool is NormalizedTool =>
+      tool !== null &&
+      tool !== undefined &&
+      typeof tool === 'object' &&
+      'id' in tool &&
+      'type' in tool &&
+      'name' in tool &&
+      'description' in tool
+    )
     .map((tool, index) => (
       <ToolCard
-        key={tool.id || `tool-${index}`} // Asegura que cada ToolCard tenga una key única
+        key={tool.id || `tool-${index}`}
         id={tool.id}
         type={tool.type}
         name={tool.name}
@@ -316,6 +315,8 @@ function ToolsInput({}: Props) {
       />
     ))}
 </Stack>
+
+
 
       <Divider sx={{ my: 2 }} />
 
