@@ -30,8 +30,8 @@ const createReport = async (org: Organization) => {
     },
   });
 
-  const ownerEmail = (org as any).memberships[0].user.email as string;
-  if (leads?.length <= 0 && ownerEmail) {
+  const ownerEmail = (org as any).memberships[0]?.user?.email as string;
+  if (leads.length === 0 || !ownerEmail) {
     return;
   }
 
@@ -39,9 +39,8 @@ const createReport = async (org: Organization) => {
 
   const rows = leads.map((each) => [
     each.id,
-    each?.agent?.name || '',
+    each.agent?.name || '',
     each.email,
-    // each.name,
     each.phoneNumber || '',
     each.createdAt,
   ]);
@@ -63,15 +62,16 @@ const createReport = async (org: Organization) => {
     ],
     html: render(
       <DailyLeads
-        nbLeads={rows?.length}
+        nbLeads={rows.length}
         ctaLink={`${process.env.NEXT_PUBLIC_DASHBOARD_URL}/logs`}
       />
     ),
   });
-  
+}; // 🔹 ACÁ SE CIERRA LA FUNCIÓN CORRECTAMENTE ✅
 
 (async () => {
   logger.info('Starting cron job: daily-leads');
+
   const orgs = await prisma.organization.findMany({
     where: {
       subscriptions: {
