@@ -42,7 +42,7 @@ import {
   FROM_SCRATCH,
   INBOUND_LEAD,
   ONBOARDING_FORM,
-  PRODUCT_FEEDBACK_FORM,
+  //PRODUCT_FEEDBACK_FORM,
 } from '@chaindesk/lib/forms/templates';
 import {
   fetcher,
@@ -222,7 +222,7 @@ export default function FormsPage() {
         {[
   FROM_SCRATCH,
   ONBOARDING_FORM,
-  PRODUCT_FEEDBACK_FORM,
+ // PRODUCT_FEEDBACK_FORM,
   INBOUND_LEAD,
   FEEDBACK,
 ]
