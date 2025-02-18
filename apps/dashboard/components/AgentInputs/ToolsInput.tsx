@@ -288,24 +288,27 @@ function ToolsInput({}: Props) {
       )}
 
       <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
-        {formattedTools.map((tool, index) => (
-          <ToolCard
-            key={tool.id}
-            id={tool.id}
-            type={tool.type}
-            name={tool.name!}
-            description={tool.description!}
-            mode="edit"
-            onEdit={() =>
-              handleToolEdit({
-                tool: { type: tool.type, id: tool.id },
-                index,
-              })
-            }
-            onDelete={() => handleDeleteTool(tool.id)}
-            link={getToolLink(tool)}
-          />
-        ))}
+      {formattedTools
+  .filter((tool): tool is ValidNormalizedTool => tool != null && isValidNormalizedTool(tool)) // Filtrar nulls
+  .map((tool, index) => (
+    <ToolCard
+      key={tool.id} // Esto ahora debería estar seguro
+      id={tool.id}
+      type={tool.type}
+      name={tool.name!}
+      description={tool.description!}
+      mode="edit"
+      onEdit={() =>
+        handleToolEdit({
+          tool: { type: tool.type, id: tool.id },
+          index,
+        })
+      }
+      onDelete={() => handleDeleteTool(tool.id)}
+      link={getToolLink(tool)}
+    />
+  ))}
+
       </Stack>
 
       <Divider sx={{ my: 2 }} />
