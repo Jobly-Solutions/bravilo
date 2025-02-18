@@ -52,7 +52,7 @@ type Props = {
   onHttpToolClick?: (index: number) => any;
 };
 
-// Redefinimos ValidNormalizedTool para forzar que id, name y description sean strings
+// Definición de ValidNormalizedTool para forzar que las propiedades esenciales sean obligatorias
 type ValidNormalizedTool = NormalizedTool & {
   id: string;
   name: string;
@@ -63,10 +63,8 @@ type ValidNormalizedTool = NormalizedTool & {
   | { type: Exclude<NormalizedTool['type'], 'form' | 'datastore'> }
 );
 
-// Función de validación: retorna true si el tool tiene id, name, description y, si es "form" o "datastore", la propiedad correspondiente.
-function isValidNormalizedTool(
-  tool: NormalizedTool | null | undefined
-): boolean {
+// Función de validación que retorna true si el tool tiene las propiedades requeridas
+function isValidNormalizedTool(tool: NormalizedTool | null | undefined): boolean {
   if (!tool || typeof tool !== 'object') return false;
   if (
     typeof tool.id !== 'string' ||
@@ -201,7 +199,10 @@ function ToolsInput({}: Props) {
     fetcher
   );
 
-  const tools = (watch('tools') || []) as Exclude<ToolSchema, { type: 'connector' } | { type: 'agent' }>[];
+  const tools = (watch('tools') || []) as Exclude<
+    ToolSchema,
+    { type: 'connector' } | { type: 'agent' }
+  >[];
 
   const formattedTools = tools.map(agentToolFormat);
 
@@ -274,7 +275,7 @@ function ToolsInput({}: Props) {
     isToolValidRef.current = false;
   }, [currentToolConfig]);
 
-  // Filtramos y luego hacemos un cast a ValidNormalizedTool[]
+  // Filtrar sin usar type predicate en el callback y luego hacer cast
   const validTools = formattedTools.filter(
     (tool) => tool != null && isValidNormalizedTool(tool)
   ) as ValidNormalizedTool[];
