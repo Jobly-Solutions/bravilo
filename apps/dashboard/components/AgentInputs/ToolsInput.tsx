@@ -237,7 +237,7 @@ function ToolsInput({}: Props) {
     console.error('Error fetching datastores:', datastoreError);
   }
 
-  const tools = (watch('tools') || []) as Exclude<
+  const tools = (watch('tools') as unknown) as Exclude<ToolSchema, { type: 'connector' } | { type: 'agent' }>[];
     ToolSchema,
     { type: 'connector' } | { type: 'agent' }
   >;
