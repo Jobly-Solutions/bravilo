@@ -47,9 +47,16 @@ import LeadCaptureToolFormInput from '../LeadCaptureToolForm/LeadCaptureToolForm
 
 import { EditFormToolInput, NewFormToolInput } from './FormToolInput';
 import HttpToolInput from './HttpToolInput';
+
 type Props = {
   onHttpToolClick?: (index: number) => any;
 };
+
+// Definir el tipo ValidNormalizedTool
+type ValidNormalizedTool =
+  | (NormalizedTool & { type: 'form'; formId: string })
+  | (NormalizedTool & { type: 'datastore'; datastoreId: string })
+  | (NormalizedTool & { type: Exclude<NormalizedTool['type'], 'form' | 'datastore'> });
 
 const CreateDatastoreModal = dynamic(
   () => import('@app/components/CreateDatastoreModal'),
@@ -193,9 +200,9 @@ function ToolsInput({}: Props) {
   const editLeadCaptureToolModal = useModal();
   const validateToolModal = useModal();
 
-  const getDatastoresQuery = useSWR<
-    Prisma.PromiseReturnType<typeof getDatastores>
-  >('/api/datastores', fetcher);
+  const getDatastoresQuery = useSWR<Prisma.PromiseReturnType<typeof getDatastores>>(
+    '/api/datastores', fetcher
+  );
 
   const tools = (watch('tools') || []) as Exclude<
     ToolSchema,
@@ -213,6 +220,7 @@ function ToolsInput({}: Props) {
   const hasLeadCapture = !!tools.find(
     (tool) => tool.type === ToolType.lead_capture
   );
+
   const getToolLink = (tool: Record<string, unknown>) => {
     switch (tool.type) {
       case ToolType.datastore:
@@ -268,7 +276,7 @@ function ToolsInput({}: Props) {
     );
   };
 
-  // config changed, allow re-test.
+  // Cuando la configuración cambia, se permite re-testear.
   useDeepCompareEffect(() => {
     isToolValidRef.current = false;
   }, [currentToolConfig]);
@@ -288,27 +296,26 @@ function ToolsInput({}: Props) {
       )}
 
       <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
-      {formattedTools
-  .filter((tool): tool is ValidNormalizedTool => tool != null && isValidNormalizedTool(tool)) // Filtrar nulls
-  .map((tool, index) => (
-    <ToolCard
-      key={tool.id} // Esto ahora debería estar seguro
-      id={tool.id}
-      type={tool.type}
-      name={tool.name!}
-      description={tool.description!}
-      mode="edit"
-      onEdit={() =>
-        handleToolEdit({
-          tool: { type: tool.type, id: tool.id },
-          index,
-        })
-      }
-      onDelete={() => handleDeleteTool(tool.id)}
-      link={getToolLink(tool)}
-    />
-  ))}
-
+        {formattedTools
+          .filter((tool): tool is ValidNormalizedTool => tool != null && isValidNormalizedTool(tool)) // Filtrar nulls
+          .map((tool, index) => (
+            <ToolCard
+              key={tool.id} // Esto ahora debería estar seguro
+              id={tool.id}
+              type={tool.type}
+              name={tool.name!}
+              description={tool.description!}
+              mode="edit"
+              onEdit={() =>
+                handleToolEdit({
+                  tool: { type: tool.type, id: tool.id },
+                  index,
+                })
+              }
+              onDelete={() => handleDeleteTool(tool.id)}
+              link={getToolLink(tool)}
+            />
+          ))}
       </Stack>
 
       <Divider sx={{ my: 2 }} />
@@ -394,7 +401,6 @@ function ToolsInput({}: Props) {
         <Stack direction="row" width="100%" gap={1}>
           <Select
             sx={{ width: '100%' }}
-            // value={tools[0]?.datastoreId || ''}
             placeholder="Choose a Datastore"
             onChange={(_, value) => {
               const datastore = getDatastoresQuery?.data?.find(
@@ -437,11 +443,9 @@ function ToolsInput({}: Props) {
         </Stack>
 
         <Stack direction={'row'} gap={1}>
-          {/* {tools?.length === 0 && ( */}
           <Button
             sx={{ mr: 'auto' }}
             variant="plain"
-            // endDecorator={<ArrowForwardRoundedIcon />}
             startDecorator={<AddIcon />}
             size="sm"
             onClick={() => setIsCreateDatastoreModalOpen(true)}
@@ -547,7 +551,7 @@ function ToolsInput({}: Props) {
           currentToolIndex={state.currentToolIndex}
           onSubmit={() => {
             editFormToolModal.close();
-            //  save.
+            // save.
             btnSubmitRef?.current?.click();
           }}
         />
