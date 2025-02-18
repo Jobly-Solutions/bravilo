@@ -52,23 +52,43 @@ type Props = {
   onHttpToolClick?: (index: number) => any;
 };
 
-// Redefinimos ValidNormalizedTool para forzar que las propiedades esenciales sean obligatorias
-type ValidNormalizedTool = (NormalizedTool & {
+// Redefinimos ValidNormalizedTool para forzar que id, name y description sean strings
+type ValidNormalizedTool = NormalizedTool & {
   id: string;
   name: string;
   description: string;
-  type: string;
-}) & (
+} & (
   | { type: 'form'; formId: string }
   | { type: 'datastore'; datastoreId: string }
   | { type: Exclude<NormalizedTool['type'], 'form' | 'datastore'> }
 );
 
+// Función de validación: retorna true si el tool tiene id, name, description y, si es "form" o "datastore", la propiedad correspondiente.
+function isValidNormalizedTool(
+  tool: NormalizedTool | null | undefined
+): boolean {
+  if (!tool || typeof tool !== 'object') return false;
+  if (
+    typeof tool.id !== 'string' ||
+    typeof tool.name !== 'string' ||
+    typeof tool.description !== 'string' ||
+    typeof tool.type !== 'string'
+  ) {
+    return false;
+  }
+  switch (tool.type) {
+    case 'form':
+      return typeof (tool as any).formId === 'string';
+    case 'datastore':
+      return typeof (tool as any).datastoreId === 'string';
+    default:
+      return true;
+  }
+}
+
 const CreateDatastoreModal = dynamic(
   () => import('@app/components/CreateDatastoreModal'),
-  {
-    ssr: false,
-  }
+  { ssr: false }
 );
 
 type ToolCardProps = Partial<NormalizedTool> & {
@@ -94,18 +114,8 @@ const ToolCard = ({
 }: ToolCardProps) => {
   return (
     <Card variant="outlined" sx={{ borderRadius: 10, width: '100%' }} size="sm">
-      <Stack
-        direction={'row'}
-        alignItems={'center'}
-        justifyContent="space-between"
-        gap={2}
-      >
-        <Stack
-          direction={'column'}
-          spacing={0}
-          width={'100%'}
-          sx={{ maxWidth: '85%' }}
-        >
+      <Stack direction={'row'} alignItems={'center'} justifyContent="space-between" gap={2}>
+        <Stack direction={'column'} spacing={0} width={'100%'} sx={{ maxWidth: '85%' }}>
           <Stack direction="row" spacing={2} alignItems={'center'}>
             <Stack sx={{ minWidth: 0 }}>
               {link ? (
@@ -142,11 +152,9 @@ const ToolCard = ({
             </>
           )}
           {mode === 'create' && (
-            <>
-              <IconButton variant="plain" color="success" size="md" onClick={onCreate}>
-                <AddCircleOutlineRoundedIcon />
-              </IconButton>
-            </>
+            <IconButton variant="plain" color="success" size="md" onClick={onCreate}>
+              <AddCircleOutlineRoundedIcon />
+            </IconButton>
           )}
         </Stack>
       </Stack>
@@ -157,8 +165,7 @@ const ToolCard = ({
 function ToolsInput({}: Props) {
   const { watch, setValue, formState, getValues } =
     useFormContext<CreateAgentSchema>();
-  const [isCreateDatastoreModalOpen, setIsCreateDatastoreModalOpen] =
-    useState(false);
+  const [isCreateDatastoreModalOpen, setIsCreateDatastoreModalOpen] = useState(false);
   const btnSubmitRef = useRef<HTMLButtonElement>(null);
   const isToolValidRef = useRef(false);
 
@@ -194,10 +201,7 @@ function ToolsInput({}: Props) {
     fetcher
   );
 
-  const tools = (watch('tools') || []) as Exclude<
-    ToolSchema,
-    { type: 'connector' } | { type: 'agent' }
-  >[];
+  const tools = (watch('tools') || []) as Exclude<ToolSchema, { type: 'connector' } | { type: 'agent' }>[];
 
   const formattedTools = tools.map(agentToolFormat);
 
@@ -266,10 +270,14 @@ function ToolsInput({}: Props) {
     );
   };
 
-  // Cuando la configuración cambia, se permite re-testear.
   useDeepCompareEffect(() => {
     isToolValidRef.current = false;
   }, [currentToolConfig]);
+
+  // Filtramos y luego hacemos un cast a ValidNormalizedTool[]
+  const validTools = formattedTools.filter(
+    (tool) => tool != null && isValidNormalizedTool(tool)
+  ) as ValidNormalizedTool[];
 
   return (
     <Stack gap={1}>
@@ -285,29 +293,24 @@ function ToolsInput({}: Props) {
       )}
 
       <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
-        {formattedTools
-          .filter(
-            (tool): tool is ValidNormalizedTool =>
-              tool != null && isValidNormalizedTool(tool)
-          ) // Filtrar nulls
-          .map((tool, index) => (
-            <ToolCard
-              key={tool.id}
-              id={tool.id}
-              type={tool.type}
-              name={tool.name}
-              description={tool.description}
-              mode="edit"
-              onEdit={() =>
-                handleToolEdit({
-                  tool: { type: tool.type, id: tool.id },
-                  index,
-                })
-              }
-              onDelete={() => handleDeleteTool(tool.id)}
-              link={getToolLink(tool)}
-            />
-          ))}
+        {validTools.map((tool, index) => (
+          <ToolCard
+            key={tool.id}
+            id={tool.id}
+            type={tool.type}
+            name={tool.name}
+            description={tool.description}
+            mode="edit"
+            onEdit={() =>
+              handleToolEdit({
+                tool: { type: tool.type, id: tool.id },
+                index,
+              })
+            }
+            onDelete={() => handleDeleteTool(tool.id)}
+            link={getToolLink(tool)}
+          />
+        ))}
       </Stack>
 
       <Divider sx={{ my: 2 }} />
@@ -383,12 +386,7 @@ function ToolsInput({}: Props) {
       <newDatastoreModal.component
         title={agentToolConfig.datastore.title}
         description={agentToolConfig.datastore.description}
-        dialogProps={{
-          sx: {
-            maxWidth: 'sm',
-            height: 'auto',
-          },
-        }}
+        dialogProps={{ sx: { maxWidth: 'sm', height: 'auto' } }}
       >
         <Stack direction="row" width="100%" gap={1}>
           <Select
@@ -409,20 +407,14 @@ function ToolsInput({}: Props) {
                       datastore,
                     }),
                   ],
-                  {
-                    shouldDirty: true,
-                    shouldValidate: true,
-                  }
+                  { shouldDirty: true, shouldValidate: true }
                 );
                 newDatastoreModal.close();
               }
             }}
           >
             {getDatastoresQuery.data
-              ?.filter(
-                (each) =>
-                  !tools.find((one) => (one as any).datastoreId === each.id)
-              )
+              ?.filter((each) => !tools.find((one) => (one as any).datastoreId === each.id))
               ?.map((datastore) => (
                 <Option key={datastore.id} value={datastore.id}>
                   {datastore.name}
@@ -446,12 +438,7 @@ function ToolsInput({}: Props) {
       <newApiToolForm.component
         title={agentToolConfig.http.title}
         description={agentToolConfig.http.description}
-        dialogProps={{
-          sx: {
-            maxWidth: 'md',
-            height: 'auto',
-          },
-        }}
+        dialogProps={{ sx: { maxWidth: 'md', height: 'auto' } }}
       >
         <HttpToolForm
           onSubmit={(values) => {
@@ -468,12 +455,7 @@ function ToolsInput({}: Props) {
       <newLeadCaptureToolModal.component
         title={agentToolConfig.lead_capture.title}
         description={agentToolConfig.lead_capture.description}
-        dialogProps={{
-          sx: {
-            maxWidth: 'md',
-            height: 'auto',
-          },
-        }}
+        dialogProps={{ sx: { maxWidth: 'md', height: 'auto' } }}
       >
         <LeadCaptureToolForm
           onSubmit={(values) => {
@@ -486,12 +468,7 @@ function ToolsInput({}: Props) {
       <newFormToolModal.component
         title={agentToolConfig.form.title}
         description={agentToolConfig.form.description}
-        dialogProps={{
-          sx: {
-            maxWidth: 'sm',
-            height: 'auto',
-          },
-        }}
+        dialogProps={{ sx: { maxWidth: 'sm', height: 'auto' } }}
       >
         <NewFormToolInput
           saveFormTool={({
@@ -514,10 +491,7 @@ function ToolsInput({}: Props) {
                   config: { trigger, messageCountTrigger },
                 }),
               ],
-              {
-                shouldDirty: true,
-                shouldValidate: true,
-              }
+              { shouldDirty: true, shouldValidate: true }
             );
             newFormToolModal.close();
           }}
@@ -527,12 +501,7 @@ function ToolsInput({}: Props) {
       <editFormToolModal.component
         title={agentToolConfig.form.title}
         description={agentToolConfig.form.description}
-        dialogProps={{
-          sx: {
-            maxWidth: 'sm',
-            height: 'auto',
-          },
-        }}
+        dialogProps={{ sx: { maxWidth: 'sm', height: 'auto' } }}
       >
         <EditFormToolInput
           currentToolIndex={state.currentToolIndex}
@@ -560,10 +529,7 @@ function ToolsInput({}: Props) {
                 type: ToolType.datastore,
               },
             ],
-            {
-              shouldDirty: true,
-              shouldValidate: true,
-            }
+            { shouldDirty: true, shouldValidate: true }
           );
         }}
         handleClose={() => {
@@ -574,12 +540,7 @@ function ToolsInput({}: Props) {
       <editApiToolForm.component
         title={agentToolConfig.http.title}
         description={agentToolConfig.http.description}
-        dialogProps={{
-          sx: {
-            maxWidth: 'md',
-            height: 'auto',
-          },
-        }}
+        dialogProps={{ sx: { maxWidth: 'md', height: 'auto' } }}
       >
         {state.currentToolIndex >= 0 && (
           <Stack gap={2}>
@@ -587,11 +548,7 @@ function ToolsInput({}: Props) {
             <validateToolModal.component
               title="Set up a request to your endpoint"
               description="Send a request to your endpoint to make sure it's working well."
-              dialogProps={{
-                sx: {
-                  maxWidth: '50%',
-                },
-              }}
+              dialogProps={{ sx: { maxWidth: '50%' } }}
             >
               <HttpToolTestForm
                 setToolValidState={(state: boolean) => {
@@ -624,12 +581,7 @@ function ToolsInput({}: Props) {
       <editLeadCaptureToolModal.component
         title={agentToolConfig.lead_capture.title}
         description={agentToolConfig.lead_capture.description}
-        dialogProps={{
-          sx: {
-            maxWidth: 'md',
-            height: 'auto',
-          },
-        }}
+        dialogProps={{ sx: { maxWidth: 'md', height: 'auto' } }}
       >
         {state.currentToolIndex >= 0 && (
           <Stack gap={2}>
@@ -649,11 +601,7 @@ function ToolsInput({}: Props) {
       </editLeadCaptureToolModal.component>
 
       {/* Trick to submit form from HttpToolInput modal */}
-      <button
-        ref={btnSubmitRef}
-        type="submit"
-        style={{ width: 0, height: 0, visibility: 'hidden' }}
-      >
+      <button ref={btnSubmitRef} type="submit" style={{ width: 0, height: 0, visibility: 'hidden' }}>
         submit
       </button>
     </Stack>
