@@ -47,54 +47,16 @@ import LeadCaptureToolFormInput from '../LeadCaptureToolForm/LeadCaptureToolForm
 
 import { EditFormToolInput, NewFormToolInput } from './FormToolInput';
 import HttpToolInput from './HttpToolInput';
-
 type Props = {
   onHttpToolClick?: (index: number) => any;
 };
 
-// IMPORTANTE: Si el componente CreateDatastoreModal es compatible con SSR, lo cargamos con ssr: true.
-// Si no, puedes dejarlo en false.
 const CreateDatastoreModal = dynamic(
   () => import('@app/components/CreateDatastoreModal'),
-  { ssr: true }
+  {
+    ssr: false,
+  }
 );
-
-// ******************************************************************
-// 1. Definición del type guard para herramientas normalizadas válidas
-// ******************************************************************
-
-// Definir el tipo válido de herramienta normalizada
-type ValidNormalizedTool =
-  | (NormalizedTool & { type: 'form'; formId: string })
-  | (NormalizedTool & { type: 'datastore'; datastoreId: string })
-  | (NormalizedTool & { type: Exclude<NormalizedTool['type'], 'form' | 'datastore'> });
-
-// Actualizar el type guard para incluir comprobaciones de tipos (id, name, description, type)
-function isValidNormalizedTool(
-  tool: NormalizedTool | null | undefined
-): tool is ValidNormalizedTool {
-  if (!tool || typeof tool !== 'object') return false;
-  // Verifica que las propiedades comunes existan y sean strings
-  if (
-    typeof tool.id !== 'string' ||
-    typeof tool.name !== 'string' ||
-    typeof tool.description !== 'string' ||
-    typeof tool.type !== 'string'
-  ) {
-    return false;
-  }
-  // Según el tipo, comprueba propiedades específicas
-  switch (tool.type) {
-    case 'form':
-      return typeof (tool as any).formId === 'string';
-    case 'datastore':
-      return typeof (tool as any).datastoreId === 'string';
-    default:
-      return true;
-  }
-}
-
-// ******************************************************************
 
 type ToolCardProps = Partial<NormalizedTool> & {
   type: ToolType;
@@ -134,7 +96,7 @@ const ToolCard = ({
           <Stack direction="row" spacing={2} alignItems={'center'}>
             <Stack sx={{ minWidth: 0 }}>
               {link ? (
-                <Link href={link}>
+                <Link href={link as unknown as URL}>
                   <Typography level="body-md">{name}</Typography>
                 </Link>
               ) : (
@@ -166,6 +128,7 @@ const ToolCard = ({
                   <TuneRoundedIcon />
                 </IconButton>
               )}
+
               <IconButton
                 variant="plain"
                 color="danger"
@@ -176,6 +139,7 @@ const ToolCard = ({
               </IconButton>
             </>
           )}
+
           {mode === 'create' && (
             <>
               <IconButton
@@ -229,22 +193,27 @@ function ToolsInput({}: Props) {
   const editLeadCaptureToolModal = useModal();
   const validateToolModal = useModal();
 
-  const { data: datastoreData, error: datastoreError, mutate } = useSWR<
+  const getDatastoresQuery = useSWR<
     Prisma.PromiseReturnType<typeof getDatastores>
   >('/api/datastores', fetcher);
 
-  if (datastoreError) {
-    console.error('Error fetching datastores:', datastoreError);
-  }
-
-  const tools = (watch('tools') as unknown) as Exclude<ToolSchema, { type: 'connector' } | { type: 'agent' }>[];
+  const tools = (watch('tools') || []) as Exclude<
     ToolSchema,
     { type: 'connector' } | { type: 'agent' }
-  >;
+  >[];
 
   const formattedTools = tools.map(agentToolFormat);
 
-  const getToolLink = (tool: Record<string, any>) => {
+  const hasMarkAsResolved = !!tools.find(
+    (tool) => tool.type === ToolType.mark_as_resolved
+  );
+  const hasRequestHuman = !!tools.find(
+    (tool) => tool.type === ToolType.request_human
+  );
+  const hasLeadCapture = !!tools.find(
+    (tool) => tool.type === ToolType.lead_capture
+  );
+  const getToolLink = (tool: Record<string, unknown>) => {
     switch (tool.type) {
       case ToolType.datastore:
         return `${RouteNames.DATASTORES}/${tool.datastoreId}`;
@@ -299,7 +268,7 @@ function ToolsInput({}: Props) {
     );
   };
 
-  // Cuando la configuración cambia, se permite re-testear.
+  // config changed, allow re-test.
   useDeepCompareEffect(() => {
     isToolValidRef.current = false;
   }, [currentToolConfig]);
@@ -313,33 +282,30 @@ function ToolsInput({}: Props) {
           color="warning"
           variant="soft"
         >
-          Entrena tu Scout con datos personalizados conectándolo a un Almacén de Datos a continuación.
+          Train your Agent with custom data by connecting it to a Datastore
+          below.
         </Alert>
       )}
+
       <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
-        {formattedTools
-          // Filtramos descartando valores nulos y aplicando el type guard
-          .filter((tool): tool is ValidNormalizedTool =>
-            tool != null && isValidNormalizedTool(tool)
-          )
-          .map((tool, index) => (
-            <ToolCard
-              key={tool.id || `tool-${index}`}
-              id={tool.id}
-              type={tool.type}
-              name={tool.name}
-              description={tool.description}
-              mode="edit"
-              onEdit={() =>
-                handleToolEdit({
-                  tool: { type: tool.type, id: tool.id },
-                  index,
-                })
-              }
-              onDelete={() => handleDeleteTool(tool.id)}
-              link={getToolLink(tool)}
-            />
-          ))}
+        {formattedTools.map((tool, index) => (
+          <ToolCard
+            key={tool.id}
+            id={tool.id}
+            type={tool.type}
+            name={tool.name!}
+            description={tool.description!}
+            mode="edit"
+            onEdit={() =>
+              handleToolEdit({
+                tool: { type: tool.type, id: tool.id },
+                index,
+              })
+            }
+            onDelete={() => handleDeleteTool(tool.id)}
+            link={getToolLink(tool)}
+          />
+        ))}
       </Stack>
 
       <Divider sx={{ my: 2 }} />
@@ -371,6 +337,47 @@ function ToolsInput({}: Props) {
         onCreate={newFormToolModal.open}
       />
 
+      {!hasMarkAsResolved && (
+        <ToolCard
+          id="form-tool"
+          type={ToolType.mark_as_resolved}
+          name={agentToolConfig.mark_as_resolved.title}
+          description={agentToolConfig.mark_as_resolved.description}
+          mode="create"
+          onCreate={() => {
+            handleAddTool({
+              type: ToolType.mark_as_resolved,
+            });
+          }}
+        />
+      )}
+
+      {!hasRequestHuman && (
+        <ToolCard
+          id="form-tool"
+          type={ToolType.request_human}
+          mode="create"
+          name={agentToolConfig.request_human.title}
+          description={agentToolConfig.request_human.description}
+          onCreate={() =>
+            handleAddTool({
+              type: ToolType.request_human,
+            })
+          }
+        />
+      )}
+
+      {!hasLeadCapture && (
+        <ToolCard
+          type={ToolType.lead_capture}
+          id="form-tool"
+          name={agentToolConfig.lead_capture.title}
+          description={agentToolConfig.lead_capture.description}
+          mode="create"
+          onCreate={newLeadCaptureToolModal.open}
+        />
+      )}
+
       <newDatastoreModal.component
         title={agentToolConfig.datastore.title}
         description={agentToolConfig.datastore.description}
@@ -384,9 +391,13 @@ function ToolsInput({}: Props) {
         <Stack direction="row" width="100%" gap={1}>
           <Select
             sx={{ width: '100%' }}
+            // value={tools[0]?.datastoreId || ''}
             placeholder="Choose a Datastore"
             onChange={(_, value) => {
-              const datastore = datastoreData?.find((one) => one.id === value);
+              const datastore = getDatastoresQuery?.data?.find(
+                (one) => one.id === value
+              );
+
               if (datastore) {
                 setValue(
                   'tools',
@@ -403,13 +414,14 @@ function ToolsInput({}: Props) {
                     shouldValidate: true,
                   }
                 );
+
                 newDatastoreModal.close();
               }
             }}
           >
-            {datastoreData
+            {getDatastoresQuery.data
               ?.filter(
-                // No mostrar datastores ya seleccionados
+                // Don't show already selected datastores
                 (each) =>
                   !tools.find((one) => (one as any).datastoreId === each.id)
               )
@@ -422,14 +434,16 @@ function ToolsInput({}: Props) {
         </Stack>
 
         <Stack direction={'row'} gap={1}>
+          {/* {tools?.length === 0 && ( */}
           <Button
             sx={{ mr: 'auto' }}
             variant="plain"
+            // endDecorator={<ArrowForwardRoundedIcon />}
             startDecorator={<AddIcon />}
             size="sm"
             onClick={() => setIsCreateDatastoreModalOpen(true)}
           >
-            Crear Base de Datos
+            Create a Datastore
           </Button>
         </Stack>
       </newDatastoreModal.component>
@@ -446,16 +460,12 @@ function ToolsInput({}: Props) {
       >
         <HttpToolForm
           onSubmit={(values) => {
-            setValue(
-              'tools',
-              [...tools, createTool(values)],
-              {
-                shouldDirty: true,
-                shouldValidate: true,
-              }
-            );
+            setValue('tools', [...tools, createTool(values)], {
+              shouldDirty: true,
+              shouldValidate: true,
+            });
             newApiToolForm.close();
-            // Auto save.
+            // auto save.
             btnSubmitRef?.current?.click();
           }}
         />
@@ -534,26 +544,26 @@ function ToolsInput({}: Props) {
           currentToolIndex={state.currentToolIndex}
           onSubmit={() => {
             editFormToolModal.close();
-            // Guardar cambios.
+            //  save.
             btnSubmitRef?.current?.click();
           }}
         />
       </editFormToolModal.component>
-
       <CreateDatastoreModal
         isOpen={isCreateDatastoreModalOpen}
-        onSubmitSuccess={(newDatastore) => {
-          mutate();
+        onSubmitSuccess={(newDatatore) => {
+          getDatastoresQuery.mutate();
           setIsCreateDatastoreModalOpen(false);
           newDatastoreModal.close();
+
           setValue(
             'tools',
             [
               ...tools,
               {
                 id: cuid(),
-                datastoreId: newDatastore.id!,
-                datastore: newDatastore,
+                datastoreId: newDatatore.id!,
+                datastore: newDatatore,
                 type: ToolType.datastore,
               },
             ],
@@ -598,6 +608,7 @@ function ToolsInput({}: Props) {
                 handleCloseModal={validateToolModal.close}
               />
             </validateToolModal.component>
+
             <Button
               type="button"
               loading={formState.isSubmitting}
@@ -612,12 +623,11 @@ function ToolsInput({}: Props) {
                 }
               }}
             >
-              {isToolValidRef.current ? 'Update' : 'Validar configuracion'}
+              {isToolValidRef.current ? 'Update' : 'Validate Config'}
             </Button>
           </Stack>
         )}
       </editApiToolForm.component>
-
       <editLeadCaptureToolModal.component
         title={agentToolConfig.lead_capture.title}
         description={agentToolConfig.lead_capture.description}
@@ -630,7 +640,9 @@ function ToolsInput({}: Props) {
       >
         {state.currentToolIndex >= 0 && (
           <Stack gap={2}>
-            <LeadCaptureToolFormInput name={`tools.${state.currentToolIndex}`} />
+            <LeadCaptureToolFormInput
+              name={`tools.${state.currentToolIndex}`}
+            />
             <Button
               type="button"
               loading={formState.isSubmitting}
@@ -645,7 +657,7 @@ function ToolsInput({}: Props) {
         )}
       </editLeadCaptureToolModal.component>
 
-      {/* Botón oculto para enviar el formulario desde el modal */}
+      {/* Trick to submit form from HttpToolInput modal */}
       <button
         ref={btnSubmitRef}
         type="submit"
