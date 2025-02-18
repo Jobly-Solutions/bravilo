@@ -52,11 +52,17 @@ type Props = {
   onHttpToolClick?: (index: number) => any;
 };
 
-// Definir el tipo ValidNormalizedTool
-type ValidNormalizedTool =
-  | (NormalizedTool & { type: 'form'; formId: string })
-  | (NormalizedTool & { type: 'datastore'; datastoreId: string })
-  | (NormalizedTool & { type: Exclude<NormalizedTool['type'], 'form' | 'datastore'> });
+// Redefinimos ValidNormalizedTool para forzar que las propiedades esenciales sean obligatorias
+type ValidNormalizedTool = (NormalizedTool & {
+  id: string;
+  name: string;
+  description: string;
+  type: string;
+}) & (
+  | { type: 'form'; formId: string }
+  | { type: 'datastore'; datastoreId: string }
+  | { type: Exclude<NormalizedTool['type'], 'form' | 'datastore'> }
+);
 
 const CreateDatastoreModal = dynamic(
   () => import('@app/components/CreateDatastoreModal'),
@@ -103,7 +109,7 @@ const ToolCard = ({
           <Stack direction="row" spacing={2} alignItems={'center'}>
             <Stack sx={{ minWidth: 0 }}>
               {link ? (
-                <Link href={link as unknown as URL}>
+                <Link href={link}>
                   <Typography level="body-md">{name}</Typography>
                 </Link>
               ) : (
@@ -126,35 +132,18 @@ const ToolCard = ({
           {mode === 'edit' && (
             <>
               {editableTools.includes(type) && (
-                <IconButton
-                  variant="plain"
-                  color="neutral"
-                  size="md"
-                  onClick={onEdit}
-                >
+                <IconButton variant="plain" color="neutral" size="md" onClick={onEdit}>
                   <TuneRoundedIcon />
                 </IconButton>
               )}
-
-              <IconButton
-                variant="plain"
-                color="danger"
-                size="md"
-                onClick={onDelete}
-              >
+              <IconButton variant="plain" color="danger" size="md" onClick={onDelete}>
                 <RemoveCircleOutlineRoundedIcon />
               </IconButton>
             </>
           )}
-
           {mode === 'create' && (
             <>
-              <IconButton
-                variant="plain"
-                color="success"
-                size="md"
-                onClick={onCreate}
-              >
+              <IconButton variant="plain" color="success" size="md" onClick={onCreate}>
                 <AddCircleOutlineRoundedIcon />
               </IconButton>
             </>
@@ -201,7 +190,8 @@ function ToolsInput({}: Props) {
   const validateToolModal = useModal();
 
   const getDatastoresQuery = useSWR<Prisma.PromiseReturnType<typeof getDatastores>>(
-    '/api/datastores', fetcher
+    '/api/datastores',
+    fetcher
   );
 
   const tools = (watch('tools') || []) as Exclude<
@@ -290,21 +280,23 @@ function ToolsInput({}: Props) {
           color="warning"
           variant="soft"
         >
-          Train your Agent with custom data by connecting it to a Datastore
-          below.
+          Train your Agent with custom data by connecting it to a Datastore below.
         </Alert>
       )}
 
       <Stack direction={'row'} gap={1} flexWrap={'wrap'}>
         {formattedTools
-          .filter((tool): tool is ValidNormalizedTool => tool != null && isValidNormalizedTool(tool)) // Filtrar nulls
+          .filter(
+            (tool): tool is ValidNormalizedTool =>
+              tool != null && isValidNormalizedTool(tool)
+          ) // Filtrar nulls
           .map((tool, index) => (
             <ToolCard
-              key={tool.id} // Esto ahora debería estar seguro
+              key={tool.id}
               id={tool.id}
               type={tool.type}
-              name={tool.name!}
-              description={tool.description!}
+              name={tool.name}
+              description={tool.description}
               mode="edit"
               onEdit={() =>
                 handleToolEdit({
@@ -406,7 +398,6 @@ function ToolsInput({}: Props) {
               const datastore = getDatastoresQuery?.data?.find(
                 (one) => one.id === value
               );
-
               if (datastore) {
                 setValue(
                   'tools',
@@ -423,14 +414,12 @@ function ToolsInput({}: Props) {
                     shouldValidate: true,
                   }
                 );
-
                 newDatastoreModal.close();
               }
             }}
           >
             {getDatastoresQuery.data
               ?.filter(
-                // Don't show already selected datastores
                 (each) =>
                   !tools.find((one) => (one as any).datastoreId === each.id)
               )
@@ -441,7 +430,6 @@ function ToolsInput({}: Props) {
               ))}
           </Select>
         </Stack>
-
         <Stack direction={'row'} gap={1}>
           <Button
             sx={{ mr: 'auto' }}
@@ -472,7 +460,6 @@ function ToolsInput({}: Props) {
               shouldValidate: true,
             });
             newApiToolForm.close();
-            // auto save.
             btnSubmitRef?.current?.click();
           }}
         />
@@ -551,18 +538,17 @@ function ToolsInput({}: Props) {
           currentToolIndex={state.currentToolIndex}
           onSubmit={() => {
             editFormToolModal.close();
-            // save.
             btnSubmitRef?.current?.click();
           }}
         />
       </editFormToolModal.component>
+
       <CreateDatastoreModal
         isOpen={isCreateDatastoreModalOpen}
         onSubmitSuccess={(newDatatore) => {
           getDatastoresQuery.mutate();
           setIsCreateDatastoreModalOpen(false);
           newDatastoreModal.close();
-
           setValue(
             'tools',
             [
@@ -615,7 +601,6 @@ function ToolsInput({}: Props) {
                 handleCloseModal={validateToolModal.close}
               />
             </validateToolModal.component>
-
             <Button
               type="button"
               loading={formState.isSubmitting}
@@ -635,6 +620,7 @@ function ToolsInput({}: Props) {
           </Stack>
         )}
       </editApiToolForm.component>
+
       <editLeadCaptureToolModal.component
         title={agentToolConfig.lead_capture.title}
         description={agentToolConfig.lead_capture.description}
@@ -647,9 +633,7 @@ function ToolsInput({}: Props) {
       >
         {state.currentToolIndex >= 0 && (
           <Stack gap={2}>
-            <LeadCaptureToolFormInput
-              name={`tools.${state.currentToolIndex}`}
-            />
+            <LeadCaptureToolFormInput name={`tools.${state.currentToolIndex}`} />
             <Button
               type="button"
               loading={formState.isSubmitting}
